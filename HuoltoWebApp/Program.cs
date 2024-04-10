@@ -1,9 +1,13 @@
+using HuoltoWebApp.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<HuoltoContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HuoltoDbContext")));
 
 var app = builder.Build();
 

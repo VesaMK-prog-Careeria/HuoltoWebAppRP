@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using HuoltoWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace HuoltoWebApp.Models
+namespace HuoltoWebApp.Services
 {
     public partial class HuoltoContext : DbContext
     {
