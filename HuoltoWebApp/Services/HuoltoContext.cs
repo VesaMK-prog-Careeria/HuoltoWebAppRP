@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HuoltoWebApp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -8,11 +9,8 @@ namespace HuoltoWebApp.Services
 {
     public partial class HuoltoContext : DbContext
     {
-        public HuoltoContext()
-        {
-        }
 
-        public HuoltoContext(DbContextOptions<HuoltoContext> options)
+        public HuoltoContext(DbContextOptions options)
             : base(options)
         {
         }
