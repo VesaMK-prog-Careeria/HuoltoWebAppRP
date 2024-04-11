@@ -1,13 +1,23 @@
 using HuoltoWebApp.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using HuoltoWebApp.Data;
+using HuoltoWebApp.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+// Lisätään tietokantaan yhteys
 builder.Services.AddDbContext<HuoltoContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // ConnectionString löytyy appsettings.jsonista
+
+// Konfiguroi Identity käyttämään HuoltoWebAppUser ja IdentityRole
+builder.Services.AddIdentity<HuoltoWebAppUser, IdentityRole>()
+    .AddDefaultUI()
+    .AddEntityFrameworkStores<HuoltoContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
@@ -23,7 +33,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
