@@ -1,0 +1,70 @@
+﻿@page
+@model HuoltoWebApp.Pages.Autot.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Auto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Auto.AutoId" />
+            <div class="form-group">
+                <label asp-for="Auto.RekNro" class="control-label"></label>
+                <input asp-for="Auto.RekNro" class="form-control" />
+                <span asp-validation-for="Auto.RekNro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Auto.SäiliöId" class="control-label"></label>
+                <select asp-for="Auto.SäiliöId" class="form-control" asp-items="ViewBag.SäiliöId"></select>
+                <span asp-validation-for="Auto.SäiliöId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Auto.Katsastus" class="control-label"></label>
+                <input asp-for="Auto.Katsastus" class="form-control" />
+                <span asp-validation-for="Auto.Katsastus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Auto.Adr" class="control-label"></label>
+                <input asp-for="Auto.Adr" class="form-control" />
+                <span asp-validation-for="Auto.Adr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Auto.Piirturi" class="control-label"></label>
+                <input asp-for="Auto.Piirturi" class="form-control" />
+                <span asp-validation-for="Auto.Piirturi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Auto.Alkolukko" class="control-label"></label>
+                <input asp-for="Auto.Alkolukko" class="form-control" />
+                <span asp-validation-for="Auto.Alkolukko" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Auto.Nopeudenrajoitin" class="control-label"></label>
+                <input asp-for="Auto.Nopeudenrajoitin" class="form-control" />
+                <span asp-validation-for="Auto.Nopeudenrajoitin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Auto.AutoInfoId" class="control-label"></label>
+                <input asp-for="Auto.AutoInfoId" class="form-control" />
+                <span asp-validation-for="Auto.AutoInfoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

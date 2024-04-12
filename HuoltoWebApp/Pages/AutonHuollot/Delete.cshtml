@@ -1,0 +1,52 @@
+﻿@page
+@model HuoltoWebApp.Pages.AutonHuollot.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AutoHuollot</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.HuoltoPvm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.HuoltoPvm)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.HuoltopaikkaId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.HuoltopaikkaId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.HuollonKuvaus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.HuollonKuvaus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.Kuva)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.Kuva)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.Auto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.Auto.AutoId)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="AutoHuollot.HuollonId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

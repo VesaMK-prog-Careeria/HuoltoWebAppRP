@@ -1,0 +1,78 @@
+﻿@page
+@model HuoltoWebApp.Pages.Autot.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Auto[0].RekNro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auto[0].Katsastus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auto[0].Adr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auto[0].Piirturi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auto[0].Alkolukko)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auto[0].Nopeudenrajoitin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auto[0].AutoInfoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auto[0].Säiliö)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Auto) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RekNro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Katsastus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Piirturi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alkolukko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nopeudenrajoitin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutoInfoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Säiliö.SäiliöId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.AutoId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.AutoId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.AutoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
