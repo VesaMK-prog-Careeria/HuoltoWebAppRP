@@ -1,0 +1,49 @@
+﻿@page
+@model HuoltoWebApp.Pages.AutonHuollot.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>AutoHuollot</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.HuoltoPvm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.HuoltoPvm)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.HuoltopaikkaId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.HuoltopaikkaId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.HuollonKuvaus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.HuollonKuvaus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.Kuva)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.Kuva)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoHuollot.Auto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AutoHuollot.Auto.AutoId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.AutoHuollot?.HuollonId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
