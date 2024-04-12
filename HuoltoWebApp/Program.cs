@@ -19,6 +19,10 @@ builder.Services.AddIdentity<HuoltoWebAppUser, IdentityRole>()
     .AddEntityFrameworkStores<HuoltoContext>()
     .AddDefaultTokenProviders();
 
+// Lis‰‰ autentikaatio ja autorisoinyi
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
