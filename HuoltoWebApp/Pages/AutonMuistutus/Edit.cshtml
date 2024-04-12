@@ -1,0 +1,45 @@
+﻿@page
+@model HuoltoWebApp.Pages.AutonMuistutus.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>AutoMuistutu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AutoMuistutu.AutoMuistutusId" />
+            <div class="form-group">
+                <label asp-for="AutoMuistutu.AutoId" class="control-label"></label>
+                <select asp-for="AutoMuistutu.AutoId" class="form-control" asp-items="ViewBag.AutoId"></select>
+                <span asp-validation-for="AutoMuistutu.AutoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AutoMuistutu.MuistutusPvm" class="control-label"></label>
+                <input asp-for="AutoMuistutu.MuistutusPvm" class="form-control" />
+                <span asp-validation-for="AutoMuistutu.MuistutusPvm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AutoMuistutu.Muistutustyyppi" class="control-label"></label>
+                <select asp-for="AutoMuistutu.Muistutustyyppi" class="form-control" asp-items="ViewBag.Muistutustyyppi"></select>
+                <span asp-validation-for="AutoMuistutu.Muistutustyyppi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

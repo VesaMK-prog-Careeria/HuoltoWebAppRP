@@ -1,0 +1,48 @@
+﻿@page
+@model HuoltoWebApp.Pages.AutonInfo.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AutoInfo[0].InfoTxt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutoInfo[0].Kuva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutoInfo[0].Auto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.AutoInfo) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InfoTxt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kuva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Auto.AutoId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.AutoInfoId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.AutoInfoId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.AutoInfoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
