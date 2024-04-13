@@ -10,6 +10,8 @@ using HuoltoWebApp.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace HuoltoWebApp.Areas.Identity.Pages.Account.Manage
 {
@@ -17,13 +19,16 @@ namespace HuoltoWebApp.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<HuoltoWebAppUser> _userManager;
         private readonly SignInManager<HuoltoWebAppUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public IndexModel(
             UserManager<HuoltoWebAppUser> userManager,
-            SignInManager<HuoltoWebAppUser> signInManager)
+            SignInManager<HuoltoWebAppUser> signInManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -61,6 +66,25 @@ namespace HuoltoWebApp.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
         }
 
+        public IList<SelectListItem> Users { get; set; }
+        public IList<SelectListItem> Roles { get; set; }
+
+        // Roolit käyttäjälle näkyviin sivulla.
+        public async Task OnGetAsync()
+        {
+            Users = (await _userManager.Users.ToListAsync()).Select(u => new SelectListItem
+            {
+                Value = u.Id,
+                Text = u.UserName
+            }).ToList();
+
+            Roles = _roleManager.Roles.Select(r => new SelectListItem
+            {
+                Value = r.Name,
+                Text = r.Name
+            }).ToList();
+        }
+
         private async Task LoadAsync(HuoltoWebAppUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
@@ -74,17 +98,17 @@ namespace HuoltoWebApp.Areas.Identity.Pages.Account.Manage
             };
         }
 
-        public async Task<IActionResult> OnGetAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
+        //public async Task<IActionResult> OnGetAsync()
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+        //    }
 
-            await LoadAsync(user);
-            return Page();
-        }
+        //    await LoadAsync(user);
+        //    return Page();
+        //}
 
         public async Task<IActionResult> OnPostAsync()
         {

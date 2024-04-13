@@ -11,14 +11,23 @@
     <div class="col-md-6">
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Username" class="form-control" disabled />
+            <div class="form-group">
                 <label asp-for="Username" class="form-label"></label>
+                <select id="userDropdown" name="userId" asp-for="Users" class="form-control">
+                    @foreach (var user in Model.Users)
+                    {
+                        <option value="@user.Value">@user.Text</option>
+                    }
+                </select>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            <div class="form-group">
+                <label for="roleDropdown">Select Role:</label>
+                <select id="roleDropdown" name="role" asp-for="Roles" class="form-control">
+                    @foreach (var role in Model.Roles)
+                    {
+                        <option value="@role.Value">@role.Text</option>
+                    }
+                </select>
             </div>
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
