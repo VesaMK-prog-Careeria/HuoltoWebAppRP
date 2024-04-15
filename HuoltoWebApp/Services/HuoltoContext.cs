@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using HuoltoWebApp.Areas.Identity.Data;
 using HuoltoWebApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace HuoltoWebApp.Services
 {
-    public partial class HuoltoContext : DbContext
+    public partial class HuoltoContext : IdentityDbContext<HuoltoWebAppUser, IdentityRole, string>
     {
 
-        public HuoltoContext(DbContextOptions options)
+        public HuoltoContext(DbContextOptions<HuoltoContext> options)
             : base(options)
         {
         }
@@ -36,6 +38,9 @@ namespace HuoltoWebApp.Services
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+
             modelBuilder.Entity<Auto>(entity =>
             {
                 entity.ToTable("Auto");
@@ -405,5 +410,6 @@ namespace HuoltoWebApp.Services
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
     }
 }
