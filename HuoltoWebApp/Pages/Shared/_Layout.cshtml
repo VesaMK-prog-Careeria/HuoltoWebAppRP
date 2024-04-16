@@ -28,7 +28,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        @if (SignInManager.IsSignedIn(User))
+                        @* @if (SignInManager.IsSignedIn(User)) *@ @*Tässä Malli missä Privacy-sivu näkyy jos käyttäjä kirjautuneena sisään*@
+                        @*                         {
+                        <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                        } *@
+                        @if (User.IsInRole("Admin")) @*Tässä malli missä Privacy-valikko näkyy vain käyttäjälle Admin*@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
