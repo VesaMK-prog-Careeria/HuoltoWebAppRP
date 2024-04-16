@@ -1,0 +1,45 @@
+﻿@page
+@model HuoltoWebApp.Pages.SäiliönInfo.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>SäiliöInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="SäiliöInfo.SäiliöInfoId" />
+            <div class="form-group">
+                <label asp-for="SäiliöInfo.SäiliöId" class="control-label"></label>
+                <select asp-for="SäiliöInfo.SäiliöId" class="form-control" asp-items="ViewBag.SäiliöId"></select>
+                <span asp-validation-for="SäiliöInfo.SäiliöId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SäiliöInfo.InfoTxt" class="control-label"></label>
+                <input asp-for="SäiliöInfo.InfoTxt" class="form-control" />
+                <span asp-validation-for="SäiliöInfo.InfoTxt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SäiliöInfo.Kuva" class="control-label"></label>
+                <input asp-for="SäiliöInfo.Kuva" class="form-control" />
+                <span asp-validation-for="SäiliöInfo.Kuva" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

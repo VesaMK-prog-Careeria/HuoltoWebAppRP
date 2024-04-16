@@ -1,0 +1,54 @@
+﻿@page
+@model HuoltoWebApp.Pages.Säiliöt.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Säiliö</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Säiliö.SäiliöNro" class="control-label"></label>
+                <input asp-for="Säiliö.SäiliöNro" class="form-control" />
+                <span asp-validation-for="Säiliö.SäiliöNro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Säiliö.Vakaus" class="control-label"></label>
+                <input asp-for="Säiliö.Vakaus" class="form-control" />
+                <span asp-validation-for="Säiliö.Vakaus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Säiliö.Välitarkastus" class="control-label"></label>
+                <input asp-for="Säiliö.Välitarkastus" class="form-control" />
+                <span asp-validation-for="Säiliö.Välitarkastus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Säiliö.Määräaikaistarkastus" class="control-label"></label>
+                <input asp-for="Säiliö.Määräaikaistarkastus" class="form-control" />
+                <span asp-validation-for="Säiliö.Määräaikaistarkastus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Säiliö.SäiliöInfoId" class="control-label"></label>
+                <input asp-for="Säiliö.SäiliöInfoId" class="form-control" />
+                <span asp-validation-for="Säiliö.SäiliöInfoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

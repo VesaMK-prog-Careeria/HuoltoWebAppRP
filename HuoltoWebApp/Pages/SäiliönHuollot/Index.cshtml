@@ -1,0 +1,60 @@
+﻿@page
+@model HuoltoWebApp.Pages.SäiliönHuollot.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SäiliöHuollot[0].HuoltoPvm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SäiliöHuollot[0].HuoltoPaikkaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SäiliöHuollot[0].HuollonKuvaus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SäiliöHuollot[0].Kuva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SäiliöHuollot[0].Säiliö)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.SäiliöHuollot) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HuoltoPvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HuoltoPaikkaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HuollonKuvaus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kuva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Säiliö.SäiliöId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.HuoltoId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.HuoltoId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.HuoltoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
