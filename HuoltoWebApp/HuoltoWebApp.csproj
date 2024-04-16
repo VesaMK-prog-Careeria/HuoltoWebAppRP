@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\PvMuistutukset\" />
+    <Folder Include="Pages\PvInfot\" />
+    <Folder Include="Pages\PvHuoltopyynnot\" />
+    <Folder Include="Pages\PvHuolto\" />
     <Folder Include="Pages\Pvt\" />
   </ItemGroup>
 
