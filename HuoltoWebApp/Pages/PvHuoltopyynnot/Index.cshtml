@@ -1,0 +1,48 @@
+﻿@page
+@model HuoltoWebApp.Pages.PvHuoltopyynnot.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PvHuoltopyyntö[0].HuollonKuvaus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PvHuoltopyyntö[0].Kuva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PvHuoltopyyntö[0].Pv)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PvHuoltopyyntö) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HuollonKuvaus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kuva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pv.PvId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.HuoltoId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.HuoltoId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.HuoltoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

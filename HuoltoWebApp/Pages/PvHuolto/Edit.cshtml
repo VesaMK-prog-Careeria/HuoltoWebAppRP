@@ -1,0 +1,55 @@
+﻿@page
+@model HuoltoWebApp.Pages.PvHuolto.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PvHuollot</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PvHuollot.HuoltoId" />
+            <div class="form-group">
+                <label asp-for="PvHuollot.PvId" class="control-label"></label>
+                <select asp-for="PvHuollot.PvId" class="form-control" asp-items="ViewBag.PvId"></select>
+                <span asp-validation-for="PvHuollot.PvId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PvHuollot.HuoltoPvm" class="control-label"></label>
+                <input asp-for="PvHuollot.HuoltoPvm" class="form-control" />
+                <span asp-validation-for="PvHuollot.HuoltoPvm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PvHuollot.HuoltoPaikkaId" class="control-label"></label>
+                <input asp-for="PvHuollot.HuoltoPaikkaId" class="form-control" />
+                <span asp-validation-for="PvHuollot.HuoltoPaikkaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PvHuollot.HuollonKuvaus" class="control-label"></label>
+                <input asp-for="PvHuollot.HuollonKuvaus" class="form-control" />
+                <span asp-validation-for="PvHuollot.HuollonKuvaus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PvHuollot.Kuva" class="control-label"></label>
+                <input asp-for="PvHuollot.Kuva" class="form-control" />
+                <span asp-validation-for="PvHuollot.Kuva" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

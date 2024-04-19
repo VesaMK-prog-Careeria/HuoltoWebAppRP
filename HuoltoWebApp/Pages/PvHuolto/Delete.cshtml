@@ -1,0 +1,52 @@
+﻿@page
+@model HuoltoWebApp.Pages.PvHuolto.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PvHuollot</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.HuoltoPvm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.HuoltoPvm)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.HuoltoPaikkaId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.HuoltoPaikkaId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.HuollonKuvaus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.HuollonKuvaus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.Kuva)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.Kuva)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.Pv)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.Pv.PvId)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="PvHuollot.HuoltoId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

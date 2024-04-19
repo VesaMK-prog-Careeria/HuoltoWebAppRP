@@ -1,0 +1,66 @@
+﻿@page
+@model HuoltoWebApp.Pages.Pvt.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pv[0].RekNro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pv[0].Katsastus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pv[0].Adr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pv[0].Välitarkastus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pv[0].Määräaikaistarkastus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pv[0].PvInfoId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Pv) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RekNro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Katsastus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Välitarkastus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Määräaikaistarkastus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PvInfoId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PvId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PvId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PvId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

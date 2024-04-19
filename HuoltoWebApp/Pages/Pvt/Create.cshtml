@@ -1,0 +1,59 @@
+﻿@page
+@model HuoltoWebApp.Pages.Pvt.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Pv</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Pv.RekNro" class="control-label"></label>
+                <input asp-for="Pv.RekNro" class="form-control" />
+                <span asp-validation-for="Pv.RekNro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pv.Katsastus" class="control-label"></label>
+                <input asp-for="Pv.Katsastus" class="form-control" />
+                <span asp-validation-for="Pv.Katsastus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pv.Adr" class="control-label"></label>
+                <input asp-for="Pv.Adr" class="form-control" />
+                <span asp-validation-for="Pv.Adr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pv.Välitarkastus" class="control-label"></label>
+                <input asp-for="Pv.Välitarkastus" class="form-control" />
+                <span asp-validation-for="Pv.Välitarkastus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pv.Määräaikaistarkastus" class="control-label"></label>
+                <input asp-for="Pv.Määräaikaistarkastus" class="form-control" />
+                <span asp-validation-for="Pv.Määräaikaistarkastus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pv.PvInfoId" class="control-label"></label>
+                <input asp-for="Pv.PvInfoId" class="form-control" />
+                <span asp-validation-for="Pv.PvInfoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

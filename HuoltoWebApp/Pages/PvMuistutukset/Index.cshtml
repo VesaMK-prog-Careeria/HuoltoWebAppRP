@@ -1,0 +1,48 @@
+﻿@page
+@model HuoltoWebApp.Pages.PvMuistutukset.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PvMuistutu[0].MuistutusPvm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PvMuistutu[0].MuistutustyyppiNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PvMuistutu[0].Pv)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PvMuistutu) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MuistutusPvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MuistutustyyppiNavigation.MuistutustyyppiId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pv.PvId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PvMuistutusId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PvMuistutusId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PvMuistutusId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

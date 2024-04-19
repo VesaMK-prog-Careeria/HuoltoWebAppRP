@@ -1,0 +1,45 @@
+﻿@page
+@model HuoltoWebApp.Pages.PvMuistutukset.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PvMuistutu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PvMuistutu.PvMuistutusId" />
+            <div class="form-group">
+                <label asp-for="PvMuistutu.PvId" class="control-label"></label>
+                <select asp-for="PvMuistutu.PvId" class="form-control" asp-items="ViewBag.PvId"></select>
+                <span asp-validation-for="PvMuistutu.PvId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PvMuistutu.MuistutusPvm" class="control-label"></label>
+                <input asp-for="PvMuistutu.MuistutusPvm" class="form-control" />
+                <span asp-validation-for="PvMuistutu.MuistutusPvm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PvMuistutu.Muistutustyyppi" class="control-label"></label>
+                <select asp-for="PvMuistutu.Muistutustyyppi" class="form-control" asp-items="ViewBag.Muistutustyyppi"></select>
+                <span asp-validation-for="PvMuistutu.Muistutustyyppi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

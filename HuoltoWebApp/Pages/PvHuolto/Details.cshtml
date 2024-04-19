@@ -1,0 +1,49 @@
+﻿@page
+@model HuoltoWebApp.Pages.PvHuolto.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>PvHuollot</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.HuoltoPvm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.HuoltoPvm)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.HuoltoPaikkaId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.HuoltoPaikkaId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.HuollonKuvaus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.HuollonKuvaus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.Kuva)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.Kuva)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PvHuollot.Pv)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PvHuollot.Pv.PvId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.PvHuollot?.HuoltoId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
