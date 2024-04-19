@@ -20,6 +20,8 @@ namespace HuoltoWebApp.Models
         public DateTime? Määräaikaistarkastus { get; set; }
         public int? PvInfoId { get; set; }
 
+
+
         public virtual PvInfo? PvInfo { get; set; }
         public virtual ICollection<PvHuollot> PvHuollots { get; set; }
         public virtual ICollection<PvHuoltopyyntö> PvHuoltopyyntös { get; set; }
