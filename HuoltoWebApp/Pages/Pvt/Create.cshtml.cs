@@ -26,17 +26,28 @@ namespace HuoltoWebApp.Pages.Pvt
 
         [BindProperty]
         public Pv Pv { get; set; } = default!;
-        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Pvs == null || Pv == null)
+            if (!ModelState.IsValid || _context.Pvs == null || Pv == null)
             {
                 return Page();
             }
 
+            // Lisätään Pv tietokantaan ensin
             _context.Pvs.Add(Pv);
+            await _context.SaveChangesAsync();
+
+            // Luodaan uusi PvInfo-olio käyttäjän syöttämällä tekstillä
+            var pvInfo = new PvInfo
+            {
+                PvId = Pv.PvId,
+                InfoTxt = Pv.InfoTxt
+            };
+
+            // Lisätään PvInfo tietokantaan
+            _context.PvInfos.Add(pvInfo);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
