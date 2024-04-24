@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HuoltoWebApp.Models
 {
@@ -20,7 +21,8 @@ namespace HuoltoWebApp.Models
         public DateTime? Määräaikaistarkastus { get; set; }
         public int? PvInfoId { get; set; }
 
-
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string InfoTxt { get; set; }
 
         public virtual PvInfo? PvInfo { get; set; }
         public virtual ICollection<PvHuollot> PvHuollots { get; set; }
