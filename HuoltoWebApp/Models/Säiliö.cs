@@ -20,6 +20,10 @@ namespace HuoltoWebApp.Models
         public DateTime? Määräaikaistarkastus { get; set; }
         public int? SäiliöInfoId { get; set; }
 
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string InfoTxt { get; set; }
+
         public virtual SäiliöInfo? SäiliöInfo { get; set; }
         public virtual ICollection<Auto> Autos { get; set; }
         public virtual ICollection<SäiliöHuollot> SäiliöHuollots { get; set; }
