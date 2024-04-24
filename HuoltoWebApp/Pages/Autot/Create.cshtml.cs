@@ -21,26 +21,39 @@ namespace HuoltoWebApp.Pages.Autot
 
         public IActionResult OnGet()
         {
-        ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
+        ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöNro");
             return Page();
         }
 
         [BindProperty]
         public Auto Auto { get; set; } = default!;
-        
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Autos == null || Auto == null)
+            if (!ModelState.IsValid || _context.Autos == null || Auto == null)
             {
                 return Page();
             }
 
+            //Lisätään auto tietokantaan ensin
             _context.Autos.Add(Auto);
             await _context.SaveChangesAsync();
 
+            // Luodaan uusi AutoInfo-olio käyttäjän syöttämällä tekstillä
+            var autoInfo = new AutoInfo
+            {
+                AutoId = Auto.AutoId,
+                InfoTxt = Auto.InfoTxt
+            };
+
+            // Lisätään AutoInfo tietokantaan
+            _context.AutoInfos.Add(autoInfo);
+            await _context.SaveChangesAsync();
+
             return RedirectToPage("./Index");
+        
         }
     }
 }
