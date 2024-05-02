@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int}/{handler?}"
 @model HuoltoWebApp.Pages.AutonInfo.DetailsModel
 
 @{
@@ -18,16 +18,22 @@
             @Html.DisplayFor(model => model.AutoInfo.InfoTxt)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AutoInfo.Kuva)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AutoInfo.Kuva)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AutoInfo.Auto)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.AutoInfo.Auto.AutoId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AutoInfo.Kuvat)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var kuva in Model.AutoInfo.Kuvat)
+            {
+                if (kuva.KuvaId != null)
+                {
+                    <img src="@Url.Page("/AutonInfo/GetImage", new { id = kuva.KuvaId })" alt="Kuva autosta">
+                }
+            }
         </dd>
     </dl>
 </div>

@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Auto.RekNro" class="control-label"></label>
@@ -51,6 +51,11 @@
                 <label asp-for="Auto.InfoTxt" class="control-label"></label>
                 <textarea asp-for="Auto.InfoTxt" class="form-control"></textarea>
                 <span asp-validation-for="Auto.InfoTxt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kuvatiedostot" class="control-label">Lataa kuvat</label>
+                <input asp-for="Kuvatiedostot" type="file" multiple class="form-control" />
+                <span asp-validation-for="Kuvatiedostot" class="text-danger"></span>
             </div>
             @* <div class="form-group">
                 <label asp-for="Auto.AutoInfoId" class="control-label"></label>
