@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HuoltoWebApp.Models;
 using HuoltoWebApp.Services;
+using System.IO;
 
 namespace HuoltoWebApp.Pages.Autot
 {
@@ -21,12 +22,14 @@ namespace HuoltoWebApp.Pages.Autot
 
         public IActionResult OnGet()
         {
-        ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöNro");
+            ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöNro");
             return Page();
         }
 
         [BindProperty]
         public Auto Auto { get; set; } = default!;
+        [BindProperty]
+        public List<IFormFile> Kuvatiedostot { get; set; }  // Bindataan lomakkeelta lähetetyt kuvatiedostot tähän listaan
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -44,16 +47,39 @@ namespace HuoltoWebApp.Pages.Autot
             // Luodaan uusi AutoInfo-olio käyttäjän syöttämällä tekstillä
             var autoInfo = new AutoInfo
             {
-                AutoId = Auto.AutoId,
-                InfoTxt = Auto.InfoTxt
+                InfoTxt = Auto.InfoTxt,
+                AutoId = Auto.AutoId
             };
-
-            // Lisätään AutoInfo tietokantaan
             _context.AutoInfos.Add(autoInfo);
+            await _context.SaveChangesAsync();  // Varmista, että tämä tallennus tapahtuu ennen kuin käytät AutoInfoId:tä
+
+            Auto.AutoInfo = autoInfo;  // Tämä rivi varmistaa, että AutoInfo on liitetty Autoon
+            await _context.SaveChangesAsync();
+
+            foreach (var tiedosto in Kuvatiedostot)
+            {
+                if (tiedosto.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await tiedosto.CopyToAsync(ms);
+                        if (ms.Length > 0) // Varmistetaan, että data on kopioitu
+                        {
+                            var kuva = new Kuva()
+                            {
+                                KuvaNimi = tiedosto.FileName,
+                                KuvaData = ms.ToArray(),
+                                AutoInfoId = autoInfo.AutoInfoId // Use the AutoInfoId from the autoInfo object
+                            };
+                            _context.Kuvat.Add(kuva);
+                        }
+                    }
+                }
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
-        
         }
     }
 }

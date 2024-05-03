@@ -20,7 +20,7 @@ namespace HuoltoWebApp.Pages.AutonInfo
         }
 
         [BindProperty]
-      public AutoInfo AutoInfo { get; set; } = default!;
+        public AutoInfo AutoInfo { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -56,6 +56,7 @@ namespace HuoltoWebApp.Pages.AutonInfo
                 _context.AutoInfos.Remove(AutoInfo);
                 await _context.SaveChangesAsync();
             }
+
 
             return RedirectToPage("./Index");
         }

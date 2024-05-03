@@ -48,14 +48,25 @@ namespace HuoltoWebApp.Pages.Autot
             {
                 return NotFound();
             }
-            var auto = await _context.Autos.FindAsync(id);
+            var auto = await _context.Autos
+                .Include(a => a.AutoInfo) // Varmista, että lataat myös riippuvaiset AutoInfo-entiteetit
+                .FirstOrDefaultAsync(m => m.AutoId == id);
 
-            if (auto != null)
+            if (auto == null)
             {
-                Auto = auto;
-                _context.Autos.Remove(Auto);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
+
+            // Poista ensin kaikki riippuvaiset AutoInfo-tietueet
+            if (auto.AutoInfo != null)
+            {
+                _context.AutoInfos.RemoveRange(auto.AutoInfo);
+                await _context.SaveChangesAsync(); // Tallenna muutokset ennen auton poistoa
+            }
+
+            // Poista itse auto
+            _context.Autos.Remove(auto);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

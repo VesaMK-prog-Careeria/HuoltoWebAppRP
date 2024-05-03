@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using HuoltoWebApp.Areas.Identity.Data;
+﻿using HuoltoWebApp.Areas.Identity.Data;
 using HuoltoWebApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace HuoltoWebApp.Services
 {
@@ -34,6 +31,7 @@ namespace HuoltoWebApp.Services
         public virtual DbSet<SäiliöHuoltopyyntö> SäiliöHuoltopyyntös { get; set; } = null!;
         public virtual DbSet<SäiliöInfo> SäiliöInfos { get; set; } = null!;
         public virtual DbSet<SäiliöMuistutu> SäiliöMuistutus { get; set; } = null!;
+        public virtual DbSet<Kuva> Kuvat { get; set; } = null!;
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -173,6 +171,23 @@ namespace HuoltoWebApp.Services
                 entity.Property(e => e.HuoltoPaikkaId).HasColumnName("HuoltoPaikkaID");
 
                 entity.Property(e => e.Huoltopaikka).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Kuva>(entity =>
+            {
+                entity.ToTable("Kuva");
+
+                entity.Property(e => e.KuvaId).HasColumnName("KuvaID");
+
+                entity.Property(e => e.KuvaNimi).HasMaxLength(255).IsRequired();
+
+                entity.Property(e => e.KuvaData).IsRequired();
+
+                // Tämä olettaa, että Kuva-entiteetillä on AutoInfoID viitteenä
+                entity.HasOne(d => d.AutoInfo)
+                    .WithMany(p => p.Kuvat)
+                    .HasForeignKey(d => d.AutoInfoId)
+                    .HasConstraintName("FK_Kuva_AutoInfo");
             });
 
             modelBuilder.Entity<Muistutustyyppi>(entity =>

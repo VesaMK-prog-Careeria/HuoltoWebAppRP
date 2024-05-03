@@ -17,18 +17,23 @@ namespace HuoltoWebApp.Pages.AutonInfo
         public DetailsModel(HuoltoWebApp.Services.HuoltoContext context)
         {
             _context = context;
+            var test = _context.AutoInfos.ToList();
         }
 
       public AutoInfo AutoInfo { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            System.Diagnostics.Debug.WriteLine($"ID: {id}");
             if (id == null || _context.AutoInfos == null)
             {
                 return NotFound();
             }
 
-            var autoinfo = await _context.AutoInfos.FirstOrDefaultAsync(m => m.AutoInfoId == id);
+            var autoinfo = await _context.AutoInfos
+                .Include(ai => ai.Kuvat)
+                .FirstOrDefaultAsync(m => m.AutoInfoId == id);
+
             if (autoinfo == null)
             {
                 return NotFound();
@@ -39,5 +44,15 @@ namespace HuoltoWebApp.Pages.AutonInfo
             }
             return Page();
         }
+        //public IActionResult OnGetImage(int id)
+        //{
+        //    var kuva = _context.Kuvat.FirstOrDefault(k => k.KuvaId == id);
+        //    if (kuva == null || kuva.KuvaData == null)
+        //    {
+        //        return NotFound("Kuva tai kuvadata ei löydy.");
+        //    }
+
+        //    return File(kuva.KuvaData, "image/jpeg"); // Varmista, että MIME-tyyppi vastaa kuvatiedoston tyyppiä
+        //}
     }
 }
