@@ -22,21 +22,32 @@ namespace HuoltoWebApp.Pages.AutonHuollot
         public IActionResult OnGet()
         {
         ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
+        ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
             return Page();
         }
 
         [BindProperty]
         public AutoHuollot AutoHuollot { get; set; } = default!;
-        
+        [BindProperty]
+        public SäiliöHuollot SäiliöHuollot { get; set; } = default!;
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.AutoHuollots == null || AutoHuollot == null)
+            if (!ModelState.IsValid || _context.AutoHuollots == null || AutoHuollot == null || _context.SäiliöHuollots == null || SäiliöHuollot == null)
             {
                 return Page();
             }
 
+            // Add SäiliöHuollot to the context and save to generate its primary key
+            _context.SäiliöHuollots.Add(SäiliöHuollot);
+            await _context.SaveChangesAsync();
+
+            // Assign the generated primary key to the foreign key in AutoHuollot
+            AutoHuollot.HuollonId = SäiliöHuollot.HuoltoId;
+
+            // Add AutoHuollot to the context and save
             _context.AutoHuollots.Add(AutoHuollot);
             await _context.SaveChangesAsync();
 

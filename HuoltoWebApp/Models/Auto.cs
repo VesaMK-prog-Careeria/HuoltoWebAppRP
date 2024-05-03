@@ -22,6 +22,9 @@ namespace HuoltoWebApp.Models
         public DateTime? Nopeudenrajoitin { get; set; }
         public int? AutoInfoId { get; set; }
 
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string? InfoTxt { get; set; }
+
         public virtual Säiliö? Säiliö { get; set; }
         public virtual AutoInfo? AutoInfo { get; set; }
         public virtual ICollection<AutoHuollot> AutoHuollots { get; set; }

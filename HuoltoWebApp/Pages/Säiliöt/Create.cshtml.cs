@@ -39,6 +39,16 @@ namespace HuoltoWebApp.Pages.Säiliöt
             _context.Säiliös.Add(Säiliö);
             await _context.SaveChangesAsync();
 
+            var säiliöInfo = new SäiliöInfo
+            {
+                SäiliöId = Säiliö.SäiliöId,
+                InfoTxt = Säiliö.InfoTxt
+
+            };
+
+            _context.SäiliöInfos.Add(säiliöInfo);
+            await _context.SaveChangesAsync();
+
             return RedirectToPage("./Index");
         }
     }
