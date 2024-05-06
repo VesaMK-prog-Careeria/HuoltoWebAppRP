@@ -40,3 +40,12 @@ nav {
 footer {
     background: linear-gradient(90deg, #EF4828 0%, #FEC317 50%, #EF4828 100%);
 }
+
+/*kesken, keskittää kuvan kyllä, mutta ei toimi responsiivisesti, pitää muokata kuvan div elementille koko */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
