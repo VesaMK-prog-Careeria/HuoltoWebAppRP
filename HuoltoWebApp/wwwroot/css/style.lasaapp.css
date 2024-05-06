@@ -31,3 +31,11 @@
 body {
     font-family: 'Roboto', sans-serif; /* Roboto Google fonteista - selvitän vielä miten fontti integroidaan hmlt:ään, alla linkki joka hmtl tiedostoon laitetaan */
 }
+
+nav {
+    background: linear-gradient(90deg, #EF4828 0%, #FEC317 50%, #EF4828 100%);
+}
+
+footer {
+    background: linear-gradient(90deg, #EF4828 0%, #FEC317 50%, #EF4828 100%);
+}
