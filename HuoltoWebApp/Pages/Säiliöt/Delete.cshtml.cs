@@ -48,14 +48,25 @@ namespace HuoltoWebApp.Pages.Säiliöt
             {
                 return NotFound();
             }
-            var säiliö = await _context.Säiliös.FindAsync(id);
+            var säiliö = await _context.Säiliös
+                .Include(s => s.SäiliöInfo) // Varmista, että lataat myös riippuvaiset AutoInfo-entiteetit
+                .FirstOrDefaultAsync(m => m.SäiliöId == id);
 
-            if (säiliö != null)
+            if (säiliö == null)
             {
-                Säiliö = säiliö;
-                _context.Säiliös.Remove(Säiliö);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
+
+            // Poista ensin kaikki riippuvaiset AutoInfo-tietueet
+            if (säiliö.SäiliöInfo != null)
+            {
+                _context.SäiliöInfos.RemoveRange(säiliö.SäiliöInfo);
+                await _context.SaveChangesAsync(); // Tallenna muutokset ennen auton poistoa
+            }
+
+            // Poista itse auto
+            _context.Säiliös.Remove(säiliö);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

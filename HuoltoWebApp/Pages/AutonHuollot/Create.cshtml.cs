@@ -22,6 +22,8 @@ namespace HuoltoWebApp.Pages.AutonHuollot
         public IActionResult OnGet()
         {
         ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
+
+            // lisätty SäiliöHuolto näkymään Create sivulla
         ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
             return Page();
         }
