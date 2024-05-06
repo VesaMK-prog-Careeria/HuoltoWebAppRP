@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Lasa-logo\" />
+    <None Include="wwwroot\img\LaSaLogo.png" />
   </ItemGroup>
 
 </Project>
