@@ -8,7 +8,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a class="btn btn-secondary" asp-page="Create">Luo uusi</a>
 </p>
 <table class="table">
     <thead>
@@ -38,9 +38,10 @@
                 @Html.DisplayFor(modelItem => item.MuistutustyyppiNavigation.MuistutustyyppiId)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.AutoMuistutusId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.AutoMuistutusId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.AutoMuistutusId">Delete</a>
+
+                    <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.AutoMuistutusId">Muokkaa</a>
+                    <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.AutoMuistutusId">Lisätiedot</a> 
+                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.AutoMuistutusId">Poista</a>
             </td>
         </tr>
 }

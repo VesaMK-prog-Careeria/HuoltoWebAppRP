@@ -1,2 +1,33 @@
-﻿body {
+﻿/* Css tyylittelyt */
+
+/* Muutetaan .btn-primary väriä */
+.btn-primary {
+    background-color: #2CA34F; /* vihreä väri la-sa */
+}
+
+    /* .btn-primaryn hover väri */
+    .btn-primary:hover {
+        background-color: #17754D; /* hover color, vaaleampi vihreä*/
+    }
+
+    /* .btn-primaryn active väri */
+    .btn-primary:active {
+        background-color: #12B670; /* active buttonin vaalein vihreä */
+    }
+
+.btn-secondary {
+    background-color: #FFA500; /*testi oranssi la-sa*/
+}
+
+/*Määritellään buttonien asettelut containerissa johon kunkin sivun sisältö renderöidäään*/
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Asettaa sisältöelementit automaattisesti sopivaan leveiksi (katsotaan toimiiko :D) */
+    grid-gap: 2px; /* Välit */
+}
+
+
+/* Uusi oletusfontti apille Google fontseista - ehdotus roboto - Inter toinen mahdollinen*/
+body {
+    font-family: 'Roboto', sans-serif; /* Roboto Google fonteista - selvitän vielä miten fontti integroidaan hmlt:ään, alla linkki joka hmtl tiedostoon laitetaan */
 }
