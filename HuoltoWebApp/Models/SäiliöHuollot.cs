@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HuoltoWebApp.Models
 {
     public partial class SäiliöHuollot
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int HuoltoId { get; set; }
         public int SäiliöId { get; set; }
         public DateTime? HuoltoPvm { get; set; }

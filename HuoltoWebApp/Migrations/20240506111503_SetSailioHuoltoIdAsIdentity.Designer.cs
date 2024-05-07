@@ -4,6 +4,7 @@ using HuoltoWebApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HuoltoWebApp.Migrations
 {
     [DbContext(typeof(HuoltoContext))]
-    partial class HuoltoContextModelSnapshot : ModelSnapshot
+    [Migration("20240506111503_SetSailioHuoltoIdAsIdentity")]
+    partial class SetSailioHuoltoIdAsIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
