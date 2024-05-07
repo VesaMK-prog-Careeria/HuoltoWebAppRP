@@ -332,13 +332,17 @@ namespace HuoltoWebApp.Services
             modelBuilder.Entity<SäiliöHuollot>(entity =>
             {
                 entity.HasKey(e => e.HuoltoId)
-                    .HasName("PK__SäiliöHu__BE746FF042AD424C");
+                    .HasName("PK__SäiliöHu__BE746FF0346755C9");
+                    //.HasName("PK__SäiliöHu__BE746FF042AD424C");
 
                 entity.ToTable("SäiliöHuollot");
 
                 entity.Property(e => e.HuoltoId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("HuoltoID");
+                //entity.Property(e => e.HuoltoId)
+                //    .ValueGeneratedNever()
+                //    .HasColumnName("HuoltoID");
 
                 entity.Property(e => e.HuollonKuvaus).HasMaxLength(200);
 
