@@ -8,7 +8,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a class="btn btn-secondary" asp-page="Create">Luo uusi</a>
 </p>
 <table class="table">
     <thead>
@@ -26,9 +26,9 @@
                 @Html.DisplayFor(modelItem => item.Huoltopaikka)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.HuoltoPaikkaId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.HuoltoPaikkaId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.HuoltoPaikkaId">Delete</a>
+                    <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.HuoltoPaikkaId">Muokkaa</a> 
+                    <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.HuoltoPaikkaId">Lisätiedot</a> 
+                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.HuoltoPaikkaId">Poista</a>
             </td>
         </tr>
 }
