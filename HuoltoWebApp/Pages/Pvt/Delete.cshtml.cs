@@ -35,9 +35,9 @@ namespace HuoltoWebApp.Pages.Pvt
             {
                 return NotFound();
             }
-            else 
+            else
             {
-                Pv = pv;
+               Pv = pv;
             }
             return Page();
         }
@@ -48,14 +48,25 @@ namespace HuoltoWebApp.Pages.Pvt
             {
                 return NotFound();
             }
-            var pv = await _context.Pvs.FindAsync(id);
+            var pv = await _context.Pvs
+                .Include(a => a.PvInfo)// Varmista, että lataat myös riippuvaiset PVInfo-entiteetit
+                .FirstOrDefaultAsync(m => m.PvId == id);
 
-            if (pv != null)
+            if (pv == null)
             {
-                Pv = pv;
-                _context.Pvs.Remove(Pv);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
+
+            // Poista ensin kaikki riippuvaiset PvInfo-tietueet
+            if (pv.PvInfo != null)
+            {
+                _context.PvInfos.RemoveRange(pv.PvInfo);
+                await _context.SaveChangesAsync(); // Tallenna muutokset ennen pvn poistoa
+            }
+
+            // Poista itse pv
+            _context.Pvs.Remove(pv);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
