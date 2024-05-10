@@ -14,6 +14,8 @@ namespace HuoltoWebApp.Models
         public string? HuollonKuvaus { get; set; }
         public byte[]? Kuva { get; set; }
 
-        public virtual Säiliö Säiliö { get; set; } = null!;
+        //navigointiominaisuus Säiliö-luokkaan (yksi säiliö voi olla useassa huollossa)
+        //? = voi olla null, tarvitaan koska SäiliöHuollot-luokkaa käytetään myös ilman Säiliö-oliota
+        public virtual Säiliö? Säiliö { get; set; } = null!; 
     }
 }
