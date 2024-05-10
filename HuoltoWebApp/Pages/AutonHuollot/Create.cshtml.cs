@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HuoltoWebApp.Models;
 using HuoltoWebApp.Services;
+using Microsoft.Extensions.Logging;
 
 namespace HuoltoWebApp.Pages.AutonHuollot
 {
     public class CreateModel : PageModel
     {
         private readonly HuoltoWebApp.Services.HuoltoContext _context;
+        private readonly ILogger<CreateModel> _logger;
 
-        public CreateModel(HuoltoWebApp.Services.HuoltoContext context)
+        public CreateModel(HuoltoWebApp.Services.HuoltoContext context, ILogger<CreateModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public IActionResult OnGet()
@@ -37,22 +40,42 @@ namespace HuoltoWebApp.Pages.AutonHuollot
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _context.AutoHuollots == null || AutoHuollot == null || _context.SäiliöHuollots == null || SäiliöHuollot == null)
+            ModelState.Remove("Auto");
+            ModelState.Remove("Säiliö");
+
+            // Tarkista ensin, että mallin tila on kelvollinen.
+            if (!ModelState.IsValid)
             {
+                _logger.LogInformation("ModelState is not valid.");
                 return Page();
             }
 
-            // Add SäiliöHuollot to the context and save to generate its primary key
+            // Haetaan auto ja säiliö tietokannasta.
+            AutoHuollot.Auto = await _context.Autos.FindAsync(AutoHuollot.AutoId) ?? throw new ArgumentNullException(nameof(AutoHuollot.Auto));
+            SäiliöHuollot.Säiliö = await _context.Säiliös.FindAsync(SäiliöHuollot.SäiliöId) ?? throw new ArgumentNullException(nameof(SäiliöHuollot.Säiliö));
+
+            // Tarkista, onko auto ja säiliö löytynyt.
+            if (AutoHuollot.Auto == null)
+            {
+                _logger.LogInformation($"No valid car found for the given ID: {AutoHuollot.AutoId}");
+                ModelState.AddModelError("AutoHuollot.AutoId", "Valittu auto ei ole voimassa.");
+                return Page();
+            }
+
+            if (SäiliöHuollot.Säiliö == null)
+            {
+                _logger.LogInformation($"No valid tank found for the given ID: {SäiliöHuollot.SäiliöId}");
+                ModelState.AddModelError("SäiliöHuollot.SäiliöId", "Valittu säiliö ei ole voimassa.");
+                return Page();
+            }
+
+            // Kaikki tarkistukset ovat menneet läpi, lisätään huolto tietokantaan.
+            _context.AutoHuollots.Add(AutoHuollot);
             _context.SäiliöHuollots.Add(SäiliöHuollot);
             await _context.SaveChangesAsync();
+            _logger.LogInformation("AutoHuollot and SäiliöHuollot were created successfully.");
 
-            // Assign the generated primary key to the foreign key in AutoHuollot
-            AutoHuollot.HuollonId = SäiliöHuollot.HuoltoId;
-
-            // Add AutoHuollot to the context and save
-            _context.AutoHuollots.Add(AutoHuollot);
-            await _context.SaveChangesAsync();
-
+            // Siirrytään takaisin pääsivulle onnistuneen tallennuksen jälkeen.
             return RedirectToPage("./Index");
         }
     }
