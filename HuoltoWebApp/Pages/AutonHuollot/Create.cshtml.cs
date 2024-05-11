@@ -21,18 +21,12 @@ namespace HuoltoWebApp.Pages.AutonHuollot
 
         public IActionResult OnGet()
         {
-        ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
-
-            // lisätty SäiliöHuolto näkymään Create sivulla
-        ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
+            ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
             return Page();
         }
 
         [BindProperty]
         public AutoHuollot AutoHuollot { get; set; } = default!;
-        [BindProperty]
-        public SäiliöHuollot SäiliöHuollot { get; set; } = default!;
-
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -47,23 +41,13 @@ namespace HuoltoWebApp.Pages.AutonHuollot
             var auto = await _context.Autos.FindAsync(AutoHuollot.AutoId);
             AutoHuollot.Auto = auto;
 
-            var säiliö = await _context.Säiliös.FindAsync(SäiliöHuollot.SäiliöId);
-            SäiliöHuollot.Säiliö = säiliö;
-
             if (AutoHuollot.Auto == null)
             {
                 ModelState.AddModelError("AutoHuollot.AutoId", "Ei autoa ID:llä.");
                 return Page();
             }
 
-            if (SäiliöHuollot.Säiliö == null)
-            {
-                ModelState.AddModelError("SäiliöHuollot.SäiliöId", "Ei säiliötä ID:llä.");
-                return Page();
-            }
-
             _context.AutoHuollots.Add(AutoHuollot);
-            _context.SäiliöHuollots.Add(SäiliöHuollot);
             await _context.SaveChangesAsync();
             return RedirectToPage("./Index");
         }
