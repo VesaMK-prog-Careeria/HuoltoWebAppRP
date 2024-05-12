@@ -19,15 +19,16 @@
     background-color: #FFA500; /*testi oranssi la-sa*/
 }
 
-/*Määritellään buttonien asettelut containerissa johon kunkin sivun sisältö renderöidäään .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Asettaa sisältöelementit automaattisesti sopivaan leveiksi (katsotaan toimiiko :D) grid-gap: 2px;*/*/
-
 
 
 /* Uusi oletusfontti apille Google fontseista - ehdotus roboto - Inter toinen mahdollinen*/
 body {
     font-family: 'Roboto', sans-serif; /* Roboto Google fonteista - selvitän vielä miten fontti integroidaan hmlt:ään, alla linkki joka hmtl tiedostoon laitetaan */
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 }
 
 /* Navibarin ja footerin liukuväri - värit otettu la-sa logosta*/
