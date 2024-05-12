@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,19 +19,26 @@ namespace HuoltoWebApp.Pages.SäiliönHuollot
 
         public IActionResult OnGet()
         {
-        ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
+            ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
             return Page();
         }
 
         [BindProperty]
         public SäiliöHuollot SäiliöHuollot { get; set; } = default!;
-        
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.SäiliöHuollots == null || SäiliöHuollot == null)
+            if (!ModelState.IsValid)
             {
+                return Page();
+            }
+
+            var säiliö = await _context.Säiliös.FindAsync(SäiliöHuollot.SäiliöId);
+            SäiliöHuollot.Säiliö = säiliö;
+
+            if (SäiliöHuollot.Säiliö == null)
+            {
+                ModelState.AddModelError("", "Ei säiliöitä ID:llä.");
                 return Page();
             }
 

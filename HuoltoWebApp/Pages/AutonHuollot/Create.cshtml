@@ -7,15 +7,17 @@
 
 <h1>Create</h1>
 
-<h4>AutoHuollot</h4>
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
+        <h4>AutoHuollot</h4>
+        <hr />
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="AutoHuollot.AutoId" class="control-label"></label>
-                <select asp-for="AutoHuollot.AutoId" class ="form-control" asp-items="ViewBag.AutoId"></select>
+                <label asp-for="AutoHuollot.AutoId"></label>
+                <select asp-for="AutoHuollot.AutoId" asp-items="@(ViewData["AutoId"] as SelectList)" class="form-control"></select>
             </div>
             <div class="form-group">
                 <label asp-for="AutoHuollot.HuoltoPvm" class="control-label"></label>
@@ -41,41 +43,11 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="SäiliöHuollot.HuoltoId" class="control-label"></label>
-                <input asp-for="SäiliöHuollot.HuoltoId" class="form-control" />
-                <span asp-validation-for="SäiliöHuollot.HuoltoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SäiliöHuollot.SäiliöId" class="control-label"></label>
-                <select asp-for="SäiliöHuollot.SäiliöId" class="form-control" asp-items="ViewBag.SäiliöId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="SäiliöHuollot.HuoltoPvm" class="control-label"></label>
-                <input asp-for="SäiliöHuollot.HuoltoPvm" class="form-control" />
-                <span asp-validation-for="SäiliöHuollot.HuoltoPvm" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SäiliöHuollot.HuoltoPaikkaId" class="control-label"></label>
-                <input asp-for="SäiliöHuollot.HuoltoPaikkaId" class="form-control" />
-                <span asp-validation-for="SäiliöHuollot.HuoltoPaikkaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SäiliöHuollot.HuollonKuvaus" class="control-label"></label>
-                <input asp-for="SäiliöHuollot.HuollonKuvaus" class="form-control" />
-                <span asp-validation-for="SäiliöHuollot.HuollonKuvaus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SäiliöHuollot.Kuva" class="control-label"></label>
-                <input asp-for="SäiliöHuollot.Kuva" class="form-control" />
-                <span asp-validation-for="SäiliöHuollot.Kuva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    </div>
+    <div class="col-md-6">
+        <h4>SäiliöHuollot</h4>
+        <hr />
+        <a asp-page="/SäiliönHuollot/Create" class="btn btn-primary">Ilmoita Säiliön huolto</a>
     </div>
 </div>
 

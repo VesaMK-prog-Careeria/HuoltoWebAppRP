@@ -21,38 +21,34 @@ namespace HuoltoWebApp.Pages.AutonHuollot
 
         public IActionResult OnGet()
         {
-        ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
-
-            // lisätty SäiliöHuolto näkymään Create sivulla
-        ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
+            ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
             return Page();
         }
 
         [BindProperty]
         public AutoHuollot AutoHuollot { get; set; } = default!;
-        [BindProperty]
-        public SäiliöHuollot SäiliöHuollot { get; set; } = default!;
-
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _context.AutoHuollots == null || AutoHuollot == null || _context.SäiliöHuollots == null || SäiliöHuollot == null)
+
+            // Tarkista ensin, että mallin tila on kelvollinen.
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            // Add SäiliöHuollot to the context and save to generate its primary key
-            _context.SäiliöHuollots.Add(SäiliöHuollot);
-            await _context.SaveChangesAsync();
+            var auto = await _context.Autos.FindAsync(AutoHuollot.AutoId);
+            AutoHuollot.Auto = auto;
 
-            // Assign the generated primary key to the foreign key in AutoHuollot
-            AutoHuollot.HuollonId = SäiliöHuollot.HuoltoId;
+            if (AutoHuollot.Auto == null)
+            {
+                ModelState.AddModelError("AutoHuollot.AutoId", "Ei autoa ID:llä.");
+                return Page();
+            }
 
-            // Add AutoHuollot to the context and save
             _context.AutoHuollots.Add(AutoHuollot);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
     }

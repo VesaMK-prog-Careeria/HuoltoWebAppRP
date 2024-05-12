@@ -4,6 +4,7 @@ using HuoltoWebApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HuoltoWebApp.Migrations
 {
     [DbContext(typeof(HuoltoContext))]
-    partial class HuoltoContextModelSnapshot : ModelSnapshot
+    [Migration("20240507100743_UpdatePvHuollot2")]
+    partial class UpdatePvHuollot2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,12 +151,12 @@ namespace HuoltoWebApp.Migrations
                     b.Property<string>("HuollonKuvaus")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("HuoltoPvm")
+                    b.Property<DateTime>("HuoltoPvm")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("HuoltopaikkaId")
+                    b.Property<string>("HuoltopaikkaId")
                         .HasMaxLength(50)
-                        .HasColumnType("int")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("HuoltopaikkaID");
 
                     b.Property<byte[]>("Kuva")

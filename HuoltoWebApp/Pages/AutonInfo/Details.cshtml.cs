@@ -24,7 +24,7 @@ namespace HuoltoWebApp.Pages.AutonInfo
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            System.Diagnostics.Debug.WriteLine($"ID: {id}");
+            //System.Diagnostics.Debug.WriteLine($"ID: {id}");
             if (id == null || _context.AutoInfos == null)
             {
                 return NotFound();
@@ -44,15 +44,15 @@ namespace HuoltoWebApp.Pages.AutonInfo
             }
             return Page();
         }
-        //public IActionResult OnGetImage(int id)
-        //{
-        //    var kuva = _context.Kuvat.FirstOrDefault(k => k.KuvaId == id);
-        //    if (kuva == null || kuva.KuvaData == null)
-        //    {
-        //        return NotFound("Kuva tai kuvadata ei löydy.");
-        //    }
+        public IActionResult OnGetImage(int id)
+        {
+            var kuva = _context.Kuvat.FirstOrDefault(k => k.KuvaId == id);
+            if (kuva == null || kuva.KuvaData == null)
+            {
+                return NotFound("Kuva tai kuvadata ei löydy.");
+            }
 
-        //    return File(kuva.KuvaData, "image/jpeg"); // Varmista, että MIME-tyyppi vastaa kuvatiedoston tyyppiä
-        //}
+            return File(kuva.KuvaData, "image/jpeg"); // Varmista, että MIME-tyyppi vastaa kuvatiedoston tyyppiä
+        }
     }
 }

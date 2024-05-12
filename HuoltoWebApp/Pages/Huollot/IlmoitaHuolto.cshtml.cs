@@ -15,12 +15,12 @@ namespace HuoltoWebApp.Pages.Huollot
         }
 
         public List<Auto> Autot { get; set; }
-        public List<Pv> Peravaunut { get; set; }  // Olettaen että luokan nimi on Peravaunu
+        public List<Pv> PVt { get; set; }  // Olettaen että luokan nimi on Peravaunu
 
         public async Task OnGetAsync()
         {
             Autot = await _context.Autos.ToListAsync();
-            Peravaunut = await _context.Pvs.ToListAsync();  // Varmista että tämä vastaa tietokantasi rakennetta
+            PVt = await _context.Pvs.ToListAsync();  // Varmista että tämä vastaa tietokannan rakennetta
         }
     }
 }
