@@ -57,4 +57,13 @@ footer {
     }
 
 
+.btncontainer {
+    margin-top: 20px; /* väliä nappeihin etusivulla*/
+}
+
+.btn {
+    padding: 10px 20px; /* sisäväliä nappien ympärille */
+    font-size: 16px; /* suurempi fonttikoko napeissa */
+    margin-bottom: 10px; /* alaväliä napin alapuolelle */
+}
 

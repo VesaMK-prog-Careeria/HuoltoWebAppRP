@@ -4,20 +4,38 @@
     ViewData["Title"] = "Etusivu";
 }
 
-
 <div class="btncontainer">
     <h2>Tervetuloa, @User.Identity.Name!</h2>
-    <!-- Normaali käyttäjän toiminnot -->
-    <button class="btn btn-primary" onclick="location.href='/Huollot/IlmoitaHuolto'">Huollon ilmoittaminen</button>
-    <button class="btn btn-primary" onclick="location.href='/Huollot/LähetäPyyntö'">Huoltopyynnön lähettäminen</button>
-    <button class="btn btn-primary" onclick="location.href='/Huollot/Katsominen'">Tehtyjen huoltojen katsominen</button>
 
-    <!-- Admin-käyttäjän toiminnot -->
-    @if (User.IsInRole("Admin"))
-    {
-        <button class="btn btn-secondary" onclick="location.href='/Hallinta/HuoltoPyyntöjenKatsominen'">Huoltopyyntöjen katsominen</button>
-        <button class="btn btn-secondary" onclick="location.href='/Autot/Create'">Autojen lisääminen</button>
-        <button class="btn btn-secondary" onclick="location.href='/Säiliöt/Create'">Säiliöiden lisääminen</button>
-        <button class="btn btn-secondary" onclick="location.href='/PVt/Create'">Perävaunujen lisääminen</button>
-    }
+    <div class="row">
+        <!-- Ensimmäinen sarake -->
+        <div class="col-md-3">
+            <button class="btn btn-primary" onclick="location.href='/Huollot/IlmoitaHuolto'">Ilmoita huolto</button>
+            <button class="btn btn-primary" onclick="location.href='/Huollot/LähetäPyyntö'">Lähetä huoltopyyntö</button>
+        </div>
+
+        <!-- Toinen sarake -->
+        <div class="col-md-3">
+            <button class="btn btn-primary" onclick="location.href='/Huollot/Katsominen'">Tehdyt huollot</button>
+            <button class="btn btn-primary" onclick="location.href='/Huollot/KatsoHuoltopyynnöt'">Katso huoltopyynnöt</button>
+        </div>
+
+        <!-- Kolmas sarake -->
+        <div class="col-md-3">
+            <button class="btn btn-secondary" onclick="location.href='/Ylläpito/YlläpidäAuto'">Ylläpidä auto</button>
+            <button class="btn btn-secondary" onclick="location.href='/Ylläpito/YlläpidäSäiliö'">Ylläpidä säiliö</button>
+            <button class="btn btn-secondary" onclick="location.href='/Ylläpito/YlläpidäPV'">Ylläpidä perävaunu</button>
+            <button class="btn btn-secondary" onclick="location.href='/Auto/AutoInfo'">Auto info</button>
+        </div>
+
+        <!-- Neljäs sarake -->
+        <div class="col-md-3">
+            <button class="btn btn-secondary" onclick="location.href='/Ylläpito/YlläpidäHuoltopaikat'">Ylläpidä huoltopaikat</button>
+        </div>
+    </div>
 </div>
+
+
+    
+     
+
