@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HuoltoWebApp.Models;
 using HuoltoWebApp.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace HuoltoWebApp.Pages.SäiliönHuollot
 {
@@ -17,9 +18,25 @@ namespace HuoltoWebApp.Pages.SäiliönHuollot
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
+            ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "RekNro", "RekNro");
+
+            // Haetaan Huoltopaikat tietokannasta
+            var huoltopaikat = await _context.Huoltopaikats.ToListAsync();
+
+            // Tarkista, että Huoltopaikat ei ole tyhjä
+            if (huoltopaikat != null && huoltopaikat.Any())
+            {
+                // Luo SelectList Huoltopaikkojen perusteella
+                ViewData["Huoltopaikat"] = new SelectList(huoltopaikat, "HuoltoPaikkaId", "Huoltopaikka");
+            }
+            else
+            {
+                // Jos Huoltopaikat on tyhjä, luo tyhjä SelectList
+                ViewData["Huoltopaikat"] = new SelectList(new List<SelectListItem>());
+            }
+
             return Page();
         }
 
