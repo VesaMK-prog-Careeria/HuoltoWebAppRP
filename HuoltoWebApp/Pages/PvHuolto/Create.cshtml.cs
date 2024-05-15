@@ -22,7 +22,15 @@ namespace HuoltoWebApp.Pages.PvHuolto
 
         public async Task<IActionResult> OnGetAsync()
         {
-            ViewData["PvId"] = new SelectList(_context.Pvs, "PvId", "RekNro");
+            // Haetaan Pv rekisterinumeron perusteella
+            var pv = await _context.Pvs.FirstOrDefaultAsync();
+
+            if (pv == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["PvId"] = pv.RekNro;
 
             // Haetaan Huoltopaikat tietokannasta
             var huoltopaikat = await _context.Huoltopaikats.ToListAsync();

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HuoltoWebApp.Models;
 using HuoltoWebApp.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace HuoltoWebApp.Pages.AutonHuollot
 {
@@ -19,9 +20,25 @@ namespace HuoltoWebApp.Pages.AutonHuollot
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
+            ViewData["AutoId"] = new SelectList(_context.Autos, "RekNro", "RekNro");
+
+            // Haetaan Huoltopaikat tietokannasta
+            var huoltopaikat = await _context.Huoltopaikats.ToListAsync();
+
+            // Tarkista, että Huoltopaikat ei ole tyhjä
+            if (huoltopaikat != null && huoltopaikat.Any())
+            {
+                // Luo SelectList Huoltopaikkojen perusteella
+                ViewData["Huoltopaikat"] = new SelectList(huoltopaikat, "HuoltoPaikkaId", "Huoltopaikka");
+            }
+            else
+            {
+                // Jos Huoltopaikat on tyhjä, luo tyhjä SelectList
+                ViewData["Huoltopaikat"] = new SelectList(new List<SelectListItem>());
+            }
+
             return Page();
         }
 
