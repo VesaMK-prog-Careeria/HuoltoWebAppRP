@@ -23,8 +23,8 @@
                 <span asp-validation-for="SäiliöHuollot.HuoltoPvm" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SäiliöHuollot.HuoltoPaikkaId" class="control-label"></label>
-                <input asp-for="SäiliöHuollot.HuoltoPaikkaId" class="form-control" />
+                <label asp-for="SäiliöHuollot.HuoltoPaikkaId" class="control-label">Huoltopaikka</label>
+                <select asp-for="SäiliöHuollot.HuoltoPaikkaId" class="form-control" asp-items="@ViewBag.Huoltopaikat"></select>
                 <span asp-validation-for="SäiliöHuollot.HuoltoPaikkaId" class="text-danger"></span>
             </div>
             <div class="form-group">

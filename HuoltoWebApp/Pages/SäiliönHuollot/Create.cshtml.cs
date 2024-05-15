@@ -20,7 +20,7 @@ namespace HuoltoWebApp.Pages.SäiliönHuollot
 
         public async Task<IActionResult> OnGetAsync()
         {
-            ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "RekNro", "RekNro");
+            ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöNro", "SäiliöNro");
 
             // Haetaan Huoltopaikat tietokannasta
             var huoltopaikat = await _context.Huoltopaikats.ToListAsync();
