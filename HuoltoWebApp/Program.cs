@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();  // Lis‰t‰‰n Razor-sivujen runtime-k‰‰nnˆs
 
 // Lis‰t‰‰n tietokantaan yhteys
 builder.Services.AddDbContext<HuoltoContext>(options =>
@@ -72,6 +72,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 app.MapRazorPages();
 
 app.Run();

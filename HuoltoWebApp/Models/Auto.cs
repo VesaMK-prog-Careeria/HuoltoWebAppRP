@@ -27,6 +27,7 @@ namespace HuoltoWebApp.Models
 
         public virtual Säiliö? Säiliö { get; set; }
         public virtual AutoInfo? AutoInfo { get; set; }
+
         public virtual ICollection<AutoHuollot> AutoHuollots { get; set; }
         public virtual ICollection<AutoHuoltopyyntö> AutoHuoltopyyntös { get; set; }
         public virtual ICollection<AutoMuistutu> AutoMuistutus { get; set; }

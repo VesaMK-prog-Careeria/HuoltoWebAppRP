@@ -31,37 +31,39 @@
             {
                 if (kuva.KuvaId != 0)
                 {
-                    <a href="#" data-toggle="modal" data-target="#imageModal" data-image-id="@kuva.KuvaId">@kuva.KuvaNimi</a>
-                    //<img src="@Url.Page("/AutonInfo/GetImage", new { id = kuva.KuvaId })" alt="Kuva autosta">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-image-url="@Url.Page("/GetImage", new { id = kuva.KuvaId })">@kuva.KuvaNimi</a>
                 }
             }
         </dd>
     </dl>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <img id="modalImage" src="" alt="Kuva autosta">
+                <img id="modalImage" src="" alt="Kuva autosta" class="img-fluid">
             </div>
         </div>
     </div>
 </div>
+
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.AutoInfo?.AutoInfoId">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#imageModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var imageId = button.data('image-id'); // Extract info from data-* attributes
-            console.log("Ladattava kuva ID: " + imageId); // Tarkista, saadaanko oikea ID
-            var modal = $(this);
-            modal.find('#modalImage').attr('src', '/AutonInfo/Details/GetImage?id=' + imageId);
+@section Scripts {
+    <script>
+        $(function () {
+            $('#imageModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var imageUrl = button.data('bs-image-url'); // Extract info from data-* attributes
+                console.log("Ladattava kuva URL: " + imageUrl); // Tarkista, saadaanko oikea URL
+                var modal = $(this);
+                modal.find('#modalImage').attr('src', imageUrl);
+            });
         });
-    });
-</script>
-
+    </script>
+}

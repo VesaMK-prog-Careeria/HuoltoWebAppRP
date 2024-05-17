@@ -68,7 +68,7 @@ namespace HuoltoWebApp.Pages.Autot
                             var kuva = new Kuva()
                             {
                                 KuvaNimi = tiedosto.FileName,
-                                KuvaData = ms.ToArray(),
+                                KuvaData = ms.ToArray(), // Muutetaan tiedosto byte-taulukoksi
                                 AutoInfoId = autoInfo.AutoInfoId // Use the AutoInfoId from the autoInfo object
                             };
                             _context.Kuvat.Add(kuva);
