@@ -5,9 +5,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Luo uusi auto</h1>
 
-<h4>Auto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Auto.SäiliöId" class="control-label">SäiliöNro</label>
-                <select asp-for="Auto.SäiliöId" class ="form-control" asp-items="ViewBag.SäiliöId"></select>
+                <select asp-for="Auto.SäiliöId" class="form-control" asp-items="ViewBag.SäiliöId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Auto.Katsastus" class="control-label"></label>
@@ -58,21 +57,23 @@
                 <span asp-validation-for="Kuvatiedostot" class="text-danger"></span>
             </div>
             @* <div class="form-group">
-                <label asp-for="Auto.AutoInfoId" class="control-label"></label>
-                <textarea asp-for="Auto.AutoInfoId" class="form-control"></textarea>
-                <span asp-validation-for="Auto.AutoInfoId" class="text-danger"></span>
+            <label asp-for="Auto.AutoInfoId" class="control-label"></label>
+            <textarea asp-for="Auto.AutoInfoId" class="form-control"></textarea>
+            <span asp-validation-for="Auto.AutoInfoId" class="text-danger"></span>
             </div> *@
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Tallenna uusi auto" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Edelinen sivu</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

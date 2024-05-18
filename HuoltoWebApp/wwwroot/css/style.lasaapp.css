@@ -67,3 +67,29 @@ footer {
     margin-bottom: 10px; /* alaväliä napin alapuolelle */
 }
 
+a {
+    color: black;
+    text-decoration: none; /* ei alleviivausta */
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+    a:hover {
+        color: #FFA500; /* Linkin väri hover-tilassa */
+    }
+
+    /* tekstikenttien suurentaminen jotta selkeämpi käyttää - luotu jokaiselle hmtl sivulle uusi text area kenttä, koska input kenttää ei voi
+        muokata moniriviseksi - näin tekstikenttä on käyttäjäystävällisempi
+    */
+textarea {
+    font-size: 18px; /* Isompi fonttikoko */
+    padding: 10px; /* Lisää tilaa sisällön ympärille */
+    width: 100%; /* Täyttää saatavilla olevan tilan */
+    box-sizing: border-box; /* Sisällyttää paddingin ja borderin elementin kokoon */
+    height: 150px; /* Suurempi korkeus */
+    margin-bottom: 15px; /* Lisää tilaa alapuolelle */
+    resize: vertical; /* Salli pystysuuntainen koon muuttaminen */
+}
+
+
+
