@@ -22,6 +22,9 @@ namespace HuoltoWebApp.Pages.Autot
 
         [BindProperty]
         public Auto Auto { get; set; } = default!;
+        [BindProperty]
+        public List<IFormFile>? Kuvatiedostot { get; set; } = new List<IFormFile>(); // Bindataan lomakkeelta lähetetyt kuvatiedostot tähän listaan
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,13 +33,16 @@ namespace HuoltoWebApp.Pages.Autot
                 return NotFound();
             }
 
-            var auto =  await _context.Autos.FirstOrDefaultAsync(m => m.AutoId == id);
+            var auto = await _context.Autos
+                .Include(a => a.AutoInfo) // Tämä rivi kertoo EF:lle, että haluamme ladata Auto-olion mukana myös AutoInfo-olion
+                .FirstOrDefaultAsync(m => m.AutoId == id); 
+
             if (auto == null)
             {
                 return NotFound();
             }
             Auto = auto;
-           ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
+            ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
             return Page();
         }
 
@@ -49,7 +55,7 @@ namespace HuoltoWebApp.Pages.Autot
                 return Page();
             }
 
-            _context.Attach(Auto).State = EntityState.Modified;
+            _context.Attach(Auto).State = EntityState.Modified; // Tämä rivi kertoo EF:lle, että Auto-olio on muuttunut ja se pitäisi päivittää tietokantaan
 
             try
             {
@@ -67,6 +73,38 @@ namespace HuoltoWebApp.Pages.Autot
                 }
             }
 
+            if (Auto.AutoInfo == null)
+            {
+                Auto.AutoInfo = await _context.AutoInfos.FirstOrDefaultAsync(ai => ai.AutoId == Auto.AutoId);
+                if (Auto.AutoInfo == null)
+                {
+                    return NotFound("AutoInfo not found for the provided Auto.");
+                }
+            }
+
+            // Kuvien käsittely
+            if (Kuvatiedostot != null && Kuvatiedostot.Any())
+            {
+                foreach (var tiedosto in Kuvatiedostot)
+                {
+                    if (tiedosto.Length > 0)
+                    {
+                        using var ms = new MemoryStream();
+                        await tiedosto.CopyToAsync(ms);
+                        if (ms.Length > 0)
+                        {
+                            var kuva = new Kuva()
+                            {
+                                KuvaNimi = tiedosto.FileName,
+                                KuvaData = ms.ToArray(),
+                                AutoInfoId = Auto.AutoInfo.AutoInfoId
+                            };
+                            _context.Kuvat.Add(kuva);
+                        }
+                    }
+                }
+                await _context.SaveChangesAsync();
+            }
             return RedirectToPage("./Index");
         }
 

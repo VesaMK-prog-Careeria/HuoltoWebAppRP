@@ -67,7 +67,7 @@ footer {
     margin-bottom: 10px; /* alaväliä napin alapuolelle */
 }
 
-/* Modal ikkunan tyylit Vesku*/
+/* Modal-ikkunan tyylit Vesku*/
 .modal-body {
     display: flex;
     justify-content: center;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HuoltoWebApp.Models
 {
@@ -15,8 +16,11 @@ namespace HuoltoWebApp.Models
 
         public int SäiliöId { get; set; }
         public int SäiliöNro { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Vakaus { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Välitarkastus { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Määräaikaistarkastus { get; set; }
         public int? SäiliöInfoId { get; set; }
 
