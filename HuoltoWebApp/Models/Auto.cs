@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HuoltoWebApp.Models
 {
@@ -15,10 +16,15 @@ namespace HuoltoWebApp.Models
         public int AutoId { get; set; }
         public string RekNro { get; set; } = null!;
         public int? SäiliöId { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Katsastus { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Adr { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Piirturi { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Alkolukko { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Nopeudenrajoitin { get; set; }
         public int? AutoInfoId { get; set; }
 
@@ -27,6 +33,7 @@ namespace HuoltoWebApp.Models
 
         public virtual Säiliö? Säiliö { get; set; }
         public virtual AutoInfo? AutoInfo { get; set; }
+
         public virtual ICollection<AutoHuollot> AutoHuollots { get; set; }
         public virtual ICollection<AutoHuoltopyyntö> AutoHuoltopyyntös { get; set; }
         public virtual ICollection<AutoMuistutu> AutoMuistutus { get; set; }

@@ -22,7 +22,15 @@ namespace HuoltoWebApp.Pages.PvHuolto
 
         public async Task<IActionResult> OnGetAsync()
         {
-            ViewData["PvId"] = new SelectList(_context.Pvs, "RekNro", "RekNro");
+            // Haetaan Pv rekisterinumeron perusteella
+            var pv = await _context.Pvs.FirstOrDefaultAsync();
+
+            if (pv == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["PvId"] = pv.RekNro;
 
             // Haetaan Huoltopaikat tietokannasta
             var huoltopaikat = await _context.Huoltopaikats.ToListAsync();
@@ -42,22 +50,23 @@ namespace HuoltoWebApp.Pages.PvHuolto
             return Page();
         }
 
-        [BindProperty]
-        public PvHuollot PvHuollot { get; set; } = default!;
-        
-
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.PvHuollots == null || PvHuollot == null)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            // Lisää PvHuollot tietokantaan
             _context.PvHuollots.Add(PvHuollot);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
+
+        [BindProperty]
+        public PvHuollot PvHuollot { get; set; } = default!;
+
     }
 }

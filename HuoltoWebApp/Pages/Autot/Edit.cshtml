@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Auto.AutoId" />
             <div class="form-group">
@@ -26,33 +26,33 @@
             </div>
             <div class="form-group">
                 <label asp-for="Auto.Katsastus" class="control-label"></label>
-                <input asp-for="Auto.Katsastus" class="form-control" />
+                <input asp-for="Auto.Katsastus" type="date" class="form-control" />
                 <span asp-validation-for="Auto.Katsastus" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Auto.Adr" class="control-label"></label>
-                <input asp-for="Auto.Adr" class="form-control" />
+                <input asp-for="Auto.Adr" type="date" class="form-control" />
                 <span asp-validation-for="Auto.Adr" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Auto.Piirturi" class="control-label"></label>
-                <input asp-for="Auto.Piirturi" class="form-control" />
+                <input asp-for="Auto.Piirturi" type="date" class="form-control" />
                 <span asp-validation-for="Auto.Piirturi" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Auto.Alkolukko" class="control-label"></label>
-                <input asp-for="Auto.Alkolukko" class="form-control" />
+                <input asp-for="Auto.Alkolukko" type="date" class="form-control" />
                 <span asp-validation-for="Auto.Alkolukko" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Auto.Nopeudenrajoitin" class="control-label"></label>
-                <input asp-for="Auto.Nopeudenrajoitin" class="form-control" />
+                <input asp-for="Auto.Nopeudenrajoitin" type="date" class="form-control" />
                 <span asp-validation-for="Auto.Nopeudenrajoitin" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Auto.AutoInfoId" class="control-label"></label>
-                <textarea asp-for="Auto.AutoInfoId" class="form-control"></textarea>
-                <span asp-validation-for="Auto.AutoInfoId" class="text-danger"></span>
+                <label asp-for="Kuvatiedostot" class="control-label">Lataa kuvat</label>
+                <input asp-for="Kuvatiedostot" type="file" multiple class="form-control" />
+                <span asp-validation-for="Kuvatiedostot" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Tallenna" class="btn btn-primary" />

@@ -14,16 +14,12 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PvHuollot.HuoltoId" class="control-label"></label>
-                <input asp-for="PvHuollot.HuoltoId" class="form-control" />
-                <span asp-validation-for="PvHuollot.HuoltoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="PvHuollot.PvId" class="control-label">Rekisterinumero</label>
-                <select asp-for="PvHuollot.PvId" class="form-control" asp-items="ViewBag.PvId"></select>
+                <span class="form-control">@ViewData["PvId"]</span>
+                <span asp-validation-for="PvHuollot.PvId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PvHuollot.HuoltoPvm" class="control-label"></label>
+                <label asp-for="PvHuollot.HuoltoPvm" class="control-label">Huoltopäivämäärä</label>
                 <input asp-for="PvHuollot.HuoltoPvm" class="form-control" />
                 <span asp-validation-for="PvHuollot.HuoltoPvm" class="text-danger"></span>
             </div>
@@ -33,24 +29,24 @@
                 <span asp-validation-for="PvHuollot.HuoltoPaikkaId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PvHuollot.HuollonKuvaus" class="control-label"></label>
-                <textarea asp-for="PvHuollot.HuollonKuvaus" class="form-control"></textarea>
+                <label asp-for="PvHuollot.HuollonKuvaus" class="control-label">Huollon kuvaus</label>
+                <input asp-for="PvHuollot.HuollonKuvaus" class="form-control" />
                 <span asp-validation-for="PvHuollot.HuollonKuvaus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PvHuollot.Kuva" class="control-label"></label>
+                <label asp-for="PvHuollot.Kuva" class="control-label">Kuva</label>
                 <input asp-for="PvHuollot.Kuva" class="form-control" />
                 <span asp-validation-for="PvHuollot.Kuva" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Luo" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Edellinen sivu</a>
+    <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
@@ -58,4 +54,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-

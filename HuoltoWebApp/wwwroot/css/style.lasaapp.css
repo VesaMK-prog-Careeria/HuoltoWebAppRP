@@ -67,7 +67,16 @@ footer {
     margin-bottom: 10px; /* alaväliä napin alapuolelle */
 }
 
+/* Modal-ikkunan tyylit Vesku*/
+.modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Poistaa ylimääräisen tyhjyyden modaalin sisällä */
+}
 
-
-
-
+#modalImage {
+    max-width: 100%;
+    max-height: 80vh; /* Rajoittaa kuvan korkeuden niin, että se ei ylitä 80% näytön korkeudesta */
+    object-fit: contain; /* Skaalaa kuvan säilyttäen sen mittasuhteet */
+}
