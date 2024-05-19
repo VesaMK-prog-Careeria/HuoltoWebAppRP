@@ -80,3 +80,5 @@ footer {
     max-height: 80vh; /* Rajoittaa kuvan korkeuden niin, että se ei ylitä 80% näytön korkeudesta */
     object-fit: contain; /* Skaalaa kuvan säilyttäen sen mittasuhteet */
 }
+
+
