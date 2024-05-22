@@ -1,6 +1,9 @@
 ﻿/* Css tyylittelyt */
+/*Tiin atehnyt myös hmtl sivuilla paljon muokkauksia joita kaikkia en ole muistanut kommentoida, mm buttonien bootrapit,
+    text areat, nav bar, footer, toggler valikko, kentät
+*/
 
-/* Muutetaan .btn-primary väriä */
+/* Muutetaan .btn bootrap elementtien värejä */
 .btn-primary {
     background-color: #2CA34F; /* vihreä väri la-sa */
 }
@@ -16,14 +19,14 @@
     }
 
 .btn-secondary {
-    background-color: #FFA500; /*testi oranssi la-sa*/
+    background-color: #FFA500; /*oranssi la-sa*/
 }
 
 
 
-/* Uusi oletusfontti apille Google fontseista - ehdotus roboto - Inter toinen mahdollinen*/
+/* Uusi oletusfontti apille Google fontseista - ehdotus roboto - Inter toinen mahdollinen, Tiina*/
 body {
-    font-family: 'Roboto', sans-serif; /* Roboto Google fonteista - selvitän vielä miten fontti integroidaan hmlt:ään, alla linkki joka hmtl tiedostoon laitetaan */
+    font-family: 'Roboto', sans-serif; /* Roboto Google fonteista  */
 }
 
 h1 {
@@ -31,7 +34,7 @@ h1 {
     font-weight: 400;
 }
 
-/* Navibarin ja footerin liukuväri - värit otettu la-sa logosta*/
+/* Navibarin ja footerin liukuväri - värit otettu la-sa logosta Tiina*/
 nav {
     background: linear-gradient(90deg, #EF4828 0%, #FEC317 50%, #EF4828 100%);
     height: 80px;
@@ -43,14 +46,14 @@ footer {
     text-align: center;
 }
 
-/*kesken, keskittää aloitussivunkuvan */
+/*keskittää aloitussivunkuvan Tiina*/
 .centered {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh; /* korkeuden määrittäminen viewportin kautta */
 }
-
+/*centered, btncontainer, btn Tiina*/
     .centered img {
         max-width: 90%; /* kuvan leveyden rajoitus ruudun leveyden mukaan - responsive */
         max-height: 90%; /* korkeuden rajoitus ruudun korkeuden mukaan -responsive */
@@ -95,7 +98,7 @@ a {
 
     /* tekstikenttien suurentaminen jotta selkeämpi käyttää - luotu jokaiselle hmtl sivulle uusi text area kenttä, koska input kenttää ei voi
         muokata moniriviseksi - näin tekstikenttä on käyttäjäystävällisempi - tekstikenttä, textarea tulisi lisätä joka sivulle jossa käyttäjä
-        syöttää tekstiä
+        syöttää tekstiä -Tiina
     */
 
 textarea {
@@ -108,13 +111,13 @@ textarea {
     resize: vertical;
 }
  
-/* vaihdetaan navbar togglerin taustaväriä jotta käyttäjäystävällisempi*/
+/* vaihdetaan navbar togglerin napin taustaväriä jotta käyttäjäystävällisempi Tiina*/
 .navbar-toggler {
     background-color: white;
 
 }
 
-/*nav alavalikon taustavärin määrittely KESKEN*/
+/*nav toggler alavalikon taustavärin määrittely niin että valikon tausta näkyy vain kun drop valikko putoaa Tiina*/
 
 @media (max-width: 767.98px) {
     .navbar-collapse {
@@ -123,15 +126,32 @@ textarea {
     }
 }
 
+/* footerin paikalleen asettaminen kaikissa eri näyttökooissa - Tiina*/
 
-/* navbar alavalikon tautavärin uudelelenmääritys luettavuuden parantamiseksi ei toimi vielä
-
-.collapse.navbar-collapse {
-    background-color: azure; /* Aseta haluamasi taustaväri 
+html, body {
+    height: 100%; /*valitaan sekä HTML-dokumentin juurielementti html että rungon elementti body määrittää, 
+        että elementtien korkeudeksi tulee 100% niiden vanhempielementin korkeudesta */
 }
 
-.navbar-nav .nav-item .nav-link {
-    color: black; /* Varmista, että teksti on näkyvissä 
+.d-flex {
+    display: flex !important;
 }
 
-*/
+.flex-column {
+    flex-direction: column !important;
+}
+
+.min-vh-100 {
+    min-height: 100vh !important; /*!important -sääntö ohittaa muut mahdolliset min-height-asetukset kyseiselle elementille sovelluksessa.
+        tässä elementti on 100 viewportin heightin korkeudesta*/
+}
+
+.flex-grow-1 {
+    flex-grow: 1 !important;
+}
+
+.mt-auto {
+    margin-top: auto !important; /*asettaa elementin yläreunan marginaaliksi automaattisen arvon, 
+        flexbox-kontekstissa tarkoittaa, sitä että elementti työntyy alas ja vie kaiken ylimääräisen tilan yläpuoleltaan*/
+}
+

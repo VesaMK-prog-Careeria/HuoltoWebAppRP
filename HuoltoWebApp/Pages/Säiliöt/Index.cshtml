@@ -5,10 +5,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Säiliöt</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a class="btn btn-primary" asp-page="Create">Luo uusi</a>
+
 </p>
 <table class="table">
     <thead>
@@ -49,11 +50,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.InfoTxt)
             </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.SäiliöId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.SäiliöId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.SäiliöId">Delete</a>
-            </td>
+                <td>
+                    <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.SäiliöId">Muokkaa</a>
+                    <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.SäiliöId">Tiedot</a>
+                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.SäiliöId">Poista</a>
+                </td>
+
         </tr>
 }
     </tbody>
