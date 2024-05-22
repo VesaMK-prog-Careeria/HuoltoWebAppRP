@@ -20,14 +20,28 @@ namespace HuoltoWebApp.Pages.AutonHuollot
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int? autoId)
         {
-            ViewData["AutoId"] = new SelectList(_context.Autos, "RekNro", "RekNro");
+            if (autoId == null)
+            {
+                return NotFound();
+            }
+
+            // Haetaan Auto annettujen autoId perusteella
+            var auto = await _context.Autos.FindAsync(autoId);
+
+            if (auto == null)
+            {
+                return NotFound();
+            }
+
+            // Asetetaan rekisterinumero ViewDataan
+            ViewData["AutoRekNro"] = auto.RekNro;
 
             // Haetaan Huoltopaikat tietokannasta
             var huoltopaikat = await _context.Huoltopaikats.ToListAsync();
 
-            // Tarkista, että Huoltopaikat ei ole tyhjä
+            // Tarkistaa, että Huoltopaikat ei ole tyhjä
             if (huoltopaikat != null && huoltopaikat.Any())
             {
                 // Luo SelectList Huoltopaikkojen perusteella
@@ -38,6 +52,12 @@ namespace HuoltoWebApp.Pages.AutonHuollot
                 // Jos Huoltopaikat on tyhjä, luo tyhjä SelectList
                 ViewData["Huoltopaikat"] = new SelectList(new List<SelectListItem>());
             }
+
+            // Liitetään AutoHuollot-olion AutoId valittuun autoId:hen
+            AutoHuollot = new AutoHuollot
+            {
+                AutoId = auto.AutoId
+            };
 
             return Page();
         }
