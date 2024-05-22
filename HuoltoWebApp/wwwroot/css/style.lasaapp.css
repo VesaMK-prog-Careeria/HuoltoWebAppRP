@@ -43,7 +43,7 @@ footer {
     text-align: center;
 }
 
-/*kesken, keskittää kuvan kyllä, mutta ei toimi responsiivisesti, pitää muokata kuvan div elementille koko */
+/*kesken, keskittää aloitussivunkuvan */
 .centered {
     display: flex;
     justify-content: center;
@@ -82,3 +82,56 @@ footer {
 }
 
 
+a {
+    color: black;
+    text-decoration: none; 
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px; 
+}
+
+    a:hover {
+        color: #FFA500;  
+    }
+
+    /* tekstikenttien suurentaminen jotta selkeämpi käyttää - luotu jokaiselle hmtl sivulle uusi text area kenttä, koska input kenttää ei voi
+        muokata moniriviseksi - näin tekstikenttä on käyttäjäystävällisempi - tekstikenttä, textarea tulisi lisätä joka sivulle jossa käyttäjä
+        syöttää tekstiä
+    */
+
+textarea {
+    font-size: 18px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 150px;
+    margin-bottom: 15px;
+    resize: vertical;
+}
+ 
+/* vaihdetaan navbar togglerin taustaväriä jotta käyttäjäystävällisempi*/
+.navbar-toggler {
+    background-color: white;
+
+}
+
+/*nav alavalikon taustavärin määrittely KESKEN*/
+
+@media (max-width: 767.98px) {
+    .navbar-collapse {
+        background-color: white; /* Aseta haluamasi taustaväri */
+        color: black;
+    }
+}
+
+
+/* navbar alavalikon tautavärin uudelelenmääritys luettavuuden parantamiseksi ei toimi vielä
+
+.collapse.navbar-collapse {
+    background-color: azure; /* Aseta haluamasi taustaväri 
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: black; /* Varmista, että teksti on näkyvissä 
+}
+
+*/
