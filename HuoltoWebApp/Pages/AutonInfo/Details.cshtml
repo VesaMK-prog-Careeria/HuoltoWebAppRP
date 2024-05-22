@@ -38,7 +38,7 @@
     </dl>
 </div>
 
-<!-- Modal -->
+<!-- Image Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -53,17 +53,3 @@
     <a asp-page="./Edit" asp-route-id="@Model.AutoInfo?.AutoInfoId">Muokkaa</a> |
     <a asp-page="./Index">Edellinen sivu</a>
 </div>
-
-@section Scripts {
-    <script>
-        $(function () {
-            $('#imageModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
-                var imageUrl = button.data('bs-image-url'); // Extract info from data-* attributes
-                console.log("Ladattava kuva URL: " + imageUrl); // Tarkista, saadaanko oikea URL
-                var modal = $(this);
-                modal.find('#modalImage').attr('src', imageUrl);
-            });
-        });
-    </script>
-}
