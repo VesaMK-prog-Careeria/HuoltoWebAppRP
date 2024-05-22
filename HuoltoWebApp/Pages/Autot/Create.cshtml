@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="autoForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Auto.RekNro" class="control-label"></label>
@@ -57,15 +57,28 @@
                 <input asp-for="Kuvatiedostot" type="file" multiple class="form-control" />
                 <span asp-validation-for="Kuvatiedostot" class="text-danger"></span>
             </div>
-            @* <div class="form-group">
-                <label asp-for="Auto.AutoInfoId" class="control-label"></label>
-                <textarea asp-for="Auto.AutoInfoId" class="form-control"></textarea>
-                <span asp-validation-for="Auto.AutoInfoId" class="text-danger"></span>
-            </div> *@
+            <div class="form-group">
+                <button type="button" id="openModal" class="btn btn-primary">Avaa Kamera</button>
+            </div>
+            <div class="form-group">
+                <!-- Lista otetuille kuville-->
+                <ul id="capturedImagesList"></ul>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="cameraModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <video autoplay="true" id="videoElement"></video>
+        <canvas id="canvasElement" style="display:none;"></canvas>
+        <button type="button" id="capture">Capture</button>
+        <button type="button" id="saveImage">Save</button>
     </div>
 </div>
 
