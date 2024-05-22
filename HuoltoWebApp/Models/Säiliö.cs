@@ -26,7 +26,7 @@ namespace HuoltoWebApp.Models
 
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
-        public string InfoTxt { get; set; }
+        public string? InfoTxt { get; set; }
 
         public virtual SäiliöInfo? SäiliöInfo { get; set; }
         public virtual ICollection<Auto> Autos { get; set; }

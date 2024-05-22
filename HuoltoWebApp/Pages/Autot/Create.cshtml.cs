@@ -29,9 +29,10 @@ namespace HuoltoWebApp.Pages.Autot
         [BindProperty]
         public Auto Auto { get; set; } = default!;
         [BindProperty]
-        public List<IFormFile>? Kuvatiedostot { get; set; } = new List<IFormFile>(); // Bindataan lomakkeelta lähetetyt kuvatiedostot tähän listaan
-
-
+        public List<IFormFile> Kuvatiedostot { get; set; } = new List<IFormFile>(); // Bindataan lomakkeelta lähetetyt kuvatiedostot tähän listaan
+        [BindProperty]
+        public List<IFormFile> CapturedImages { get; set; } = new List<IFormFile>(); // Bindataan kuvatiedostot, jotka on otettu kameralla
+        
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
@@ -74,6 +75,27 @@ namespace HuoltoWebApp.Pages.Autot
                     }
                 }
             }
+
+            // Tallennetaan kaikki kuvatiedostot tietokantaan
+            foreach (var image in CapturedImages)
+            {
+                if (image.Length > 0)
+                {
+                    using var ms = new MemoryStream();
+                    await image.CopyToAsync(ms);
+                    if (ms.Length > 0)
+                    {
+                        var kuva = new Kuva()
+                        {
+                            KuvaNimi = image.FileName,
+                            KuvaData = ms.ToArray(),
+                            AutoInfoId = autoInfo.AutoInfoId
+                        };
+                        _context.Kuvat.Add(kuva);
+                    }
+                }
+            }
+
 
             await _context.SaveChangesAsync();
 
