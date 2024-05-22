@@ -34,56 +34,9 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Etusivu">Etusivu</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Etusivu">Alkuun</a>
                         </li>
-                        @* @if (SignInManager.IsSignedIn(User)) *@ @*Tässä Malli missä Privacy-sivu näkyy jos käyttäjä kirjautuneena sisään*@
-                        @*                         {
-                        <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        } *@
-                        @if (User.IsInRole("Admin")) @*Tässä malli missä Privacy-valikko näkyy vain käyttäjälle Admin*@
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Autot/Index">Auto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/AutonHuollot/Index">AutoHuolto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/AutonHuoltopyyntö/Index">AutoHuoltopyyntö</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/AutonInfo/Index">AutoInfo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/AutonMuistutus/Index">AutoMuistutus</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Huoltopaikka/Index">Huoltopaikat</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Muistutustyypit/Index">Muistutustyyppi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Pvt/Index">Perävaunu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/PvInfot/Index">PerävaunuInfo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/PvHuolto/Index">PerävaunuHuollot</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/PvHuoltopyynnot/Index">PerävaunuHuoltopyyntö</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/PvMuistutukset/Index">PerävaunuMuistutus</a>
-                        </li>
+                      
                     </ul>
                 </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
@@ -103,7 +56,7 @@
         <div class="container">
             &copy; 2024 - HuoltoWebApp - @if (SignInManager.IsSignedIn(User))
             {
-                <a asp-area="" asp-page="/Privacy">Privacy</a>
+               <a asp-area="" asp-page="/Privacy">Yksityisyys</a>  //onko tarpeellinen?
             }
         </div>
     </footer>

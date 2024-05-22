@@ -5,7 +5,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Luo uusi muistutustyyppi</h1>
 
 <h4>Muistutustyyppi</h4>
 <hr />
@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Muistutustyyppi.MuistutustyyppiNimi" class="control-label"></label>
-                <input asp-for="Muistutustyyppi.MuistutustyyppiNimi" class="form-control" />
+                <textarea asp-for="Muistutustyyppi.MuistutustyyppiNimi" class="form-control"></textarea>
                 <span asp-validation-for="Muistutustyyppi.MuistutustyyppiNimi" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,9 +26,12 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Edellinen sivu</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
