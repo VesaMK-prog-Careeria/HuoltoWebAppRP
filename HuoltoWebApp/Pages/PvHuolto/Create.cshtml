@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{pvId:int?}"
 @model HuoltoWebApp.Pages.PvHuolto.CreateModel
 
 @{
@@ -14,27 +14,27 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PvHuollot.PvId" class="control-label">Rekisterinumero</label>
-                <span class="form-control">@ViewData["PvId"]</span>
-                <span asp-validation-for="PvHuollot.PvId" class="text-danger"></span>
+                <label class="control-label">Rekisterinumero</label>
+                <span class="form-control">@ViewData["PvRekNro"]</span>
+                <input type="hidden" asp-for="PvHuollot.PvId" />
             </div>
             <div class="form-group">
-                <label asp-for="PvHuollot.HuoltoPvm" class="control-label">Huoltopäivämäärä</label>
+                <label asp-for="PvHuollot.HuoltoPvm" class="control-label"></label>
                 <input asp-for="PvHuollot.HuoltoPvm" class="form-control" />
                 <span asp-validation-for="PvHuollot.HuoltoPvm" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PvHuollot.HuoltoPaikkaId" class="control-label">Huoltopaikka</label>
-                <select asp-for="PvHuollot.HuoltoPaikkaId" class="form-control" asp-items="@ViewBag.Huoltopaikat"></select>
+                <select asp-for="PvHuollot.HuoltoPaikkaId" class="form-control" asp-items="ViewBag.Huoltopaikat"></select>
                 <span asp-validation-for="PvHuollot.HuoltoPaikkaId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PvHuollot.HuollonKuvaus" class="control-label">Huollon kuvaus</label>
+                <label asp-for="PvHuollot.HuollonKuvaus" class="control-label"></label>
                 <input asp-for="PvHuollot.HuollonKuvaus" class="form-control" />
                 <span asp-validation-for="PvHuollot.HuollonKuvaus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PvHuollot.Kuva" class="control-label">Kuva</label>
+                <label asp-for="PvHuollot.Kuva" class="control-label"></label>
                 <input asp-for="PvHuollot.Kuva" class="form-control" />
                 <span asp-validation-for="PvHuollot.Kuva" class="text-danger"></span>
             </div>

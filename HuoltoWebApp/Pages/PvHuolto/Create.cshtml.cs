@@ -20,22 +20,28 @@ namespace HuoltoWebApp.Pages.PvHuolto
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int? pvId)
         {
-            // Haetaan Pv rekisterinumeron perusteella
-            var pv = await _context.Pvs.FirstOrDefaultAsync();
+            if (pvId == null)
+            {
+                return NotFound();
+            }
+
+            // Haetaan Pv annettujen pvId perusteella
+            var pv = await _context.Pvs.FindAsync(pvId);
 
             if (pv == null)
             {
                 return NotFound();
             }
 
-            ViewData["PvId"] = pv.RekNro;
+            // Asetetaan rekisterinumero ViewDataan
+            ViewData["PvRekNro"] = pv.RekNro;
 
             // Haetaan Huoltopaikat tietokannasta
             var huoltopaikat = await _context.Huoltopaikats.ToListAsync();
 
-            // Tarkista, että Huoltopaikat ei ole tyhjä
+            // Tarkistaa, että Huoltopaikat ei ole tyhjä
             if (huoltopaikat != null && huoltopaikat.Any())
             {
                 // Luo SelectList Huoltopaikkojen perusteella
@@ -46,6 +52,12 @@ namespace HuoltoWebApp.Pages.PvHuolto
                 // Jos Huoltopaikat on tyhjä, luo tyhjä SelectList
                 ViewData["Huoltopaikat"] = new SelectList(new List<SelectListItem>());
             }
+
+            // Liitetään PvHuollot-olion PvId valittuun pvId:hen
+            PvHuollot = new PvHuollot
+            {
+                PvId = pv.PvId
+            };
 
             return Page();
         }
@@ -67,6 +79,5 @@ namespace HuoltoWebApp.Pages.PvHuolto
 
         [BindProperty]
         public PvHuollot PvHuollot { get; set; } = default!;
-
     }
 }
