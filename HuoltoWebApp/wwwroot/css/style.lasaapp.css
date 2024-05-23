@@ -20,6 +20,7 @@
 
 .btn-secondary {
     background-color: #FFA500; /*oranssi la-sa*/
+    color: black;
 }
 
 
@@ -59,15 +60,18 @@ footer {
         max-height: 90%; /* korkeuden rajoitus ruudun korkeuden mukaan -responsive */
     }
 
-
+    /*Tiina*/
 .btncontainer {
     margin-top: 20px; /* väliä nappeihin etusivulla*/
 }
-
+/*Tiina*/
 .btn {
     padding: 10px 20px; /* sisäväliä nappien ympärille */
-    font-size: 16px; /* suurempi fonttikoko napeissa */
-    margin-bottom: 10px; /* alaväliä napin alapuolelle */
+    font-size: 18px; /* suurempi fonttikoko napeissa */
+    letter-spacing: 0.5px; /*välistystä nappien kirjaimien väliin*/
+    text-transform: uppercase; /*isot kirjaimet napeissa*/
+    margin-bottom: 16px; /* alaväliä napin alapuolelle */
+    margin-right: 16px;
 }
 
 /* Modal-ikkunan tyylit Vesku*/
