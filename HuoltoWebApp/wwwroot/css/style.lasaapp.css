@@ -35,16 +35,19 @@ h1 {
     font-weight: 400;
 }
 
-/* Navibarin ja footerin liukuväri - värit otettu la-sa logosta Tiina*/
+/* Navibarin ja footerin liukuväri ja muut asetukset - värit otettu la-sa logosta Tiina*/
 nav {
     background: linear-gradient(90deg, #EF4828 0%, #FEC317 50%, #EF4828 100%);
-    height: 80px;
+    height: 100px;
 }
 
 footer {
     background: linear-gradient(90deg, #EF4828 0%, #FEC317 50%, #EF4828 100%);
-    height: 80px;
+    height: 100px;
     text-align: center;
+    justify-content: center; /* keskittää vaakasuunnassa */
+    align-items: center; /* keskittää pystysuunnassa */
+    display: flex;
 }
 
 /*keskittää aloitussivunkuvan Tiina*/
@@ -84,9 +87,10 @@ footer {
 
 #modalImage {
     max-width: 100%;
-    max-height: 80vh; /* Rajoittaa kuvan korkeuden niin, että se ei ylitä 80% näytön korkeudesta */
-    object-fit: contain; /* Skaalaa kuvan säilyttäen sen mittasuhteet */
+    max-height: 80vh; /* Rajoittaa kuvan korkeuden niin, että se ei ylitä 80% näytön korkeudesta 
+    object-fit: contain; /* Skaalaa kuvan säilyttäen sen mittasuhteet 
 }
+    */
 
 
 a {
@@ -159,3 +163,11 @@ html, body {
         flexbox-kontekstissa tarkoittaa, sitä että elementti työntyy alas ja vie kaiken ylimääräisen tilan yläpuoleltaan*/
 }
 
+/*footer linkin muotoilu Tiina*/
+
+.custom-privacy-link {
+    color: black;
+    text-decoration: underline;
+    font-weight: normal;
+   
+}
