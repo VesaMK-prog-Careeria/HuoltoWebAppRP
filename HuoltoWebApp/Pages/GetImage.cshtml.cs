@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
+using HuoltoWebApp.Services;
 
 namespace HuoltoWebApp.Pages
 {
@@ -11,6 +13,7 @@ namespace HuoltoWebApp.Pages
         {
             _context = context;
         }
+
 
         public IActionResult OnGet(int id)
         {

@@ -250,7 +250,7 @@ namespace HuoltoWebApp.Services
 
                 entity.ToTable("PvHuollot");
 
-                entity.Property(e => e.HuoltoId).HasColumnName("HuoltoID");
+                entity.Property(e => e.HuoltoId).HasColumnName("HuollonID");
 
                 entity.Property(e => e.PvId).HasColumnName("PvID");
 

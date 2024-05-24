@@ -12,9 +12,9 @@ namespace HuoltoWebApp.Models
         public int AutoInfoId { get; set; }
         public int AutoId { get; set; }
         public string? InfoTxt { get; set; }
-        //public byte[]? Kuva { get; set; }
 
-        public virtual ICollection<Kuva> Kuvat { get; set; } = new List<Kuva>();
+        public virtual ICollection<Kuva> Kuvat { get; set; }
+        //public virtual ICollection<Kuva> Kuvat { get; set; } = new List<Kuva>();
         public virtual Auto Auto { get; set; } = null!;
     }
 }

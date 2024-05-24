@@ -14,6 +14,6 @@ namespace HuoltoWebApp.Models
         public string? HuollonKuvaus { get; set; }
         public byte[]? Kuva { get; set; }
 
-        public virtual Pv Pv { get; set; } = null!;
+        public virtual Pv? Pv { get; set; } = null!;
     }
 }

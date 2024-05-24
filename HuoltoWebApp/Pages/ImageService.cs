@@ -29,8 +29,21 @@ namespace HuoltoWebApp.Pages
                             KuvaType = kuvaType,
                             EntityId = entityId
                         };
+                        // Aseta oikea viittaus kuvatyyppiin perustuen
+                        if (kuvaType == "AutoInfo")
+                        {
+                            kuva.AutoInfoId = entityId;
+                        }
+                        else if (kuvaType == "SäiliöInfo")
+                        {
+                            kuva.SäiliöInfoId = entityId;
+                        }
+                        else if (kuvaType == "PvInfo")
+                        {
+                            kuva.PvInfoId = entityId;
+                        }
+
                         _context.Kuvat.Add(kuva);
-                        await _context.SaveChangesAsync();
                     }
                 }
             }
