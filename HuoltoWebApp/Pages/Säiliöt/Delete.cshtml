@@ -5,9 +5,9 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Poista Säiliö</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Oletko varma että halauat poistaa Säiliön?</h3>
 <div>
     <h4>Säiliö</h4>
     <hr />
@@ -46,7 +46,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="Säiliö.SäiliöId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <input type="submit" value="Poista" class="btn btn-danger" /> |
+        <a asp-page="./Index">Edellinen sivu</a>
     </form>
 </div>

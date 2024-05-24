@@ -1,6 +1,9 @@
 ﻿/* Css tyylittelyt */
+/*Tiin atehnyt myös hmtl sivuilla paljon muokkauksia joita kaikkia en ole muistanut kommentoida, mm buttonien bootrapit,
+    text areat, nav bar, footer, toggler valikko, kentät
+*/
 
-/* Muutetaan .btn-primary väriä */
+/* Muutetaan .btn bootrap elementtien värejä Tiina */
 .btn-primary {
     background-color: #2CA34F; /* vihreä väri la-sa */
 }
@@ -16,14 +19,18 @@
     }
 
 .btn-secondary {
-    background-color: #FFA500; /*testi oranssi la-sa*/
+    background-color: #FFA500; /*oranssi la-sa*/
+    color: black;
 }
 
+    .btn-secondary:hover {
+        background-color: #cc8500;
+    }
 
 
-/* Uusi oletusfontti apille Google fontseista - ehdotus roboto - Inter toinen mahdollinen*/
+/* Uusi oletusfontti apille Google fontseista - ehdotus roboto - Inter toinen mahdollinen, Tiina*/
 body {
-    font-family: 'Roboto', sans-serif; /* Roboto Google fonteista - selvitän vielä miten fontti integroidaan hmlt:ään, alla linkki joka hmtl tiedostoon laitetaan */
+    font-family: 'Roboto', sans-serif; /* Roboto Google fonteista  */
 }
 
 h1 {
@@ -31,40 +38,87 @@ h1 {
     font-weight: 400;
 }
 
-/* Navibarin ja footerin liukuväri - värit otettu la-sa logosta*/
+/* Navibarin ja footerin liukuväri ja muut asetukset - värit otettu la-sa logosta Tiina, tehty myös hmtl muutokset jotta elementti toimii*/
+
 nav {
     background: linear-gradient(90deg, #EF4828 0%, #FEC317 50%, #EF4828 100%);
-    height: 80px;
+    height: 100px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+    .navbar-nav .nav-item {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+.navbar-brand {
+    margin-right: 20px;
+    font-size: 28px;
+
+}
+
+.nav-item.partial-login {
+    display: flex;
+    align-items: center;
+}
+
+.partial-login .nav-link, .partial-login .btn {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 footer {
     background: linear-gradient(90deg, #EF4828 0%, #FEC317 50%, #EF4828 100%);
-    height: 80px;
+    height: 100px;
     text-align: center;
+    justify-content: center; /* keskittää vaakasuunnassa */
+    align-items: center; /* keskittää pystysuunnassa */
+    display: flex;
 }
 
-/*kesken, keskittää kuvan kyllä, mutta ei toimi responsiivisesti, pitää muokata kuvan div elementille koko */
+/*keskittää aloitussivunkuvan Tiina*/
 .centered {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh; /* korkeuden määrittäminen viewportin kautta */
 }
-
+/*centered, btncontainer, btn Tiina*/
     .centered img {
         max-width: 90%; /* kuvan leveyden rajoitus ruudun leveyden mukaan - responsive */
         max-height: 90%; /* korkeuden rajoitus ruudun korkeuden mukaan -responsive */
     }
 
-
+    /*Tiina*/
 .btncontainer {
     margin-top: 20px; /* väliä nappeihin etusivulla*/
 }
-
+/*Tiina*/
 .btn {
     padding: 10px 20px; /* sisäväliä nappien ympärille */
-    font-size: 16px; /* suurempi fonttikoko napeissa */
-    margin-bottom: 10px; /* alaväliä napin alapuolelle */
+    font-size: 18px; /* suurempi fonttikoko napeissa */
+    letter-spacing: 0.5px; /*välistystä nappien kirjaimien väliin*/
+    text-transform: uppercase; /*isot kirjaimet napeissa*/
+    margin-bottom: 16px; /* alaväliä napin alapuolelle */
+    margin-right: 16px;
 }
 
 /* Modal-ikkunan tyylit Vesku*/
@@ -77,8 +131,93 @@ footer {
 
 #modalImage {
     max-width: 100%;
-    max-height: 80vh; /* Rajoittaa kuvan korkeuden niin, että se ei ylitä 80% näytön korkeudesta */
-    object-fit: contain; /* Skaalaa kuvan säilyttäen sen mittasuhteet */
+    max-height: 80vh; /* Rajoittaa kuvan korkeuden niin, että se ei ylitä 80% näytön korkeudesta 
+    object-fit: contain; /* Skaalaa kuvan säilyttäen sen mittasuhteet 
+}
+    */
+
+
+a {
+    color: black;
+    text-decoration: none; 
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px; 
+}
+
+    a:hover {
+        color: #FFA500;  
+    }
+
+    /* tekstikenttien suurentaminen jotta selkeämpi käyttää - luotu jokaiselle hmtl sivulle uusi text area kenttä, koska input kenttää ei voi
+        muokata moniriviseksi - näin tekstikenttä on käyttäjäystävällisempi - tekstikenttä, textarea tulisi lisätä joka sivulle jossa käyttäjä
+        syöttää tekstiä -Tiina
+    */
+
+textarea {
+    font-size: 18px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 150px;
+    margin-bottom: 15px;
+    resize: vertical;
+}
+ 
+/* vaihdetaan navbar togglerin napin taustaväriä jotta käyttäjäystävällisempi Tiina*/
+.navbar-toggler {
+    background-color: white;
+
+}
+
+/*nav toggler alavalikon taustavärin määrittely niin että valikon tausta näkyy vain kun drop valikko putoaa Tiina*/
+
+@media (max-width: 767.98px) {
+    .navbar-collapse {
+        background-color: white; 
+        color: black; 
+    }
+
+        .navbar-collapse .btn {
+            display: inline-block !important; /* Näytä napit normaalisti */
+        }
 }
 
 
+
+/* footerin paikalleen asettaminen kaikissa eri näyttökooissa - Tiina*/
+
+html, body {
+    height: 100%; /*valitaan sekä HTML-dokumentin juurielementti html että rungon elementti body määrittää, 
+        että elementtien korkeudeksi tulee 100% niiden vanhempielementin korkeudesta */
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.flex-column {
+    flex-direction: column !important;
+}
+
+.min-vh-100 {
+    min-height: 100vh !important; /*!important -sääntö ohittaa muut mahdolliset min-height-asetukset kyseiselle elementille sovelluksessa.
+        tässä elementti on 100 viewportin heightin korkeudesta*/
+}
+
+.flex-grow-1 {
+    flex-grow: 1 !important;
+}
+
+.mt-auto {
+    margin-top: auto !important; /*asettaa elementin yläreunan marginaaliksi automaattisen arvon, 
+        flexbox-kontekstissa tarkoittaa, sitä että elementti työntyy alas ja vie kaiken ylimääräisen tilan yläpuoleltaan*/
+}
+
+/*footer linkin muotoilu Tiina*/
+
+.custom-privacy-link {
+    color: black;
+    text-decoration: underline;
+    font-weight: normal;
+   
+}
