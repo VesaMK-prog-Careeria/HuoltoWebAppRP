@@ -3,7 +3,7 @@
     text areat, nav bar, footer, toggler valikko, kentät
 */
 
-/* Muutetaan .btn bootrap elementtien värejä */
+/* Muutetaan .btn bootrap elementtien värejä Tiina */
 .btn-primary {
     background-color: #2CA34F; /* vihreä väri la-sa */
 }
@@ -23,6 +23,9 @@
     color: black;
 }
 
+    .btn-secondary:hover {
+        background-color: #cc8500;
+    }
 
 
 /* Uusi oletusfontti apille Google fontseista - ehdotus roboto - Inter toinen mahdollinen, Tiina*/
@@ -35,10 +38,49 @@ h1 {
     font-weight: 400;
 }
 
-/* Navibarin ja footerin liukuväri ja muut asetukset - värit otettu la-sa logosta Tiina*/
+/* Navibarin ja footerin liukuväri ja muut asetukset - värit otettu la-sa logosta Tiina, tehty myös hmtl muutokset jotta elementti toimii*/
+
 nav {
     background: linear-gradient(90deg, #EF4828 0%, #FEC317 50%, #EF4828 100%);
     height: 100px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+    .navbar-nav .nav-item {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+.navbar-brand {
+    margin-right: 20px;
+}
+
+.nav-item.partial-login {
+    display: flex;
+    align-items: center;
+}
+
+.partial-login .nav-link, .partial-login .btn {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 footer {
@@ -129,10 +171,16 @@ textarea {
 
 @media (max-width: 767.98px) {
     .navbar-collapse {
-        background-color: white; /* Aseta haluamasi taustaväri */
-        color: black;
+        background-color: white; 
+        color: black; 
     }
+
+        .navbar-collapse .btn {
+            display: inline-block !important; /* Näytä napit normaalisti */
+        }
 }
+
+
 
 /* footerin paikalleen asettaminen kaikissa eri näyttökooissa - Tiina*/
 
