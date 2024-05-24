@@ -14,7 +14,7 @@ namespace HuoltoWebApp.Pages
 
         public IActionResult OnGet(int id)
         {
-            var kuva = _context.Kuvat.FirstOrDefault(k => k.KuvaId == id);
+            var kuva = _context.Kuvat.FirstOrDefault(k => k.KuvaID == id);
             if (kuva == null || kuva.KuvaData == null)
             {
                 return NotFound("Kuva tai kuvadata ei löydy.");

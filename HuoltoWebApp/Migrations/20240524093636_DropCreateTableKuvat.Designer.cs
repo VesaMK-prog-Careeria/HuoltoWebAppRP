@@ -4,6 +4,7 @@ using HuoltoWebApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HuoltoWebApp.Migrations
 {
     [DbContext(typeof(HuoltoContext))]
-    partial class HuoltoContextModelSnapshot : ModelSnapshot
+    [Migration("20240524093636_DropCreateTableKuvat")]
+    partial class DropCreateTableKuvat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,18 +271,14 @@ namespace HuoltoWebApp.Migrations
 
             modelBuilder.Entity("HuoltoWebApp.Models.Kuva", b =>
                 {
-                    b.Property<int>("KuvaID")
+                    b.Property<int>("KuvaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("KuvaID");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KuvaID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KuvaId"), 1L, 1);
 
-                    b.Property<int?>("AutoInfoId")
-                        .HasColumnType("int")
-                        .HasColumnName("AutoInfoID");
-
-                    b.Property<int>("EntityId")
+                    b.Property<int>("AutoInfoId")
                         .HasColumnType("int");
 
                     b.Property<byte[]>("KuvaData")
@@ -292,26 +290,9 @@ namespace HuoltoWebApp.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("KuvaType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("PvInfoId")
-                        .HasColumnType("int")
-                        .HasColumnName("PvInfoID");
-
-                    b.Property<int?>("SäiliöInfoId")
-                        .HasColumnType("int")
-                        .HasColumnName("SäiliöInfoID");
-
-                    b.HasKey("KuvaID");
+                    b.HasKey("KuvaId");
 
                     b.HasIndex("AutoInfoId");
-
-                    b.HasIndex("PvInfoId");
-
-                    b.HasIndex("SäiliöInfoId");
 
                     b.ToTable("Kuva", (string)null);
                 });
@@ -374,22 +355,19 @@ namespace HuoltoWebApp.Migrations
             modelBuilder.Entity("HuoltoWebApp.Models.PvHuollot", b =>
                 {
                     b.Property<int>("HuoltoId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("HuollonID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HuoltoId"), 1L, 1);
+                        .HasColumnName("HuoltoID");
 
                     b.Property<string>("HuollonKuvaus")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<int?>("HuoltoPaikkaId")
-                        .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasColumnName("HuoltoPaikkaID");
 
                     b.Property<DateTime?>("HuoltoPvm")
-                        .HasColumnType("datetime");
+                        .HasColumnType("date");
 
                     b.Property<byte[]>("Kuva")
                         .HasColumnType("varbinary(max)");
@@ -524,20 +502,20 @@ namespace HuoltoWebApp.Migrations
                     b.Property<int>("HuoltoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("HuollonID");
+                        .HasColumnName("HuoltoID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HuoltoId"), 1L, 1);
 
                     b.Property<string>("HuollonKuvaus")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int?>("HuoltoPaikkaId")
-                        .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasColumnName("HuoltoPaikkaID");
 
                     b.Property<DateTime?>("HuoltoPvm")
-                        .HasColumnType("datetime");
+                        .HasColumnType("date");
 
                     b.Property<byte[]>("Kuva")
                         .HasColumnType("varbinary(max)");
@@ -835,23 +813,11 @@ namespace HuoltoWebApp.Migrations
                     b.HasOne("HuoltoWebApp.Models.AutoInfo", "AutoInfo")
                         .WithMany("Kuvat")
                         .HasForeignKey("AutoInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("FK_Kuva_AutoInfo");
 
-                    b.HasOne("HuoltoWebApp.Models.PvInfo", "PvInfo")
-                        .WithMany("Kuvat")
-                        .HasForeignKey("PvInfoId")
-                        .HasConstraintName("FK_Kuva_PvInfo");
-
-                    b.HasOne("HuoltoWebApp.Models.SäiliöInfo", "SäiliöInfo")
-                        .WithMany("Kuvat")
-                        .HasForeignKey("SäiliöInfoId")
-                        .HasConstraintName("FK_Kuva_SäiliöInfo");
-
                     b.Navigation("AutoInfo");
-
-                    b.Navigation("PvInfo");
-
-                    b.Navigation("SäiliöInfo");
                 });
 
             modelBuilder.Entity("HuoltoWebApp.Models.PvHuollot", b =>
@@ -1041,11 +1007,6 @@ namespace HuoltoWebApp.Migrations
                     b.Navigation("PvMuistutus");
                 });
 
-            modelBuilder.Entity("HuoltoWebApp.Models.PvInfo", b =>
-                {
-                    b.Navigation("Kuvat");
-                });
-
             modelBuilder.Entity("HuoltoWebApp.Models.Säiliö", b =>
                 {
                     b.Navigation("Autos");
@@ -1057,11 +1018,6 @@ namespace HuoltoWebApp.Migrations
                     b.Navigation("SäiliöInfo");
 
                     b.Navigation("SäiliöMuistutus");
-                });
-
-            modelBuilder.Entity("HuoltoWebApp.Models.SäiliöInfo", b =>
-                {
-                    b.Navigation("Kuvat");
                 });
 #pragma warning restore 612, 618
         }

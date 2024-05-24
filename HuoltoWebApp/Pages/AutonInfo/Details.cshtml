@@ -29,9 +29,9 @@
         <dd class="col-sm-10">
             @foreach (var kuva in Model.AutoInfo.Kuvat)
             {
-                if (kuva.KuvaId != 0)
+                if (kuva.KuvaID != 0)
                 {
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-image-url="@Url.Page("/GetImage", new { id = kuva.KuvaId })">@kuva.KuvaNimi</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-image-url="@Url.Page("/GetImage", new { id = kuva.KuvaID })">@kuva.KuvaNimi</a>
                 }
             }
         </dd>
