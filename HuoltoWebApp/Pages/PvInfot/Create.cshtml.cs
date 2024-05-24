@@ -21,18 +21,18 @@ namespace HuoltoWebApp.Pages.PvInfot
 
         public IActionResult OnGet()
         {
-        ViewData["PvId"] = new SelectList(_context.Pvs, "PvId", "PvId");
+            var pvs = _context.Pvs.ToList();
+            ViewData["RekNroList"] = new SelectList(pvs, "PvId", "RekNro");
             return Page();
         }
 
         [BindProperty]
         public PvInfo PvInfo { get; set; } = default!;
-        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.PvInfos == null || PvInfo == null)
+            if (!ModelState.IsValid || _context.PvInfos == null || PvInfo == null)
             {
                 return Page();
             }

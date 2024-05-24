@@ -61,6 +61,9 @@ namespace HuoltoWebApp.Pages.PvHuolto
 
             return Page();
         }
+        
+        [BindProperty]
+        public PvHuollot PvHuollot { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -71,13 +74,18 @@ namespace HuoltoWebApp.Pages.PvHuolto
             }
 
             // Lisää PvHuollot tietokantaan
+            var pv = await _context.Pvs.FindAsync(PvHuollot.PvId);
+            PvHuollot.Pv = pv;
+
+            if (PvHuollot.Pv == null)
+            {
+                ModelState.AddModelError("PvHuollot.PvId", "Ei perävaunua ID:llä.");
+                return Page();
+            }
+
             _context.PvHuollots.Add(PvHuollot);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
-
-        [BindProperty]
-        public PvHuollot PvHuollot { get; set; } = default!;
     }
 }
