@@ -12,7 +12,6 @@ namespace HuoltoWebApp.Models
         public int PvInfoId { get; set; }
         public int PvId { get; set; }
         public string? InfoTxt { get; set; }
-        public byte[]? Kuva { get; set; }
 
         public virtual ICollection<Kuva> Kuvat { get; set; } = new List<Kuva>();
         public virtual Pv Pv { get; set; } = null!;

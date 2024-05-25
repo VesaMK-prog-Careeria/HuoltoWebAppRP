@@ -28,8 +28,11 @@ namespace HuoltoWebApp.Pages.Autot
             return Page();
         }
 
+        //Bindpropertyn avulla voidaan sitoa lomakkeelta tulevat tiedot suoraan tähän muuttujaan
         [BindProperty]
-        public Auto Auto { get; set; } = default!;
+        public Auto Auto { get; set; } = default!; //default! tarkoittaa, että muuttujan arvo ei voi olla null
+
+        // IFormFile on tiedosto, joka on lähetetty lomakkeelta
         [BindProperty]
         public List<IFormFile> Kuvatiedostot { get; set; } = new List<IFormFile>(); // Bindataan lomakkeelta lähetetyt kuvatiedostot tähän listaan
         [BindProperty]
@@ -52,6 +55,7 @@ namespace HuoltoWebApp.Pages.Autot
                 InfoTxt = Auto.InfoTxt,
                 AutoId = Auto.AutoId
             };
+
             _context.AutoInfos.Add(autoInfo);
             await _context.SaveChangesAsync();  // Varmista, että tämä tallennus tapahtuu ennen kuin käytät AutoInfoId:tä
 

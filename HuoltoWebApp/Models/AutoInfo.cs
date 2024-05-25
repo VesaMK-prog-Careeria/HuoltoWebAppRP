@@ -14,7 +14,6 @@ namespace HuoltoWebApp.Models
         public string? InfoTxt { get; set; }
 
         public virtual ICollection<Kuva> Kuvat { get; set; }
-        //public virtual ICollection<Kuva> Kuvat { get; set; } = new List<Kuva>();
         public virtual Auto Auto { get; set; } = null!;
     }
 }
