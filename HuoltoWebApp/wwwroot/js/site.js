@@ -1,64 +1,64 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿
+// Kuvien lataamiseen liittyvät toiminnot Vesku
 $(function () {
-    var imageModal = $('#imageModal');
-    if (imageModal.length) {
-        imageModal.on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var imageUrl = button.data('bs-image-url'); // Extract info from data-* attributes
-            console.log("Ladattava kuva URL: " + imageUrl); // Tarkista, saadaanko oikea URL
-            var modal = $(this);
-            modal.find('#modalImage').attr('src', imageUrl);
+    var imageModal = $('#imageModal');  // Modal-ikkuna, joka näyttää kuvan
+    if (imageModal.length) {            // Tarkistetaan, onko modal-ikkuna olemassa
+        imageModal.on('show.bs.modal', function (event) {       // Kun modal-ikkuna avataan (show.bs.modal)
+            var button = $(event.relatedTarget);                // Button, joka avaa modal-ikkunan (event.relatedTarget)
+            var imageUrl = button.data('bs-image-url');         // Buttonin data-attribuutti, joka sisältää kuvan URL:n (bs-image-url)
+            console.log("Ladattava kuva URL: " + imageUrl);     // Tarkista, saadaanko oikea URL konsoliin (debug)
+            var modal = $(this);                                // Modal-ikkuna, joka avataan (this)
+            modal.find('#modalImage').attr('src', imageUrl);    // Aseta modal-ikkunan kuvan lähde (src) URL:ksi (imageUrl)
         });
     }
 });
 
-let capturedImages = [];
+// Kameran käyttöön liittyvät toiminnot Vesku
 
-function openCameraModal() {
-    var modal = document.querySelector('#cameraModal');
-    modal.style.display = "block";
-    startCamera();
+let capturedImages = [];                                        // Taulukko, johon tallennetaan kameralla otetut kuvat
+
+function openCameraModal() {                                    // Avaa kameran modal-ikkunan
+    var modal = document.querySelector('#cameraModal');         // Hae modal-ikkuna dokumentista
+    modal.style.display = "block";                              // Aseta modal-ikkunan näyttötilaksi "block"
+    startCamera();                                              // Käynnistä kamera funktio
 }
 
-function closeCameraModal() {
-    var modal = document.querySelector('#cameraModal');
-    modal.style.display = "none";
-    stopCamera();
+function closeCameraModal() {                                   // Sulkee kameran modal-ikkunan
+    var modal = document.querySelector('#cameraModal');         // Hae modal-ikkuna dokumentista
+    modal.style.display = "none";                               // Aseta modal-ikkunan näyttötilaksi "none" (piilota)
+    stopCamera();                                               // Sammuta kamera funktio
 }
 
-function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function (stream) {
-            var video = document.querySelector('#videoElement');
-            video.srcObject = stream;
-            video.onloadedmetadata = function (e) {
-                video.play();
+function startCamera() {                                        // Käynnistää kameran
+    navigator.mediaDevices.getUserMedia({ video: true })        // Hae mediaDevices-rajapinnasta käyttäjän media (video) laite (getUserMedia) ja käynnistä kamera
+        .then(function (stream) {                               // Jos kamera käynnistyy onnistuneesti
+            var video = document.querySelector('#videoElement');// Hae video-elementti dokumentista
+            video.srcObject = stream;                           // Aseta videon lähde (srcObject) streamiksi (kameran kuva)
+            video.onloadedmetadata = function (e) {             // Kun video on ladattu (onloadedmetadata) suorita seuraavat toiminnot
+                video.play();                                   // Käynnistä video (play) automaattisesti
             };
         })
-        .catch(function (err) {
-            console.log(err.name + ": " + err.message);
-        });
+        .catch(function (err) {                                 // Jos kameraa ei voida käynnistää, tulosta virhe konsoliin
+            console.log(err.name + ": " + err.message);         // Tulosta virheen nimi ja viesti konsoliin
+        });                                                         // Voisi tehdä virheilmoituksen näkyviin käyttäjälle myös (esim. alert)
 }
 
-function stopCamera() {
-    var video = document.querySelector('#videoElement');
-    var stream = video.srcObject;
-    var tracks = stream.getTracks();
+function stopCamera() {                                         // Sammuttaa kameran
+    var video = document.querySelector('#videoElement');        // Hae video-elementti dokumentista
+    var stream = video.srcObject;                               // Hae videon lähde (srcObject) streamiksi (kameran kuva)
+    var tracks = stream.getTracks();                            // Hae streamin raidat (getTracks) ja tallenna ne tracks-muuttujaan (taulukkoon)
 
-    tracks.forEach(function (track) {
-        track.stop();
+    tracks.forEach(function (track) {                           // Käy läpi kaikki raidat (forEach) ja suorita seuraavat toiminnot jokaiselle raidalle
+        track.stop();                                           // Sammuta raita (stop) (kamera)
     });
 
-    video.srcObject = null;
+    video.srcObject = null;                                     // Aseta videon lähde (srcObject) tyhjäksi (null)
 }
 
-function captureImage() {
-    var canvas = document.querySelector('#canvasElement');
-    var video = document.querySelector('#videoElement');
-    var context = canvas.getContext('2d');
+function captureImage() {                                       // Ottaa kuvan kameralla
+    var canvas = document.querySelector('#canvasElement');      // Hae canvas-elementti dokumentista (kuva)
+    var video = document.querySelector('#videoElement');        // Hae video-elementti dokumentista (kamera)
+    var context = canvas.getContext('2d');                      // Hae canvasin konteksti (getContext) 2d-muodossa (kaksiulotteinen)
     // Aseta canvasin koko videon koon mukaan
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -67,9 +67,10 @@ function captureImage() {
     canvas.style.display = "block";
 }
 
-function saveCapturedImage() {
-    var canvas = document.querySelector('#canvasElement');
-    canvas.toBlob(function (blob) {
+function saveCapturedImage() {                                  // Tallentaa otetun kuvan
+    var canvas = document.querySelector('#canvasElement');      // Hae Canvas-elementti dokumentista (kuva)
+    canvas.toBlob(function (blob) {                             // canvas.toBlob on JS metodi joka luo blob-objektin canvas elementistä.
+                                                                // Blob (Binary Large Object) voi sisältää suuria määriä dataa esim. kuvat
         // Luodaan uusi File-objekti, jotta se voidaan lisätä FormDataan
         var file = new File([blob], `capturedImage${capturedImages.length}.jpg`, { type: 'image/jpeg' });
         capturedImages.push(file);
@@ -82,21 +83,21 @@ function saveCapturedImage() {
     closeCameraModal();
 }
 
-function handleFormSubmit(event) {
-    event.preventDefault();
+function handleFormSubmit(event) {                              // Käsittelee lomakkeen lähetyksen (submit)
+    event.preventDefault();                                     // Estä lomakkeen oletustoiminnot (preventDefault) (ei lataa sivua uudelleen)
 
-    var formData = new FormData(event.target);
+    var formData = new FormData(event.target);                  // Luo uusi FormData-objekti (lomakkeen tiedot) ja tallenna se formData-muuttujaan
 
-    capturedImages.forEach((image, index) => {
-        formData.append('CapturedImages', image);
+    capturedImages.forEach((image, index) => {                  // Käy läpi kaikki kuvat (forEach) ja suorita seuraavat toiminnot jokaiselle kuvalle
+        formData.append('CapturedImages', image);               // Lisää FormDataan (lomakkeen tiedot) kuva (CapturedImages) tiedostona (image)
     });
 
-    fetch(event.target.action, {
-        method: event.target.method,
-        body: formData
-    }).then(response => {
-        if (response.ok) {
-            window.location.href = './Index';
+    fetch(event.target.action, {                                // fetch-metodi, joka lähettää lomakkeen tiedot palvelimelle
+        method: event.target.method,                            // Lähetyksen metodi (POST)
+        body: formData                                          // Lähetyksen tiedot (formData)
+    }).then(response => {                                       // Kun vastaus saadaan (then)
+        if (response.ok) {                                      // Jos vastaus on ok (200)
+            window.location.href = './Index';                   // Uudelleenohjaa käyttäjä Index-sivulle
         } else {
             // Handle error
             console.error('Failed to submit the form.');
@@ -106,10 +107,11 @@ function handleFormSubmit(event) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var openModalButton = document.querySelector('#openModal');
-    if (openModalButton) {
-        openModalButton.addEventListener('click', openCameraModal);
+// addEventListener-metodi, joka kuuntelee, kun sivu on latautunut ja suorittaa annetut toiminnot
+document.addEventListener('DOMContentLoaded', function () {                 // Kun sivu on latautunut (DOMContentLoaded)
+    var openModalButton = document.querySelector('#openModal');             // Hae openModal-button dokumentista
+    if (openModalButton) {                                                  // Jos openModal-button on olemassa
+        openModalButton.addEventListener('click', openCameraModal);         // Lisää tapahtumankuuntelija (click) openCameraModal-funktiolle
     }
 
     var closeModalButton = document.querySelector('.close');
@@ -127,8 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
         saveImageButton.addEventListener('click', saveCapturedImage);
     }
 
-    var autoForm = document.querySelector('#autoForm');
+    var autoForm = document.querySelector('#autoForm');                     // Hae autoForm dokumentista (lomake)
     if (autoForm) {
-        autoForm.addEventListener('submit', handleFormSubmit);
+        autoForm.addEventListener('submit', handleFormSubmit);              // Lisää tapahtumankuuntelija (submit) handleFormSubmit-funktiolle (lomakkeen lähetys)
     }
 });
