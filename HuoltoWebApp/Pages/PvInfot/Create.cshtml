@@ -14,21 +14,17 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PvInfo.PvId" class="control-label"></label>
-                <select asp-for="PvInfo.PvId" class="form-control" asp-items="ViewBag.PvId"></select>
+                <label asp-for="PvInfo.PvId" class="control-label">Rekisterinumero</label>
+                <select asp-for="PvInfo.PvId" class="form-control" asp-items="ViewBag.RekNroList"></select>
+                <span asp-validation-for="PvInfo.PvId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PvInfo.InfoTxt" class="control-label"></label>
-                <textarea asp-for="PvInfo.InfoTxt" class="form-control"></textarea>
+                <input asp-for="PvInfo.InfoTxt" class="form-control" />
                 <span asp-validation-for="PvInfo.InfoTxt" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PvInfo.Kuva" class="control-label"></label>
-                <input asp-for="PvInfo.Kuva" class="form-control" />
-                <span asp-validation-for="PvInfo.Kuva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Luo uusi" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

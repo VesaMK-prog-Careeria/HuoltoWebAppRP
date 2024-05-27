@@ -28,7 +28,10 @@ namespace HuoltoWebApp.Pages.PvInfot
                 return NotFound();
             }
 
-            var pvinfo = await _context.PvInfos.FirstOrDefaultAsync(m => m.PvInfoId == id);
+            var pvinfo = await _context.PvInfos
+                .Include(pi => pi.Kuvat)
+                .FirstOrDefaultAsync(m => m.PvInfoId == id);
+
             if (pvinfo == null)
             {
                 return NotFound();

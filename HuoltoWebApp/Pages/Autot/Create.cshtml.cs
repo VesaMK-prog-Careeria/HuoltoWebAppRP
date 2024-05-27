@@ -13,11 +13,13 @@ namespace HuoltoWebApp.Pages.Autot
 {
     public class CreateModel : PageModel
     {
-        private readonly HuoltoWebApp.Services.HuoltoContext _context;
+        private readonly HuoltoContext _context;
+        private readonly ImageService _imageService;
 
-        public CreateModel(HuoltoWebApp.Services.HuoltoContext context)
+        public CreateModel(HuoltoContext context, ImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
         public IActionResult OnGet()
@@ -26,14 +28,16 @@ namespace HuoltoWebApp.Pages.Autot
             return Page();
         }
 
+        //Bindpropertyn avulla voidaan sitoa lomakkeelta tulevat tiedot suoraan tähän muuttujaan
         [BindProperty]
-        public Auto Auto { get; set; } = default!;
+        public Auto Auto { get; set; } = default!; //default! tarkoittaa, että muuttujan arvo ei voi olla null
+
+        // IFormFile on tiedosto, joka on lähetetty lomakkeelta
         [BindProperty]
         public List<IFormFile> Kuvatiedostot { get; set; } = new List<IFormFile>(); // Bindataan lomakkeelta lähetetyt kuvatiedostot tähän listaan
         [BindProperty]
         public List<IFormFile> CapturedImages { get; set; } = new List<IFormFile>(); // Bindataan kuvatiedostot, jotka on otettu kameralla
-        
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid || _context.Autos == null || Auto == null)
@@ -51,53 +55,16 @@ namespace HuoltoWebApp.Pages.Autot
                 InfoTxt = Auto.InfoTxt,
                 AutoId = Auto.AutoId
             };
+
             _context.AutoInfos.Add(autoInfo);
             await _context.SaveChangesAsync();  // Varmista, että tämä tallennus tapahtuu ennen kuin käytät AutoInfoId:tä
 
             Auto.AutoInfo = autoInfo;  // Tämä rivi varmistaa, että AutoInfo on liitetty Autoon
             await _context.SaveChangesAsync();
 
-            foreach (var tiedosto in Kuvatiedostot)
-            {
-                if (tiedosto.Length > 0)
-                {
-                    using var ms = new MemoryStream();
-                    await tiedosto.CopyToAsync(ms);
-                    if (ms.Length > 0) // Varmistetaan, että data on kopioitu
-                    {
-                        var kuva = new Kuva()
-                        {
-                            KuvaNimi = tiedosto.FileName,
-                            KuvaData = ms.ToArray(), // Muutetaan tiedosto byte-taulukoksi
-                            AutoInfoId = autoInfo.AutoInfoId // Use the AutoInfoId from the autoInfo object
-                        };
-                        _context.Kuvat.Add(kuva);
-                    }
-                }
-            }
-
-            // Tallennetaan kaikki kuvatiedostot tietokantaan
-            foreach (var image in CapturedImages)
-            {
-                if (image.Length > 0)
-                {
-                    using var ms = new MemoryStream();
-                    await image.CopyToAsync(ms);
-                    if (ms.Length > 0)
-                    {
-                        var kuva = new Kuva()
-                        {
-                            KuvaNimi = image.FileName,
-                            KuvaData = ms.ToArray(),
-                            AutoInfoId = autoInfo.AutoInfoId
-                        };
-                        _context.Kuvat.Add(kuva);
-                    }
-                }
-            }
-
-
-            await _context.SaveChangesAsync();
+            // Käytetään ImageServiceä tallentamaan kuvat
+            await _imageService.SaveImagesAsync(Kuvatiedostot, "AutoInfo", autoInfo.AutoInfoId);
+            await _imageService.SaveImagesAsync(CapturedImages, "AutoInfo", autoInfo.AutoInfoId);
 
             return RedirectToPage("./Index");
         }

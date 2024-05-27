@@ -12,11 +12,13 @@ namespace HuoltoWebApp.Pages.Pvt
 {
     public class CreateModel : PageModel
     {
-        private readonly HuoltoWebApp.Services.HuoltoContext _context;
+        private readonly HuoltoContext _context;
+        private readonly ImageService _imageService;
 
-        public CreateModel(HuoltoWebApp.Services.HuoltoContext context)
+        public CreateModel(HuoltoContext context, ImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
         public IActionResult OnGet()
@@ -26,6 +28,12 @@ namespace HuoltoWebApp.Pages.Pvt
 
         [BindProperty]
         public Pv Pv { get; set; } = default!;
+
+        // IFormFile on tiedosto, joka on lähetetty lomakkeelta
+        [BindProperty]
+        public List<IFormFile> Kuvatiedostot { get; set; } = new List<IFormFile>(); // Bindataan lomakkeelta lähetetyt kuvatiedostot tähän listaan
+        [BindProperty]
+        public List<IFormFile> CapturedImages { get; set; } = new List<IFormFile>(); // Bindataan kuvatiedostot, jotka on otettu kameralla
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -49,6 +57,13 @@ namespace HuoltoWebApp.Pages.Pvt
             // Lisätään PvInfo tietokantaan
             _context.PvInfos.Add(pvInfo);
             await _context.SaveChangesAsync();
+
+            Pv.PvInfo = pvInfo;
+            await _context.SaveChangesAsync();
+
+            // Käytetään ImageServiceä tallentamaan kuvat
+            await _imageService.SaveImagesAsync(Kuvatiedostot, "PvInfo", pvInfo.PvInfoId);
+            await _imageService.SaveImagesAsync(CapturedImages, "PvInfo", pvInfo.PvInfoId);
 
             return RedirectToPage("./Index");
         }

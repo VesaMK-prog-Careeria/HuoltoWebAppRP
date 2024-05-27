@@ -10,6 +10,8 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <!--Form on luotu käyttäen ASP.NET Coren tag-helppereitä
+        Formiin on lisätty enctype="multipart/form-data" jotta voidaan lähettää tiedostoja -->
         <form method="post" enctype="multipart/form-data" id="autoForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -82,7 +84,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Edelinen sivu</a>
+    <a asp-page="Index">Edellinen sivu</a>
 </div>
 
 @section Scripts {

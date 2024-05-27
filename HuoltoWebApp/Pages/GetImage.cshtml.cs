@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
+using HuoltoWebApp.Services;
 
 namespace HuoltoWebApp.Pages
 {
@@ -12,9 +14,10 @@ namespace HuoltoWebApp.Pages
             _context = context;
         }
 
+
         public IActionResult OnGet(int id)
         {
-            var kuva = _context.Kuvat.FirstOrDefault(k => k.KuvaId == id);
+            var kuva = _context.Kuvat.FirstOrDefault(k => k.KuvaID == id);
             if (kuva == null || kuva.KuvaData == null)
             {
                 return NotFound("Kuva tai kuvadata ei löydy.");

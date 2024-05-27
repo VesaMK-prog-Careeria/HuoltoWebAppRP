@@ -84,6 +84,8 @@ namespace HuoltoWebApp.Services
 
                 entity.Property(e => e.HuoltoPvm).HasColumnType("datetime");
 
+                entity.Property(e => e.HuollonKuvaus);
+
                 entity.Property(e => e.HuoltopaikkaId)
                     .HasMaxLength(50)
                     .HasColumnName("HuoltopaikkaID");
@@ -177,17 +179,36 @@ namespace HuoltoWebApp.Services
             {
                 entity.ToTable("Kuva");
 
-                entity.Property(e => e.KuvaId).HasColumnName("KuvaID");
+                entity.Property(e => e.KuvaID).HasColumnName("KuvaID");
 
                 entity.Property(e => e.KuvaNimi).HasMaxLength(255).IsRequired();
 
                 entity.Property(e => e.KuvaData).IsRequired();
 
-                // Tämä olettaa, että Kuva-entiteetillä on AutoInfoID viitteenä
+                entity.Property(e => e.AutoInfoId).HasColumnName("AutoInfoID");
+
+                entity.Property(e => e.SäiliöInfoId).HasColumnName("SäiliöInfoID");
+
+                entity.Property(e => e.PvInfoId).HasColumnName("PvInfoID");
+
+                entity.Property(e => e.KuvaType).HasMaxLength(50).IsRequired();
+
+                entity.Property(e => e.EntityId).IsRequired();
+
                 entity.HasOne(d => d.AutoInfo)
                     .WithMany(p => p.Kuvat)
                     .HasForeignKey(d => d.AutoInfoId)
                     .HasConstraintName("FK_Kuva_AutoInfo");
+
+                entity.HasOne(d => d.SäiliöInfo)
+                    .WithMany(p => p.Kuvat)
+                    .HasForeignKey(d => d.SäiliöInfoId)
+                    .HasConstraintName("FK_Kuva_SäiliöInfo");
+
+                entity.HasOne(d => d.PvInfo)
+                    .WithMany(p => p.Kuvat)
+                    .HasForeignKey(d => d.PvInfoId)
+                    .HasConstraintName("FK_Kuva_PvInfo");
             });
 
             modelBuilder.Entity<Muistutustyyppi>(entity =>
@@ -229,17 +250,17 @@ namespace HuoltoWebApp.Services
 
                 entity.ToTable("PvHuollot");
 
-                entity.Property(e => e.HuoltoId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("HuoltoID");
-
-                entity.Property(e => e.HuollonKuvaus).HasMaxLength(2000);
-
-                entity.Property(e => e.HuoltoPaikkaId).HasColumnName("HuoltoPaikkaID");
-
-                entity.Property(e => e.HuoltoPvm).HasColumnType("date");
+                entity.Property(e => e.HuoltoId).HasColumnName("HuollonID");
 
                 entity.Property(e => e.PvId).HasColumnName("PvID");
+
+                entity.Property(e => e.HuoltoPvm).HasColumnType("datetime");
+
+                entity.Property(e => e.HuollonKuvaus);
+
+                entity.Property(e => e.HuoltoPaikkaId)
+                    .HasMaxLength(50)
+                    .HasColumnName("HuoltoPaikkaID");
 
                 entity.HasOne(d => d.Pv)
                     .WithMany(p => p.PvHuollots)
@@ -333,24 +354,20 @@ namespace HuoltoWebApp.Services
             {
                 entity.HasKey(e => e.HuoltoId)
                     .HasName("PK__SäiliöHu__BE746FF0346755C9");
-                    //.HasName("PK__SäiliöHu__BE746FF042AD424C");
 
                 entity.ToTable("SäiliöHuollot");
 
-                entity.Property(e => e.HuoltoId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("HuoltoID");
-                //entity.Property(e => e.HuoltoId)
-                //    .ValueGeneratedNever()
-                //    .HasColumnName("HuoltoID");
-
-                entity.Property(e => e.HuollonKuvaus).HasMaxLength(200);
-
-                entity.Property(e => e.HuoltoPaikkaId).HasColumnName("HuoltoPaikkaID");
-
-                entity.Property(e => e.HuoltoPvm).HasColumnType("date");
+                entity.Property(e => e.HuoltoId).HasColumnName("HuollonID");
 
                 entity.Property(e => e.SäiliöId).HasColumnName("SäiliöID");
+
+                entity.Property(e => e.HuoltoPvm).HasColumnType("datetime");
+
+                entity.Property(e => e.HuollonKuvaus);
+
+                entity.Property(e => e.HuoltoPaikkaId)
+                    .HasMaxLength(50)
+                    .HasColumnName("HuoltoPaikkaID");
 
                 entity.HasOne(d => d.Säiliö)
                     .WithMany(p => p.SäiliöHuollots)

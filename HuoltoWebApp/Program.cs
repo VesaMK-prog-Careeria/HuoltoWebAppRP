@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using HuoltoWebApp.Data;
 using HuoltoWebApp.Areas.Identity.Data;
 using Microsoft.Extensions.DependencyInjection;
+using HuoltoWebApp.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,9 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();  // Lis‰t‰‰n Razo
 // Lis‰t‰‰n tietokantaan yhteys
 builder.Services.AddDbContext<HuoltoContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // ConnectionString lˆytyy appsettings.jsonista
+
+// Lis‰t‰‰n ImageService
+builder.Services.AddTransient<ImageService>();
 
 // Konfiguroi Identity k‰ytt‰m‰‰n HuoltoWebAppUser ja IdentityRole
 builder.Services.AddIdentity<HuoltoWebAppUser, IdentityRole>()
