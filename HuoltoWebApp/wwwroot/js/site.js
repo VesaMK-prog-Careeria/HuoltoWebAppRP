@@ -134,3 +134,24 @@ document.addEventListener('DOMContentLoaded', function () {                 // K
         autoForm.addEventListener('submit', handleFormSubmit);              // Lisää tapahtumankuuntelija (submit) handleFormSubmit-funktiolle (lomakkeen lähetys)
     }
 });
+
+// Päivämäärän lataaminen automaattisesti pvm kenttiin Vesku
+document.addEventListener("DOMContentLoaded", function () {
+    // Hanki nykyinen päivämäärä
+    var today = new Date();
+
+    // Muotoile päivämäärä yyyy-mm-dd-muotoon
+    var day = ("0" + today.getDate()).slice(-2);
+    var month = ("0" + (today.getMonth() + 1)).slice(-2);
+    var year = today.getFullYear();
+
+    var formattedDate = year + "-" + month + "-" + day;
+
+    // Hanki kaikki date-tyyppiset input-kentät
+    var dateInputs = document.querySelectorAll('input[type="date"]');
+
+    // Aseta päivämäärä kaikkiin date-tyyppisiin input-kenttiin
+    dateInputs.forEach(function (input) {
+        input.value = formattedDate;
+    });
+});
