@@ -20,8 +20,8 @@ namespace HuoltoWebApp.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<HuoltoWebAppUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
+        private readonly SignInManager<HuoltoWebAppUser> _signInManager; // SignInManagerin tyyppi on HuoltoWebAppUser (IdentityUser)
+        private readonly ILogger<LoginModel> _logger;                    // Loggaus LoginModelille (kirjautumissivu)
 
         public LoginModel(SignInManager<HuoltoWebAppUser> signInManager, ILogger<LoginModel> logger)
         {
@@ -66,7 +66,7 @@ namespace HuoltoWebApp.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             /// 
-            [Required]
+            [Required]                              // UserNamella kirjautuminen Vesku
             [DataType(DataType.Text)]
             [Display(Name = "User Name")]
             public string UserName { get; set; }

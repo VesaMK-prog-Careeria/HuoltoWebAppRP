@@ -20,7 +20,7 @@ namespace HuoltoWebApp.Pages.SäiliönHuollot
         }
 
         [BindProperty]
-      public SäiliöHuollot SäiliöHuollot { get; set; } = default!;
+        public SäiliöHuollot SäiliöHuollot { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

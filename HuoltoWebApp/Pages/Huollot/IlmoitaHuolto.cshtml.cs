@@ -14,8 +14,8 @@ namespace HuoltoWebApp.Pages.Huollot
             _context = context;
         }
 
-        public List<Auto> Autot { get; set; }
-        public List<Pv> PVt { get; set; }  // Olettaen että luokan nimi on Peravaunu
+        public List<Auto>? Autot { get; set; }
+        public List<Pv>? PVt { get; set; }  // Olettaen että luokan nimi on Peravaunu
 
         public async Task OnGetAsync()
         {
