@@ -14,12 +14,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="SäiliöHuoltopyyntö.HuoltoId" class="control-label"></label>
-                <input asp-for="SäiliöHuoltopyyntö.HuoltoId" class="form-control" />
-                <span asp-validation-for="SäiliöHuoltopyyntö.HuoltoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SäiliöHuoltopyyntö.SäiliöId" class="control-label"></label>
+                <label asp-for="SäiliöHuoltopyyntö.SäiliöId" class="control-label">Rekisterinumero</label>
                 <select asp-for="SäiliöHuoltopyyntö.SäiliöId" class ="form-control" asp-items="ViewBag.SäiliöId"></select>
             </div>
             <div class="form-group">
