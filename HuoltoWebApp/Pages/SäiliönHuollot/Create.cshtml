@@ -15,7 +15,7 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="SäiliöHuollot.SäiliöId">Rekisterinumero</label>
-                <select asp-for="SäiliöHuollot.SäiliöId" asp-items="@(ViewData["SäiliöId"] as SelectList)" class="form-control"></select>
+                <select asp-for="SäiliöHuollot.SäiliöId" asp-items="@(ViewData["AutoRekNro"] as SelectList)" class="form-control"></select>
             </div>
             <div class="form-group">
                 <label asp-for="SäiliöHuollot.HuoltoPvm" class="control-label"></label>

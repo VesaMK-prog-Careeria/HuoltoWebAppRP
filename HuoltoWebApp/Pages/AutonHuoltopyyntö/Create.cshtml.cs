@@ -21,7 +21,7 @@ namespace HuoltoWebApp.Pages.AutonHuoltopyyntö
 
         public IActionResult OnGet()
         {
-        ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
+            ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
             return Page();
         }
 
