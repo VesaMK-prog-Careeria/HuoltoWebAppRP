@@ -1,0 +1,80 @@
+﻿@page
+@model HuoltoWebApp.Pages.AutoSäiliö.ASHuoltopyyntöModel
+
+@{
+    ViewData["Title"] = "Luo uusi huoltopyyntö";
+}
+
+<h1>Luo uusi huoltopyyntö</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <!-- Auton huoltopyyntö lomake -->
+        <h2>Auton huoltopyyntö</h2>
+        <form method="post" asp-page-handler="Auto" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Rekisterinumero</label>
+                <span class="form-control">@ViewData["AutoRekNro"]</span>
+                <input type="hidden" asp-for="AutoHuoltopyyntö.AutoId" value="@Model.AutoHuoltopyyntö.AutoId" />
+            </div>
+            <div class="form-group">
+                <label asp-for="AutoHuoltopyyntö.HuollonKuvaus" class="control-label"></label>
+                <textarea asp-for="AutoHuoltopyyntö.HuollonKuvaus" class="form-control"></textarea>
+                <span asp-validation-for="AutoHuoltopyyntö.HuollonKuvaus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AutoHuoltopyyntö.Kuva" class="control-label"></label>
+                <input asp-for="AutoHuoltopyyntö.Kuva" type="file" class="form-control" />
+                <span asp-validation-for="AutoHuoltopyyntö.Kuva" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Tallenna" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <!-- Säiliön huoltopyyntö lomake -->
+        <h2>Säiliön huoltopyyntö</h2>
+        @if (Model.Säiliö != null)
+        {
+            <form method="post" asp-page-handler="Säiliö" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Säiliön ID</label>
+                    <span class="form-control">@Model.Säiliö.SäiliöId</span>
+                    <input type="hidden" asp-for="SäiliöHuoltopyyntö.SäiliöId" value="@Model.SäiliöHuoltopyyntö.SäiliöId" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SäiliöHuoltopyyntö.HuollonKuvaus" class="control-label"></label>
+                    <textarea asp-for="SäiliöHuoltopyyntö.HuollonKuvaus" class="form-control"></textarea>
+                    <span asp-validation-for="SäiliöHuoltopyyntö.HuollonKuvaus" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SäiliöHuoltopyyntö.Kuva" class="control-label"></label>
+                    <input asp-for="SäiliöHuoltopyyntö.Kuva" type="file" class="form-control" />
+                    <span asp-validation-for="SäiliöHuoltopyyntö.Kuva" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Tallenna" class="btn btn-primary" />
+                </div>
+            </form>
+        }
+        else
+        {
+            <p>Ei liitettyä säiliötä.</p>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Edellinen sivu</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
