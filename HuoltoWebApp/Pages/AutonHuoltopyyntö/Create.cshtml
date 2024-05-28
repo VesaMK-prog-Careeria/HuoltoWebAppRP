@@ -10,11 +10,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="AutoHuoltopyyntö.AutoId" class="control-label">Rekisterinumero</label>
-                <select asp-for="AutoHuoltopyyntö.AutoId" class="form-control" asp-items="ViewBag.AutoId"></select>
+                <label class="control-label">Rekisterinumero</label>
+                <span class="form-control">@ViewData["AutoRekNro"]</span>
+                <input type="hidden" asp-for="AutoHuoltopyyntö.AutoId" value="@Model.AutoHuoltopyyntö.AutoId" />
             </div>
             <div class="form-group">
                 <label asp-for="AutoHuoltopyyntö.HuollonKuvaus" class="control-label"></label>

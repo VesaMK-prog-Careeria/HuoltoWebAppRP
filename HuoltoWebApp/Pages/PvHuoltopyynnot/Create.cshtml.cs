@@ -19,21 +19,46 @@ namespace HuoltoWebApp.Pages.PvHuoltopyynnot
             _context = context;
         }
 
-        public IActionResult OnGet()
+        [BindProperty]
+        public PvHuoltopyyntö PvHuoltopyyntö { get; set; } = new PvHuoltopyyntö();
+
+        public async Task<IActionResult> OnGetAsync(int? pvId)
         {
-        ViewData["PvId"] = new SelectList(_context.Pvs, "PvId", "PvId");
+            if (pvId == null)
+            {
+                return NotFound();
+            }
+
+            // Haetaan Auto annettujen autoId perusteella
+            var pv = await _context.Pvs.FindAsync(pvId);
+
+            if (pv == null)
+            {
+                return NotFound();
+            }
+
+            // Asetetaan rekisterinumero ViewDataan
+            ViewData["PvRekNro"] = pv.RekNro;
+            PvHuoltopyyntö.PvId = pvId.Value;
+
             return Page();
+
         }
 
-        [BindProperty]
-        public PvHuoltopyyntö PvHuoltopyyntö { get; set; } = default!;
-        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.PvHuoltopyyntös == null || PvHuoltopyyntö == null)
+            if (!ModelState.IsValid)
             {
+                return Page();
+            }
+
+            var pv = await _context.Pvs.FindAsync(PvHuoltopyyntö.PvId);
+
+            if (pv == null)
+            {
+                ModelState.AddModelError("PvHuoltopyyntö.HuollonKuvaus", "Ei huoltoa");
                 return Page();
             }
 

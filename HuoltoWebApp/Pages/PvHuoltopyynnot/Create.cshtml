@@ -11,16 +11,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PvHuoltopyyntö.HuoltoId" class="control-label"></label>
-                <input asp-for="PvHuoltopyyntö.HuoltoId" class="form-control" />
-                <span asp-validation-for="PvHuoltopyyntö.HuoltoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PvHuoltopyyntö.PvId" class="control-label"></label>
-                <select asp-for="PvHuoltopyyntö.PvId" class="form-control" asp-items="ViewBag.PvId"></select>
+                <label class="control-label">Rekisterinumero</label>
+                <span class="form-control">@ViewData["PvRekNro"]</span>
+                <input type="hidden" asp-for="PvHuoltopyyntö.PvId" value="@Model.PvHuoltopyyntö.PvId" />
             </div>
             <div class="form-group">
                 <label asp-for="PvHuoltopyyntö.HuollonKuvaus" class="control-label"></label>

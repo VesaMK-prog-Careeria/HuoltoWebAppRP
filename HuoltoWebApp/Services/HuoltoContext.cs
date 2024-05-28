@@ -286,9 +286,7 @@ namespace HuoltoWebApp.Services
 
                 entity.ToTable("PvHuoltopyyntö");
 
-                entity.Property(e => e.HuoltoId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("HuoltoID");
+                entity.Property(e => e.HuoltoId).HasColumnName("HuoltoID");
 
                 entity.Property(e => e.HuollonKuvaus).HasMaxLength(2000);
 

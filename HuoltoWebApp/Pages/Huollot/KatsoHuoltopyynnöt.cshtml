@@ -1,0 +1,47 @@
+﻿@page
+@model HuoltoWebApp.Pages.Huollot.KatsoHuoltopyynnötModel
+@{
+}
+
+<h2>Huoltopyynnöt</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>REK-NRO/SäiliöNro</th>
+            <th>HuollonKuvaus</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var auto in Model.Autos)
+        {
+            foreach (var huoltopyyntö in auto.AutoHuoltopyyntös)
+            {
+                <tr>
+                    <td>@auto.RekNro</td>
+                    <td>@huoltopyyntö.HuollonKuvaus</td>
+                </tr>
+            }
+        }
+        @foreach (var säiliö in Model.Säiliös)
+        {
+            foreach (var huoltopyyntö in säiliö.SäiliöHuoltopyyntös)
+            {
+                <tr>
+                    <td>@säiliö.SäiliöNro</td>
+                    <td>@huoltopyyntö.HuollonKuvaus</td>
+                </tr>
+            }
+        }
+        @foreach (var pv in Model.Pvs)
+        {
+            foreach (var huoltopyyntö in pv.PvHuoltopyyntös)
+            {
+                <tr>
+                    <td>@pv.RekNro</td>
+                    <td>@huoltopyyntö.HuollonKuvaus</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

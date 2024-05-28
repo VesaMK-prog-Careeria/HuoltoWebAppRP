@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HuoltoWebApp.Pages.Huollot
 {
-    public class IlmoitaHuoltoModel : PageModel
+    public class LähetäPyyntöModel : PageModel
     {
         private readonly HuoltoWebApp.Services.HuoltoContext _context;
 
-        public IlmoitaHuoltoModel(HuoltoWebApp.Services.HuoltoContext context)
+        public LähetäPyyntöModel(HuoltoWebApp.Services.HuoltoContext context)
         {
             _context = context;
         }

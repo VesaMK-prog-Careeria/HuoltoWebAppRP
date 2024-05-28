@@ -136,19 +136,19 @@ document.addEventListener('DOMContentLoaded', function () {                 // K
 });
 
 // Päivämäärän lataaminen automaattisesti pvm kenttiin Vesku
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {                 // Kun sivu on latautunut (DOMContentLoaded)
     // Hanki nykyinen päivämäärä
     var today = new Date();
 
     // Muotoile päivämäärä yyyy-mm-dd-muotoon
-    var day = ("0" + today.getDate()).slice(-2);
+    var day = ("0" + today.getDate()).slice(-2);                            // Lisää etunollat, jos päivä tai kuukausi on yksinumeroinen
     var month = ("0" + (today.getMonth() + 1)).slice(-2);
-    var year = today.getFullYear();
+    var year = today.getFullYear();                                         // Hae vuosi
 
-    var formattedDate = year + "-" + month + "-" + day;
+    var formattedDate = year + "-" + month + "-" + day;                     // Muodosta päivämäärä yyyy-mm-dd-muotoon
 
     // Hanki kaikki date-tyyppiset input-kentät
-    var dateInputs = document.querySelectorAll('input[type="date"]');
+    var dateInputs = document.querySelectorAll('input[type="date"]');       
 
     // Aseta päivämäärä kaikkiin date-tyyppisiin input-kenttiin
     dateInputs.forEach(function (input) {

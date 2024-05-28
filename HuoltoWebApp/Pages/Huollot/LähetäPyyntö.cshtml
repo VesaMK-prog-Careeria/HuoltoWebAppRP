@@ -1,0 +1,26 @@
+﻿@page
+@model HuoltoWebApp.Pages.Huollot.LähetäPyyntöModel
+@{
+}
+
+<h2>Lähetä Huoltopyyntö</h2>
+
+<h3>Autot</h3>
+<div>
+    @foreach (var auto in Model.Autot)
+    {
+        <button class="btn btn-primary" onclick="location.href='/AutonHuoltopyyntö/Create?autoId=@auto.AutoId'">
+            @auto.RekNro
+        </button>
+    }
+</div>
+
+<h3>Perävaunut</h3>
+<div>
+    @foreach (var pv in Model.PVt)
+    {
+        <button class="btn btn-primary" onclick="location.href='/PvHuoltopyynnot/Create?pvId=@pv.PvId'">
+            @pv.RekNro
+        </button>
+    }
+</div>

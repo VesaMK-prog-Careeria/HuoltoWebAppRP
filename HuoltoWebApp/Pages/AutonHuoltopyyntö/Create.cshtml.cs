@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HuoltoWebApp.Models;
 using HuoltoWebApp.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace HuoltoWebApp.Pages.AutonHuoltopyyntö
 {
@@ -19,21 +20,46 @@ namespace HuoltoWebApp.Pages.AutonHuoltopyyntö
             _context = context;
         }
 
-        public IActionResult OnGet()
-        {
-            ViewData["AutoId"] = new SelectList(_context.Autos, "AutoId", "AutoId");
-            return Page();
-        }
-
         [BindProperty]
-        public AutoHuoltopyyntö AutoHuoltopyyntö { get; set; } = default!;
+        public AutoHuoltopyyntö AutoHuoltopyyntö { get; set; } = new AutoHuoltopyyntö();
+
+        public async Task<IActionResult> OnGetAsync(int? autoId)
+        {
+            if (autoId == null)
+            {
+                return NotFound();
+            }
+
+            // Haetaan Auto annettujen autoId perusteella
+            var auto = await _context.Autos.FindAsync(autoId);
+
+            if (auto == null)
+            {
+                return NotFound();
+            }
+
+            // Asetetaan rekisterinumero ViewDataan
+            ViewData["AutoRekNro"] = auto.RekNro;
+            AutoHuoltopyyntö.AutoId = autoId.Value;
+
+            return Page();
+
+        }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.AutoHuoltopyyntös == null || AutoHuoltopyyntö == null)
+            if (!ModelState.IsValid)
             {
+                return Page();
+            }
+
+            var auto = await _context.Autos.FindAsync(AutoHuoltopyyntö.AutoId);
+
+            if (auto == null)
+            {
+                ModelState.AddModelError("AutoHuoltopyyntö.HuollonKuvaus", "Ei huoltoa");
                 return Page();
             }
 
