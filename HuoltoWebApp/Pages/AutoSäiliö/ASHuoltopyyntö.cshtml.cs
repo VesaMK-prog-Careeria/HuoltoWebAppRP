@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace HuoltoWebApp.Pages.AutoSäiliö
+namespace HuoltoWebApp.Pages.AutoSäiliö //VK
 {
     public class ASHuoltopyyntöModel : PageModel
     {
@@ -15,12 +15,14 @@ namespace HuoltoWebApp.Pages.AutoSäiliö
             _context = context;
         }
 
-        [BindProperty]
+        // AutoHuoltopyyntö- ja SäiliöHuoltopyyntö-olioiden alustus jotta niitä voidaan käyttää sivulla
+        [BindProperty] // BindProperty-ominaisuus mahdollistaa tietojen siirtämisen sivulta modeliin eli AutoHuoltopyyntö-olioon
         public AutoHuoltopyyntö AutoHuoltopyyntö { get; set; } = new AutoHuoltopyyntö();
         [BindProperty]
         public SäiliöHuoltopyyntö SäiliöHuoltopyyntö { get; set; } = new SäiliöHuoltopyyntö();
         public Säiliö Säiliö { get; set; }
 
+        // OnGetAsync-metodi hakee Auto- ja Säiliö-oliot annetun autoId:n perusteella (sivun latauslogiikka)
         public async Task<IActionResult> OnGetAsync(int? autoId)
         {
             if (autoId == null)
@@ -28,7 +30,7 @@ namespace HuoltoWebApp.Pages.AutoSäiliö
                 return NotFound();
             }
 
-            // Haetaan Auto annettujen autoId perusteella
+            // Haetaan Auto annettujen autoId perusteella ja liitetään siihen Säiliö
             var auto = await _context.Autos
                                      .Include(a => a.Säiliö)
                                      .FirstOrDefaultAsync(a => a.AutoId == autoId);

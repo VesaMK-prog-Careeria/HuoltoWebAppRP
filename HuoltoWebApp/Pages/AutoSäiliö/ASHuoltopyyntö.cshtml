@@ -16,7 +16,7 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Rekisterinumero</label>
-                <span class="form-control">@ViewData["AutoRekNro"]</span>
+                <span class="form-control">@ViewData["AutoRekNro"]</span> <!-- Tämä on asetettu AutoSäiliö/ASHuoltopyyntö.cshtml.cs:ssä -->
                 <input type="hidden" asp-for="AutoHuoltopyyntö.AutoId" value="@Model.AutoHuoltopyyntö.AutoId" />
             </div>
             <div class="form-group">
@@ -25,6 +25,7 @@
                 <span asp-validation-for="AutoHuoltopyyntö.HuollonKuvaus" class="text-danger"></span>
             </div>
             <div class="form-group">
+                                    <!--Kuvan ottamis toiminnallisuus kesken-->
                 <label asp-for="AutoHuoltopyyntö.Kuva" class="control-label"></label>
                 <input asp-for="AutoHuoltopyyntö.Kuva" type="file" class="form-control" />
                 <span asp-validation-for="AutoHuoltopyyntö.Kuva" class="text-danger"></span>
@@ -43,6 +44,7 @@
             <form method="post" asp-page-handler="Säiliö" enctype="multipart/form-data">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
+                                            <!--Tämän muuttaminen SäiliöNroksi!!!-->
                     <label class="control-label">Säiliön ID</label>
                     <span class="form-control">@Model.Säiliö.SäiliöId</span>
                     <input type="hidden" asp-for="SäiliöHuoltopyyntö.SäiliöId" value="@Model.SäiliöHuoltopyyntö.SäiliöId" />
@@ -53,6 +55,7 @@
                     <span asp-validation-for="SäiliöHuoltopyyntö.HuollonKuvaus" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                                            <!--Kuvan ottamis toiminnallisuus kesken-->
                     <label asp-for="SäiliöHuoltopyyntö.Kuva" class="control-label"></label>
                     <input asp-for="SäiliöHuoltopyyntö.Kuva" type="file" class="form-control" />
                     <span asp-validation-for="SäiliöHuoltopyyntö.Kuva" class="text-danger"></span>

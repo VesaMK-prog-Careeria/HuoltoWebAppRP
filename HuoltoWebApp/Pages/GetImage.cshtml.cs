@@ -14,7 +14,7 @@ namespace HuoltoWebApp.Pages
             _context = context;
         }
 
-
+        // OnGet-metodi hakee kuvan kuvaid:n perusteella
         public IActionResult OnGet(int id)
         {
             var kuva = _context.Kuvat.FirstOrDefault(k => k.KuvaID == id);

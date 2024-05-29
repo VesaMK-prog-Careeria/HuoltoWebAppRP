@@ -30,7 +30,7 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Lis‰t‰‰n roolit ja k‰ytt‰j‰t
+// Lis‰t‰‰n roolit ja k‰ytt‰j‰t VK
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
