@@ -10,6 +10,12 @@ $(function () {
             var modal = $(this);                                // Modal-ikkuna, joka avataan (this)
             modal.find('#modalImage').attr('src', imageUrl);    // Aseta modal-ikkunan kuvan lähde (src) URL:ksi (imageUrl)
         });
+        // Event listener, joka kuuntelee, kun modal-ikkuna piilotetaan (hide.bs.modal)
+        imageModal.on('hide.bs.modal', function () {
+            console.log('Modal is being hidden');
+            // Piilota kuva, kun modal-ikkuna piilotetaan
+            $(this).find('#modalImage').attr('src', '');
+        });
     }
 });
 
@@ -51,7 +57,8 @@ function stopCamera() {                                         // Sammuttaa kam
     tracks.forEach(function (track) {                           // Käy läpi kaikki raidat (forEach) ja suorita seuraavat toiminnot jokaiselle raidalle
         track.stop();                                           // Sammuta raita (stop) (kamera)
     });
-
+    videoElement.style.display = "none";                        // Piilota video-elementti
+    canvasElemnt.style.display = "block";                        // Piilota canvas-elementti
     video.srcObject = null;                                     // Aseta videon lähde (srcObject) tyhjäksi (null)
 }
 
@@ -65,6 +72,7 @@ function captureImage() {                                       // Ottaa kuvan k
 
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     canvas.style.display = "block";
+    stopCamera();
 }
 
 function saveCapturedImage() {                                  // Tallentaa otetun kuvan

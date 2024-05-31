@@ -1,16 +1,19 @@
 ﻿/* Modal-ikkunan tyylit Vesku*/
 /* Keskittää modaalin näytölle */
-.modal {
-    display: none; /* Piilotettu oletuksena */
-    position: fixed; /* Kiinnitetty näytölle */
-    z-index: 1000; /* Näkyvyyden varmistaminen */
-    left: 50%; /* Keskittää vasemmalta */
-    top: 50%; /* Keskittää ylhäältä */
-    transform: translate(-50%, -50%); /* Keskittää */
-    background-color: white; /* Taustaväri */
-    border-radius: 8px; /* Pyöristetyt kulmat */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Varjo */
-}
+/*.modal {
+    display: none;*/ /* Piilotettu oletuksena */
+    /*position: fixed;*/ /* Kiinnitetty näytölle */
+    /*z-index: 1000;*/ /* Näkyvyyden varmistaminen */
+    /*left: 50%;*/ /* Keskittää vasemmalta */
+    /*top: 50%;*/ /* Keskittää ylhäältä */
+    /*transform: translate(-50%, -50%);*/ /* Keskittää */
+    /*background-color: white;*/ /* Taustaväri */
+    /*border-radius: 8px;*/ /* Pyöristetyt kulmat */
+    /*box-shadow: 0 5px 15px rgba(0,0,0,0.3);*/ /* Varjo */
+    /*max-width: 80%;*/ /* Maksimileveys */
+    /*max-height: 80%;*/ /* Maksimikorkeus */
+
+/*}*/
 
 /* ImageModal erityistyylit */
 #imageModal .modal-dialog {
@@ -26,6 +29,15 @@
     padding: 0;  /*Poistaa ylimääräisen tyhjyyden modaalin sisällä*/ 
 }
 
+.btn-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
 #modalImage {
     max-width: 100%;
     max-height: 80vh; /* Rajoittaa kuvan korkeuden niin, että se ei ylitä 80% näytön korkeudesta */
@@ -34,8 +46,13 @@
 
 /* CameraModal erityistyylit */
 #cameraModal {
-    width: 80%;  /*Leveys 80% näytöstä */
-    height: 80%;  /*Korkeus 80% näytöstä */
+    display: none;  /* Piilotettu oletuksena */
+    position: fixed;  /* Kiinnitetty näytölle */
+    left: 50%;  /* Keskittää vasemmalta */
+    top: 50%;  /* Keskittää ylhäältä */
+    transform: translate(-50%, -50%);  /* Keskittää */
+    max-width: 80%;  /*Leveys 80% näytöstä */
+    max-height: 80%;  /*Korkeus 80% näytöstä */
     overflow: auto;  /*Scrollbar sisällölle */
 }
 
@@ -66,7 +83,7 @@
 /* Varmista videon ja canvasin täysi leveys*/
 #cameraModal .modal-content video,
 #cameraModal .modal-content canvas {
-    width: 100%;
-    height: auto;
+    max-width: 100%;
+    max-height: 80vh;
     object-fit: contain;
 }
