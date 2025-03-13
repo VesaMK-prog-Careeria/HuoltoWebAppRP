@@ -33,15 +33,21 @@ namespace HuoltoWebApp.Pages.Autot
                 return NotFound();
             }
 
-            var auto = await _context.Autos
-                .Include(a => a.AutoInfo) // Tämä rivi kertoo EF:lle, että haluamme ladata Auto-olion mukana myös AutoInfo-olion
-                .FirstOrDefaultAsync(m => m.AutoId == id); 
+            Auto = await _context.Autos
+                .Include(a => a.AutoInfo) // Ladataan AutoInfo, mutta se voi olla null
+                .FirstOrDefaultAsync(m => m.AutoId == id);
 
-            if (auto == null)
+            if (Auto == null)
             {
                 return NotFound();
             }
-            Auto = auto;
+
+            // Varmistetaan, että AutoInfo voi olla tyhjä ilman virhettä käyttöliittymässä
+            if (Auto.AutoInfo == null)
+            {
+                Auto.AutoInfo = new AutoInfo(); // Luodaan tyhjä olio, jotta käyttöliittymässä ei tule null-viittausvirhettä
+            }
+
             ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
             return Page();
         }

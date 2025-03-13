@@ -46,7 +46,8 @@
     <div class="col-md-6">
         <h4>SäiliöHuollot</h4>
         <hr />
-        <a asp-page="/SäiliönHuollot/Create" class="btn btn-primary">Ilmoita Säiliön huolto</a>
+        <a asp-page="/SäiliönHuollot/Create" asp-route-autoId="@Model.Auto.AutoId" class="btn btn-primary">Ilmoita Säiliön huolto</a>
+
     </div>
 </div>
 

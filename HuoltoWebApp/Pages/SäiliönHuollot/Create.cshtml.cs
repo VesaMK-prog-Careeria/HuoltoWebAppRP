@@ -18,24 +18,33 @@ namespace HuoltoWebApp.Pages.SäiliönHuollot
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int autoId)
         {
-            ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöNro", "SäiliöNro");
+            var auto = await _context.Autos
+                .Include(a => a.Säiliö) // Liittää säiliön autoon
+                .FirstOrDefaultAsync(a => a.AutoId == autoId);
+
+            if (auto == null)
+            {
+                return NotFound($"Autoa ID:llä {autoId} ei löytynyt.");
+            }
+
+            if (auto.Säiliö == null)
+            {
+                return NotFound($"Autolle (ID: {autoId}) ei ole liitettyä säiliötä.");
+            }
+
+            // Näytetään vain kyseiseen autoon liittyvä säiliö
+            ViewData["SäiliöId"] = new SelectList(
+                new List<Säiliö> { auto.Säiliö },
+                "SäiliöId", "SäiliöNro"
+            );
 
             // Haetaan Huoltopaikat tietokannasta
             var huoltopaikat = await _context.Huoltopaikats.ToListAsync();
-
-            // Tarkista, että Huoltopaikat ei ole tyhjä
-            if (huoltopaikat != null && huoltopaikat.Any())
-            {
-                // Luo SelectList Huoltopaikkojen perusteella
-                ViewData["Huoltopaikat"] = new SelectList(huoltopaikat, "HuoltoPaikkaId", "Huoltopaikka");
-            }
-            else
-            {
-                // Jos Huoltopaikat on tyhjä, luo tyhjä SelectList
-                ViewData["Huoltopaikat"] = new SelectList(new List<SelectListItem>());
-            }
+            ViewData["Huoltopaikat"] = huoltopaikat.Any()
+                ? new SelectList(huoltopaikat, "HuoltoPaikkaId", "Huoltopaikka")
+                : new SelectList(new List<SelectListItem>());
 
             return Page();
         }

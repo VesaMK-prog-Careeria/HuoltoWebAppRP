@@ -28,7 +28,9 @@ namespace HuoltoWebApp.Pages.Säiliöt
                 return NotFound();
             }
 
-            var säiliö = await _context.Säiliös.FirstOrDefaultAsync(m => m.SäiliöId == id);
+            var säiliö = await _context.Säiliös
+                .Include(s => s.SäiliöInfo) // Tässä haetaan SäiliöInfo-taulusta tiedot
+                .FirstOrDefaultAsync(m => m.SäiliöId == id);
             if (säiliö == null)
             {
                 return NotFound();

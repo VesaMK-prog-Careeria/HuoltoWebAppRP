@@ -25,7 +25,8 @@ namespace HuoltoWebApp.Pages.Säiliöt
         {
             if (_context.Säiliös != null)
             {
-                Säiliö = await _context.Säiliös.ToListAsync();
+                Säiliö = await _context.Säiliös
+                    .ToListAsync();
             }
         }
     }

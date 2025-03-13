@@ -36,10 +36,17 @@
             @Html.DisplayFor(model => model.Säiliö.Määräaikaistarkastus)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Säiliö.SäiliöInfoId)
+            @Html.DisplayNameFor(model => model.Säiliö.SäiliöInfo.InfoTxt)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Säiliö.SäiliöInfoId)
+            @if (Model.Säiliö.SäiliöInfo != null)
+            {
+                @Html.DisplayFor(model => model.Säiliö.SäiliöInfo.InfoTxt)
+            }
+            else
+            {
+                <text>Ei tietoa</text>
+            }
         </dd>
     </dl>
 </div>

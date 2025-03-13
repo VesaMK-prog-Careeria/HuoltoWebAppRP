@@ -32,6 +32,7 @@ namespace HuoltoWebApp.Services
         public virtual DbSet<SäiliöInfo> SäiliöInfos { get; set; } = null!;
         public virtual DbSet<SäiliöMuistutu> SäiliöMuistutus { get; set; } = null!;
         public virtual DbSet<Kuva> Kuvat { get; set; } = null!;
+        public object AutoHuoltopyynnot { get; internal set; }
 
         // Tässä on tietokantataulujen määrittelyt jotka on tehty Entity Framework Corella
         // Tämä on tehty automaattisesti Scaffold-DBContext komennolla

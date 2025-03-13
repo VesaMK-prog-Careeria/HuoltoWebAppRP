@@ -28,7 +28,10 @@ namespace HuoltoWebApp.Pages.Autot
                 return NotFound();
             }
 
-            var auto = await _context.Autos.FirstOrDefaultAsync(m => m.AutoId == id);
+            var auto = await _context.Autos
+                .Include(a => a.Säiliö) // Tässä haetaan Säiliö-taulusta tiedot
+                .Include(a => a.AutoInfo) // Tässä haetaan AutoInfo-taulusta tiedot
+                .FirstOrDefaultAsync(m => m.AutoId == id);
             if (auto == null)
             {
                 return NotFound();

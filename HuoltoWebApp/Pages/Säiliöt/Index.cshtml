@@ -26,9 +26,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Säiliö[0].Määräaikaistarkastus)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Säiliö[0].InfoTxt)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -46,9 +43,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Määräaikaistarkastus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InfoTxt)
             </td>
                 <td>
                     <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.SäiliöId">Muokkaa</a>

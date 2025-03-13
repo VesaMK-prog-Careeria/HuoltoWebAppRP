@@ -20,47 +20,61 @@ namespace HuoltoWebApp.Pages.AutonHuollot
             _context = context;
         }
 
+        [BindProperty]
+        public SäiliöHuollot SäiliöHuollot { get; set; } = default!;
+
+        public Auto Auto { get; set; }  // Lisätään Auto-olio, jotta se voidaan näyttää Razor-sivulla
+
         public async Task<IActionResult> OnGetAsync(int? autoId)
         {
-            if (autoId == null)
+            if (autoId == null || autoId == 0)
             {
-                return NotFound();
+                return NotFound("AutoId puuttuu tai on virheellinen.");
             }
 
-            // Haetaan Auto annettujen autoId perusteella
-            var auto = await _context.Autos.FindAsync(autoId);
+            // Haetaan auto ja siihen liitetty säiliö
+            Auto = await _context.Autos
+                .Include(a => a.Säiliö) // Liittää säiliön autoon
+                .FirstOrDefaultAsync(a => a.AutoId == autoId);
 
-            if (auto == null)
+            if (Auto == null)
             {
-                return NotFound();
+                return NotFound($"Autoa ID:llä {autoId} ei löytynyt.");
             }
+
+            if (Auto.Säiliö == null)
+            {
+                return NotFound($"Autolle (ID: {autoId}) ei ole liitettyä säiliötä.");
+            }
+
+            // Debug-tulostus varmistamaan haettu data
+            Console.WriteLine($"Auto ID: {Auto.AutoId}, Rekisterinumero: {Auto.RekNro}, Liitetty Säiliö ID: {Auto.Säiliö.SäiliöId}, SäiliöNro: {Auto.Säiliö.SäiliöNro}");
 
             // Asetetaan rekisterinumero ViewDataan
-            ViewData["AutoRekNro"] = auto.RekNro;
+            ViewData["AutoRekNro"] = Auto.RekNro;
 
-            // Haetaan Huoltopaikat tietokannasta
+            // Haetaan vain kyseiseen autoon liitetty Säiliö ja lisätään valintaan
+            ViewData["SäiliöId"] = new SelectList(
+                new List<Säiliö> { Auto.Säiliö },
+                "SäiliöId", "SäiliöNro"
+            );
+
+            // Haetaan huoltopaikat tietokannasta
             var huoltopaikat = await _context.Huoltopaikats.ToListAsync();
 
-            // Tarkistaa, että Huoltopaikat ei ole tyhjä
-            if (huoltopaikat != null && huoltopaikat.Any())
-            {
-                // Luo SelectList Huoltopaikkojen perusteella
-                ViewData["Huoltopaikat"] = new SelectList(huoltopaikat, "HuoltoPaikkaId", "Huoltopaikka");
-            }
-            else
-            {
-                // Jos Huoltopaikat on tyhjä, luo tyhjä SelectList
-                ViewData["Huoltopaikat"] = new SelectList(new List<SelectListItem>());
-            }
+            ViewData["Huoltopaikat"] = huoltopaikat.Any()
+                ? new SelectList(huoltopaikat, "HuoltoPaikkaId", "Huoltopaikka")
+                : new SelectList(new List<SelectListItem>());
 
             // Liitetään AutoHuollot-olion AutoId valittuun autoId:hen
             AutoHuollot = new AutoHuollot
             {
-                AutoId = auto.AutoId
+                AutoId = Auto.AutoId
             };
 
             return Page();
         }
+
 
         [BindProperty]
         public AutoHuollot AutoHuollot { get; set; } = default!;

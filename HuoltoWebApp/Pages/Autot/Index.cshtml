@@ -3,6 +3,14 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    // Uudelleenkäytettävä funktio tarkastusvälin laskemiseen
+    Func<DateTime?, int, (DateTime?, int?)> LaskeJaljellaPaivat = (pvm, vuodet) =>
+    {
+        var seuraavaTarkastus = pvm.HasValue ? pvm.Value.AddYears(vuodet) : (DateTime?)null;
+        var paiviaJaljella = seuraavaTarkastus.HasValue ? (seuraavaTarkastus.Value - DateTime.Today).Days : (int?)null;
+        return (seuraavaTarkastus, paiviaJaljella);
+    };
 }
 
 <h1>Autot</h1>
@@ -13,60 +21,134 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Auto[0].RekNro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Auto[0].Katsastus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Auto[0].Adr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Auto[0].Piirturi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Auto[0].Alkolukko)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Auto[0].Nopeudenrajoitin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Auto[0].Säiliö)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.Auto[0].RekNro)</th>
+            <th>@Html.DisplayNameFor(model => model.Auto[0].Katsastus)</th>
+            <th>@Html.DisplayNameFor(model => model.Auto[0].Adr)</th>
+            <th>@Html.DisplayNameFor(model => model.Auto[0].Piirturi)</th>
+            <th>@Html.DisplayNameFor(model => model.Auto[0].Alkolukko)</th>
+            <th>@Html.DisplayNameFor(model => model.Auto[0].Nopeudenrajoitin)</th>
+            <th>@Html.DisplayNameFor(model => model.Auto[0].Säiliö)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Auto) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RekNro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Katsastus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Piirturi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Alkolukko)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nopeudenrajoitin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Säiliö.SäiliöNro)
-            </td>
-            <td>
-                    <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.AutoId">Muokkaa</a> 
-                    <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.AutoId">Lisätiedot</a> 
+        @foreach (var item in Model.Auto)
+        {
+            var (seuraavaKatsastus, paiviaJaljellaKatsastus) = LaskeJaljellaPaivat(item.Katsastus, 1);
+            var (seuraavaPiirturi, paiviaJaljellaPiirturi) = LaskeJaljellaPaivat(item.Piirturi, 2);
+            var (seuraavaAdr, paiviaJaljellaAdr) = LaskeJaljellaPaivat(item.Adr, 1);
+            var (seuraavaAlkolukko, paiviaJaljellaAlkolukko) = LaskeJaljellaPaivat(item.Alkolukko, 1);
+            var (seuraavaNopeudenrajoitin, paiviaJaljellaNopeudenrajoitin) = LaskeJaljellaPaivat(item.Nopeudenrajoitin, 1);
+
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.RekNro)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Katsastus)
+                    <div>
+                        @if (paiviaJaljellaKatsastus.HasValue)
+                        {
+                            if (paiviaJaljellaKatsastus > 40)
+                            {
+                                <span style="color: green;">- @paiviaJaljellaKatsastus päivää</span>
+                            }
+                            else if (paiviaJaljellaKatsastus > 0)
+                            {
+                                <span style="color: orange;">- @paiviaJaljellaKatsastus päivää</span>
+                            }
+                            else
+                            {
+                                <span style="color: red;">Katsastus on myöhässä!</span>
+                            }
+                        }
+                        else
+                        {
+                            <span style="color: gray;">Ei katsastustietoja</span>
+                        }
+                    </div>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Adr)
+                    <div>
+                        @if (paiviaJaljellaAdr.HasValue)
+                        {
+                            if (paiviaJaljellaAdr > 0)
+                            {
+                                <span style="color: green;">- @paiviaJaljellaAdr päivää</span>
+                            }
+                            else
+                            {
+                                <span style="color: red;">ADR-tarkastus on myöhässä!</span>
+                            }
+                        }
+                        else
+                        {
+                            <span style="color: gray;">Ei tarkastustietoja</span>
+                        }
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Piirturi)
+                    <div>
+                        @if (paiviaJaljellaPiirturi.HasValue)
+                        {
+                            if (paiviaJaljellaPiirturi > 0)
+                            {
+                                <span style="color: green;">- @paiviaJaljellaPiirturi päivää</span>
+                            }
+                            else
+                            {
+                                <span style="color: red;">Piirturin tarkastus on myöhässä!</span>
+                            }
+                        }
+                        else
+                        {
+                            <span style="color: gray;">Ei tarkastustietoja</span>
+                        }
+                    </div>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Alkolukko)
+                    <div>
+                        @if (paiviaJaljellaAlkolukko.HasValue)
+                        {
+                            if (paiviaJaljellaAlkolukko > 0)
+                            {
+                                <span style="color: green;">- @paiviaJaljellaAlkolukko päivää</span>
+                            }
+                            else
+                            {
+                                <span style="color: red;">Alkolukon tarkastus on myöhässä!</span>
+                            }
+                        }
+                        else
+                        {
+                            <span style="color: gray;">Ei tarkastustietoja</span>
+                        }
+                    </div>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Nopeudenrajoitin)
+                    <div>
+                        @if (paiviaJaljellaNopeudenrajoitin.HasValue)
+                        {
+                            if (paiviaJaljellaNopeudenrajoitin > 0)
+                            {
+                                <span style="color: green;">- @paiviaJaljellaNopeudenrajoitin päivää</span>
+                            }
+                            else
+                            {
+                                <span style="color: red;">Nopeudenrajoittimen tarkastus on myöhässä!</span>
+                            }
+                        }
+                        else
+                        {
+                            <span style="color: gray;">Ei tarkastustietoja</span>
+                        }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Säiliö.SäiliöNro)</td>
+                <td>
+                    <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.AutoId">Muokkaa</a>
+                    <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.AutoId">Tiedot</a>
                     <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.AutoId">Poista</a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

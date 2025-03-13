@@ -50,6 +50,7 @@ namespace HuoltoWebApp.Pages.Autot
             }
             var auto = await _context.Autos
                 .Include(a => a.AutoInfo) // Varmista, että lataat myös riippuvaiset AutoInfo-entiteetit
+                .Include(a => a.AutoHuoltopyyntös) // Varmista, että lataat myös riippuvaiset AutoHuoltopyynnöt-entiteetit
                 .FirstOrDefaultAsync(m => m.AutoId == id);
 
             if (auto == null)
@@ -61,8 +62,16 @@ namespace HuoltoWebApp.Pages.Autot
             if (auto.AutoInfo != null)
             {
                 _context.AutoInfos.RemoveRange(auto.AutoInfo);
-                await _context.SaveChangesAsync(); // Tallenna muutokset ennen auton poistoa
+                //await _context.SaveChangesAsync(); // Tallenna muutokset ennen auton poistoa
             }
+
+            // Poista kaikki autoon liittyvät huoltopyynnöt
+            if (auto.AutoHuoltopyyntös != null)
+            {
+                _context.AutoHuoltopyyntös.RemoveRange(auto.AutoHuoltopyyntös);
+            }
+
+            await _context.SaveChangesAsync();
 
             // Poista itse auto
             _context.Autos.Remove(auto);

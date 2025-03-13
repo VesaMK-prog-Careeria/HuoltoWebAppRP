@@ -11,7 +11,7 @@ namespace HuoltoWebApp.Models
         }
         public int SäiliöInfoId { get; set; }
         public int SäiliöId { get; set; }
-        public string? InfoTxt { get; set; }
+        public string? InfoTxt { get; set; } = string.Empty;
 
         public virtual ICollection<Kuva> Kuvat { get; set; }
 
