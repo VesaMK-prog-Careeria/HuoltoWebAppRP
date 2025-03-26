@@ -13,7 +13,7 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();  // Lisätään Razo
 
 // Lisätään tietokantaan yhteys
 builder.Services.AddDbContext<HuoltoContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // ConnectionString löytyy appsettings.jsonista
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HuoltoWebAppContextConnection"))); // ConnectionString löytyy appsettings.jsonista
 
 // Lisätään ImageService
 builder.Services.AddTransient<ImageService>();
