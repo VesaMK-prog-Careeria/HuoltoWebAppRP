@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HuoltoWebApp.Models;
 using HuoltoWebApp.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace HuoltoWebApp.Pages.Säiliöt
 {
@@ -21,35 +23,53 @@ namespace HuoltoWebApp.Pages.Säiliöt
             _imageService = imageService;
         }
 
-        public IActionResult OnGet()
+        // Olemassa olevat numerot näkymää varten
+        public List<int> OlemassaOlevatSäiliöNumerot { get; set; } = new();
+
+        [BindProperty]
+        public Säiliö Säiliö { get; set; } = default!;
+
+        [BindProperty]
+        public List<IFormFile> Kuvatiedostot { get; set; } = new();
+
+        [BindProperty]
+        public List<IFormFile> CapturedImages { get; set; } = new();
+
+        public async Task<IActionResult> OnGetAsync()
         {
+            // Haetaan kaikki olemassa olevat numerot
+            OlemassaOlevatSäiliöNumerot = await _context.Säiliös
+                .OrderBy(s => s.SäiliöNro)
+                .Select(s => s.SäiliöNro)
+                .ToListAsync();
+
+            // Ehdotetaan seuraavaa numeroa
+            int seuraavaNro = (OlemassaOlevatSäiliöNumerot.LastOrDefault()) + 1;
+
+            Säiliö = new Säiliö
+            {
+                SäiliöNro = seuraavaNro
+            };
+
             return Page();
         }
 
-        //Bindpropertyn avulla voidaan sitoa lomakkeelta tulevat tiedot suoraan tähän muuttujaan
-        [BindProperty]
-        public Säiliö Säiliö { get; set; } = default!; //default! tarkoittaa, että muuttujan arvo ei voi olla null
-
-        // IFormFile on tiedosto, joka on lähetetty lomakkeelta
-        [BindProperty]
-        public List<IFormFile> Kuvatiedostot { get; set; } = new List<IFormFile>(); // Bindataan lomakkeelta lähetetyt kuvatiedostot tähän listaan
-        [BindProperty]
-        public List<IFormFile> CapturedImages { get; set; } = new List<IFormFile>(); // Bindataan kuvatiedostot, jotka on otettu kameralla
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Säiliös == null || Säiliö == null)
+            if (!ModelState.IsValid || _context.Säiliös == null || Säiliö == null)
             {
+                // Ladataan numerot uudelleen virheen varalta
+                OlemassaOlevatSäiliöNumerot = await _context.Säiliös
+                    .OrderBy(s => s.SäiliöNro)
+                    .Select(s => s.SäiliöNro)
+                    .ToListAsync();
+
                 return Page();
             }
 
-            //Lisätään säiliö tietokantaan ensin
             _context.Säiliös.Add(Säiliö);
-            // Tallennetaan muutokset tietokantaan
             await _context.SaveChangesAsync();
 
-            // Luodaan uusi SäiliöInfo-olio käyttäjän syöttämällä tekstillä
             var säiliöInfo = new SäiliöInfo
             {
                 SäiliöId = Säiliö.SäiliöId,
@@ -59,7 +79,6 @@ namespace HuoltoWebApp.Pages.Säiliöt
             _context.SäiliöInfos.Add(säiliöInfo);
             await _context.SaveChangesAsync();
 
-            // Käytetään ImageServiceä tallentamaan kuvat
             await _imageService.SaveImagesAsync(Kuvatiedostot, "SäiliöInfo", säiliöInfo.SäiliöInfoId);
             await _imageService.SaveImagesAsync(CapturedImages, "SäiliöInfo", säiliöInfo.SäiliöInfoId);
 

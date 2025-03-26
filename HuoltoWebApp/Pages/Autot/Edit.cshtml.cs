@@ -48,7 +48,7 @@ namespace HuoltoWebApp.Pages.Autot
                 Auto.AutoInfo = new AutoInfo(); // Luodaan tyhjä olio, jotta käyttöliittymässä ei tule null-viittausvirhettä
             }
 
-            ViewData["SäiliöId"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöId");
+            ViewData["Säiliöt"] = new SelectList(_context.Säiliös, "SäiliöId", "SäiliöNro");
             return Page();
         }
 

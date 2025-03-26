@@ -7,7 +7,7 @@
 
 <h1>Muokkaa</h1>
 
-<h4>Säiliö</h4>
+<h4>Säiliö @Model.Säiliö.SäiliöNro</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,8 +16,8 @@
             <input type="hidden" asp-for="Säiliö.SäiliöId" />
             <div class="form-group">
                 <label asp-for="Säiliö.SäiliöNro" class="control-label"></label>
-                <input asp-for="Säiliö.SäiliöNro" class="form-control" />
-                <span asp-validation-for="Säiliö.SäiliöNro" class="text-danger"></span>
+                <p class="form-control-plaintext">@Model.Säiliö.SäiliöNro</p>
+                <input type="hidden" asp-for="Säiliö.SäiliöNro" />
             </div>
             <div class="form-group">
                 <label asp-for="Säiliö.Vakaus" class="control-label"></label>
@@ -34,11 +34,7 @@
                 <input asp-for="Säiliö.Määräaikaistarkastus" class="form-control" />
                 <span asp-validation-for="Säiliö.Määräaikaistarkastus" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Säiliö.InfoTxt" class="control-label"></label>
-                <input asp-for="Säiliö.InfoTxt" class="form-control" />
-                <span asp-validation-for="Säiliö.InfoTxt" class="text-danger"></span>
-            </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Tallenna" class="btn btn-primary" />
             </div>

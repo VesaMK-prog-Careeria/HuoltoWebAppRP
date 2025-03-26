@@ -31,9 +31,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Pv[0].Määräaikaistarkastus)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pv[0].PvInfoId)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -54,9 +51,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Määräaikaistarkastus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PvInfoId)
             </td>
             <td>
                     <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.PvId">Muokkaa</a> 
