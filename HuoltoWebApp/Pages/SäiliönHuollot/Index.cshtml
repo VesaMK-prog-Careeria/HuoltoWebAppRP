@@ -23,9 +23,6 @@
                 @Html.DisplayNameFor(model => model.SäiliöHuollot[0].HuollonKuvaus)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SäiliöHuollot[0].Kuva)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.SäiliöHuollot[0].Säiliö)
             </th>
             <th></th>
@@ -44,15 +41,12 @@
                 @Html.DisplayFor(modelItem => item.HuollonKuvaus)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Kuva)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Säiliö.SäiliöId)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.HuoltoId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.HuoltoId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.HuoltoId">Delete</a>
+                <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.HuoltoId">Edit</a>
+                <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.HuoltoId">Details</a>
+                <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.HuoltoId">Delete</a>
             </td>
         </tr>
 }

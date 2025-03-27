@@ -28,7 +28,9 @@ namespace HuoltoWebApp.Pages.Pvt
                 return NotFound();
             }
 
-            var pv = await _context.Pvs.FirstOrDefaultAsync(m => m.PvId == id);
+            var pv = await _context.Pvs
+                .Include(s => s.PvInfo) // Tässä haetaan PvInfo-taulusta tiedot
+                .FirstOrDefaultAsync(m => m.PvId == id);
             if (pv == null)
             {
                 return NotFound();

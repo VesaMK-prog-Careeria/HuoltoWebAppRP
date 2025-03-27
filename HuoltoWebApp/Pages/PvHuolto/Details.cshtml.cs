@@ -12,14 +12,17 @@ namespace HuoltoWebApp.Pages.PvHuolto
 {
     public class DetailsModel : PageModel
     {
-        private readonly HuoltoWebApp.Services.HuoltoContext _context;
+        private readonly HuoltoContext _context;
+        private readonly ImageService _imageService;
 
-        public DetailsModel(HuoltoWebApp.Services.HuoltoContext context)
+        public DetailsModel(HuoltoContext context, ImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
-      public PvHuollot PvHuollot { get; set; } = default!; 
+        public PvHuollot PvHuollot { get; set; } = default!;
+        public List<Kuva> Kuvat { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,6 +32,7 @@ namespace HuoltoWebApp.Pages.PvHuolto
             }
 
             var pvhuollot = await _context.PvHuollots.FirstOrDefaultAsync(m => m.HuoltoId == id);
+            
             if (pvhuollot == null)
             {
                 return NotFound();
@@ -37,6 +41,10 @@ namespace HuoltoWebApp.Pages.PvHuolto
             {
                 PvHuollot = pvhuollot;
             }
+
+            //Haetaan kuvat
+            Kuvat = await _imageService.GetKuvatAsync("PvHuollot", pvhuollot.HuoltoId);
+
             return Page();
         }
     }

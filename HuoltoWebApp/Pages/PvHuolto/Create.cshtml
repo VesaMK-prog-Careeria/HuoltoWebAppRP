@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Rekisterinumero</label>
@@ -30,27 +30,49 @@
             </div>
             <div class="form-group">
                 <label asp-for="PvHuollot.HuollonKuvaus" class="control-label"></label>
-                <input asp-for="PvHuollot.HuollonKuvaus" class="form-control" />
+                <textarea asp-for="PvHuollot.HuollonKuvaus" class="form-control"></textarea>
                 <span asp-validation-for="PvHuollot.HuollonKuvaus" class="text-danger"></span>
             </div>
+            <!-- Kuvien lataus -->
             <div class="form-group">
-                <label asp-for="PvHuollot.Kuva" class="control-label"></label>
-                <input asp-for="PvHuollot.Kuva" class="form-control" />
-                <span asp-validation-for="PvHuollot.Kuva" class="text-danger"></span>
+                <label asp-for="Kuvatiedostot" class="control-label">Lataa kuvat</label>
+                <input name="Kuvatiedostot" type="file" multiple class="form-control" />
+                <span asp-validation-for="Kuvatiedostot" class="text-danger"></span>
             </div>
+            <br />
+            <!-- Kamerakuvaus -->
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="button" id="openModal" class="btn btn-primary">Avaa Kamera</button>
+            </div>
+
+            <div class="form-group">
+                <ul id="capturedImagesList"></ul>
+            </div>
+
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Tallenna huolto" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
+<!-- Modal -->
+<div id="cameraModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <video autoplay="true" id="videoElement"></video>
+        <canvas id="canvasElement" style="display:none;"></canvas>
+        <button type="button" id="capture">Capture</button>
+        <button type="button" id="saveImage">Save</button>
+    </div>
 </div>
+
+<button type="button" class="btn btn-secondary" onclick="history.back()">Takaisin</button>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="~/js/camera.js"></script> <!-- Jos käytät erillistä JS-tiedostoa -->
 }

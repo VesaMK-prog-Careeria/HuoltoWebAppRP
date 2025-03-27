@@ -5,49 +5,77 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Lisää säiliön huolto</h1>
 
-<h4>SäiliöHuollot</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="SäiliöHuollot.SäiliöId">Säiliön numero</label>
                 <select asp-for="SäiliöHuollot.SäiliöId" asp-items="@(ViewData["SäiliöId"] as SelectList)" class="form-control"></select>
             </div>
+
             <div class="form-group">
                 <label asp-for="SäiliöHuollot.HuoltoPvm" class="control-label"></label>
                 <input asp-for="SäiliöHuollot.HuoltoPvm" type="date" class="form-control" />
                 <span asp-validation-for="SäiliöHuollot.HuoltoPvm" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="SäiliöHuollot.HuoltoPaikkaId" class="control-label">Huoltopaikka</label>
                 <select asp-for="SäiliöHuollot.HuoltoPaikkaId" class="form-control" asp-items="@ViewBag.Huoltopaikat"></select>
                 <span asp-validation-for="SäiliöHuollot.HuoltoPaikkaId" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="SäiliöHuollot.HuollonKuvaus" class="control-label"></label>
-                <input asp-for="SäiliöHuollot.HuollonKuvaus" class="form-control" />
+                <textarea asp-for="SäiliöHuollot.HuollonKuvaus" class="form-control"></textarea>
                 <span asp-validation-for="SäiliöHuollot.HuollonKuvaus" class="text-danger"></span>
             </div>
+
+            <!-- Kuvien lataus -->
             <div class="form-group">
-                <label asp-for="SäiliöHuollot.Kuva" class="control-label"></label>
-                <input asp-for="SäiliöHuollot.Kuva" class="form-control" />
-                <span asp-validation-for="SäiliöHuollot.Kuva" class="text-danger"></span>
+                <label asp-for="Kuvatiedostot" class="control-label">Lataa kuvat</label>
+                <input name="Kuvatiedostot" type="file" multiple class="form-control" />
+                <span asp-validation-for="Kuvatiedostot" class="text-danger"></span>
             </div>
+            <br />
+            <!-- Kamerakuvaus -->
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="button" id="openModal" class="btn btn-primary">Avaa Kamera</button>
+            </div>
+
+            <div class="form-group">
+                <ul id="capturedImagesList"></ul>
+            </div>
+
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Tallenna huolto" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
+<!-- Modal -->
+<div id="cameraModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <video autoplay="true" id="videoElement"></video>
+        <canvas id="canvasElement" style="display:none;"></canvas>
+        <button type="button" id="capture">Capture</button>
+        <button type="button" id="saveImage">Save</button>
+    </div>
 </div>
 
+<button type="button" class="btn btn-secondary" onclick="history.back()">Takaisin</button>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/camera.js"></script> <!-- Jos käytät erillistä JS-tiedostoa -->
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HuoltoWebApp.Models;
 using HuoltoWebApp.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace HuoltoWebApp.Pages.Pvt
 {
@@ -47,6 +48,9 @@ namespace HuoltoWebApp.Pages.Pvt
             _context.Pvs.Add(Pv);
             await _context.SaveChangesAsync();
 
+            // Debuggausta varten
+            Console.WriteLine($"Tarkistus: Pv.InfoTxt = {Pv.InfoTxt}");
+
             // Luodaan uusi PvInfo-olio käyttäjän syöttämällä tekstillä
             var pvInfo = new PvInfo
             {
@@ -58,8 +62,8 @@ namespace HuoltoWebApp.Pages.Pvt
             _context.PvInfos.Add(pvInfo);
             await _context.SaveChangesAsync();
 
-            Pv.PvInfo = pvInfo;
-            await _context.SaveChangesAsync();
+            //Pv.PvInfo = pvInfo;
+            //await _context.SaveChangesAsync();
 
             // Käytetään ImageServiceä tallentamaan kuvat
             await _imageService.SaveImagesAsync(Kuvatiedostot, "PvInfo", pvInfo.PvInfoId);

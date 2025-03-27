@@ -11,12 +11,22 @@ namespace HuoltoWebApp.Pages.SäiliönHuollot
 {
     public class CreateModel : PageModel
     {
-        private readonly HuoltoWebApp.Services.HuoltoContext _context;
+        private readonly HuoltoContext _context;
+        private readonly ImageService _imageService;
 
-        public CreateModel(HuoltoWebApp.Services.HuoltoContext context)
+        //private readonly HuoltoWebApp.Services.HuoltoContext _context;
+
+        public CreateModel(HuoltoContext context, ImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
+
+        [BindProperty]
+        public List<IFormFile> Kuvatiedostot { get; set; } = new();
+
+        [BindProperty]
+        public List<IFormFile> CapturedImages { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(int autoId)
         {
@@ -54,6 +64,18 @@ namespace HuoltoWebApp.Pages.SäiliönHuollot
 
         public async Task<IActionResult> OnPostAsync()
         {
+            //Debuggausta varten
+            //foreach (var kvp in ModelState)
+            //{
+            //    foreach (var error in kvp.Value.Errors)
+            //    {
+            //        Console.WriteLine($"ModelState Error: {kvp.Key} => {error.ErrorMessage}");
+            //    }
+            //}
+
+            ModelState.Remove("Kuvatiedostot");
+            ModelState.Remove("CapturedImages");
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -70,6 +92,10 @@ namespace HuoltoWebApp.Pages.SäiliönHuollot
 
             _context.SäiliöHuollots.Add(SäiliöHuollot);
             await _context.SaveChangesAsync();
+
+            // Tallenna kuvat liittyen SäiliöHuollot
+            await _imageService.SaveImagesAsync(Kuvatiedostot, "SäiliöHuollot", SäiliöHuollot.HuoltoId);
+            await _imageService.SaveImagesAsync(CapturedImages, "SäiliöHuollot", SäiliöHuollot.HuoltoId);
 
             return RedirectToPage("./Index");
         }

@@ -53,6 +53,7 @@
                 <input asp-for="Kuvatiedostot" type="file" multiple class="form-control" />
                 <span asp-validation-for="Kuvatiedostot" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Tallenna" class="btn btn-primary" />
             </div>
@@ -60,9 +61,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Edellinen sivu</a>
-</div>
+<button type="button" class="btn btn-secondary" onclick="history.back()">Takaisin</button>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -1,0 +1,36 @@
+﻿@page
+@model HuoltoWebApp.Pages.Huollot.KatsoHuollotModel
+@{
+}
+
+<h2>Katso Huollot</h2>
+
+<h3>Autot</h3>
+<div>
+    @foreach (var auto in Model.Autot)
+    {
+        <button class="btn btn-primary" onclick="location.href='/AutonHuollot/Index?autoId=@auto.AutoId'">
+            @auto.RekNro
+        </button>
+    }
+</div>
+
+<h3>Säiliöt</h3>
+<div>
+    @foreach (var säiliö in Model.Säiliöt)
+    {
+        <button class="btn btn-primary" onclick="location.href='/SäiliönHuollot/Index?säiliöId=@säiliö.SäiliöId'">
+            @säiliö.SäiliöNro
+        </button>
+    }
+
+<h3>Perävaunut</h3>
+<div>
+    @foreach (var pv in Model.PVt)
+    {
+        <button class="btn btn-primary" onclick="location.href='/PvHuolto/Index?pvId=@pv.PvId'">
+            @pv.RekNro
+        </button>
+    }
+</div>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">Takaisin</button>

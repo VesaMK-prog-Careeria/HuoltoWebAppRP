@@ -42,8 +42,31 @@
             @Html.DisplayFor(model => model.AutoHuollot.Auto.AutoId)
         </dd>
     </dl>
+    @if (Model.Kuvat.Any())
+    {
+        <h4>Liitetyt kuvat</h4>
+        <div class="row">
+            @foreach (var kuva in Model.Kuvat)
+            {
+                var base64 = Convert.ToBase64String(kuva.KuvaData);
+                var imageSrc = $"data:image/jpeg;base64,{base64}";
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <img src="@imageSrc" class="card-img-top" alt="Kuva" />
+                        <div class="card-body">
+                            <p class="card-text">@kuva.KuvaNimi</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p><em>Ei liitettyjä kuvia.</em></p>
+    }
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.AutoHuollot?.HuollonId">Edit</a> |
-    <a asp-page="./Index">Edellinen sivu</a>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">Takaisin</button>
 </div>

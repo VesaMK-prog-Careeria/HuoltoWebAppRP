@@ -1,9 +1,10 @@
 ﻿using HuoltoWebApp.Models;
-using HuoltoWebApp.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
-namespace HuoltoWebApp.Pages
+namespace HuoltoWebApp.Services
 {
-    public class ImageService //VK
+    public class ImageService
     {
         private readonly HuoltoContext _context;
 
@@ -12,18 +13,20 @@ namespace HuoltoWebApp.Pages
             _context = context;
         }
 
-        // Metodi hakee kuvan kuvaid:n perusteella
-        public async Task SaveImagesAsync(List<IFormFile> images, string kuvaType, int entityId) //Tämä metodi tallentaa kuvat tietokantaan
+        /// <summary>
+        /// Tallentaa lähetetyt kuvat tietokantaan tietylle kohteelle (entity)
+        /// </summary>
+        public async Task SaveImagesAsync(List<IFormFile> images, string kuvaType, int entityId)
         {
-            foreach (var image in images)                                   // Käydään läpi kaikki kuvat
+            foreach (var image in images)
             {
-                if (image.Length > 0)                                       
+                if (image.Length > 0)
                 {
-                    using var ms = new MemoryStream();                      // Luodaan MemoryStream-olio
-                    await image.CopyToAsync(ms);                            // Kopioidaan kuvadata MemoryStream-olioon
+                    using var ms = new MemoryStream();
+                    await image.CopyToAsync(ms);
+
                     if (ms.Length > 0)
                     {
-                        // Luodaan Kuva-olio ja asetetaan sille tiedot
                         var kuva = new Kuva()
                         {
                             KuvaNimi = image.FileName,
@@ -31,25 +34,31 @@ namespace HuoltoWebApp.Pages
                             KuvaType = kuvaType,
                             EntityId = entityId
                         };
-                        // Aseta oikea viittaus kuvatyyppiin perustuen. Tallenetaa kuvat tietokantaan viitteillä
+
+                        // Asetetaan oikea viite entiteettiin
                         if (kuvaType == "AutoInfo")
-                        {
                             kuva.AutoInfoId = entityId;
-                        }
                         else if (kuvaType == "SäiliöInfo")
-                        {
                             kuva.SäiliöInfoId = entityId;
-                        }
                         else if (kuvaType == "PvInfo")
-                        {
                             kuva.PvInfoId = entityId;
-                        }
 
                         _context.Kuvat.Add(kuva);
                     }
                 }
             }
+
             await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Hakee kuvat annetun KuvaType:n ja EntityId:n perusteella
+        /// </summary>
+        public async Task<List<Kuva>> GetKuvatAsync(string kuvaType, int entityId)
+        {
+            return await _context.Kuvat
+                .Where(k => k.KuvaType == kuvaType && k.EntityId == entityId)
+                .ToListAsync();
         }
     }
 }

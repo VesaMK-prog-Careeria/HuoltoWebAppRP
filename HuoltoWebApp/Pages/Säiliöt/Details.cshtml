@@ -51,6 +51,9 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Säiliö?.SäiliöId">Muokkaa</a> |
-    <a asp-page="./Index">Edellinen sivu</a>
+    <form method="get" asp-page="./Edit" asp-route-id="@Model.Säiliö?.SäiliöId" style="display:inline;">
+        <button type="submit" class="btn btn-primary">Muokkaa</button>
+    </form>
+
+    <button type="button" class="btn btn-secondary" onclick="history.back()">Takaisin</button>
 </div>

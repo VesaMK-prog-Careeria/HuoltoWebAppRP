@@ -13,12 +13,21 @@ namespace HuoltoWebApp.Pages.PvHuolto
 {
     public class CreateModel : PageModel
     {
-        private readonly HuoltoWebApp.Services.HuoltoContext _context;
+        private readonly HuoltoContext _context;
+        private readonly ImageService _imageService;
+        //private readonly HuoltoWebApp.Services.HuoltoContext _context;
 
-        public CreateModel(HuoltoWebApp.Services.HuoltoContext context)
+        public CreateModel(HuoltoContext context, ImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
+
+        [BindProperty]
+        public List<IFormFile> Kuvatiedostot { get; set; } = new();
+
+        [BindProperty]
+        public List<IFormFile> CapturedImages { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(int? pvId)
         {
@@ -85,6 +94,10 @@ namespace HuoltoWebApp.Pages.PvHuolto
 
             _context.PvHuollots.Add(PvHuollot);
             await _context.SaveChangesAsync();
+
+            await _imageService.SaveImagesAsync(Kuvatiedostot, "PvHuollot", PvHuollot.HuoltoId);
+            await _imageService.SaveImagesAsync(CapturedImages, "PvHuollot", PvHuollot.HuoltoId);
+
             return RedirectToPage("./Index");
         }
     }

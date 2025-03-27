@@ -13,12 +13,20 @@ namespace HuoltoWebApp.Pages.AutonHuollot
 {
     public class CreateModel : PageModel
     {
-        private readonly HuoltoWebApp.Services.HuoltoContext _context;
+        private readonly HuoltoContext _context;
+        private readonly ImageService _imageService;
 
-        public CreateModel(HuoltoWebApp.Services.HuoltoContext context)
+        public CreateModel(HuoltoContext context, ImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
+
+        [BindProperty]
+        public List<IFormFile> Kuvatiedostot { get; set; } = new();
+
+        [BindProperty]
+        public List<IFormFile> CapturedImages { get; set; } = new();
 
         [BindProperty]
         public SäiliöHuollot SäiliöHuollot { get; set; } = default!;
@@ -100,6 +108,10 @@ namespace HuoltoWebApp.Pages.AutonHuollot
 
             _context.AutoHuollots.Add(AutoHuollot);
             await _context.SaveChangesAsync();
+
+            await _imageService.SaveImagesAsync(Kuvatiedostot, "AutoHuollot", AutoHuollot.HuollonId);
+            await _imageService.SaveImagesAsync(CapturedImages, "AutoHuollot", AutoHuollot.HuollonId);
+
             return RedirectToPage("./Index");
         }
     }

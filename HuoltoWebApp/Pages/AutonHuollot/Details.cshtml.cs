@@ -12,14 +12,17 @@ namespace HuoltoWebApp.Pages.AutonHuollot
 {
     public class DetailsModel : PageModel
     {
-        private readonly HuoltoWebApp.Services.HuoltoContext _context;
+        private readonly HuoltoContext _context;
+        private readonly ImageService _imageService;
 
-        public DetailsModel(HuoltoWebApp.Services.HuoltoContext context)
+        public DetailsModel(HuoltoContext context, ImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
-      public AutoHuollot AutoHuollot { get; set; } = default!; 
+        public AutoHuollot AutoHuollot { get; set; } = default!;
+        public List<Kuva> Kuvat { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,6 +40,9 @@ namespace HuoltoWebApp.Pages.AutonHuollot
             {
                 AutoHuollot = autohuollot;
             }
+
+            //Haetaan kuvat
+            Kuvat = await _imageService.GetKuvatAsync("AutoHuollot", autohuollot.HuollonId);
             return Page();
         }
     }
